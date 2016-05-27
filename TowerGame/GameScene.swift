@@ -11,18 +11,59 @@ import SpriteKit
 class GameScene: SKScene {
     var entityManager: EntityManager!
     var player: PlayerEntity!
-    var spriteNode: SKSpriteNode?
+    var spriteNode: SKSpriteNode!
+    var joystick = AnalogJoystick(diameters: (1 , 1))
     
     override func didMoveToView(view: SKView) {
         entityManager = EntityManager(scene: self)
 
         player = PlayerEntity(node: (self.childNodeWithName("player") as? SKSpriteNode)!)
-        let spriteNode = player.componentForClass(SpriteComponent.self)?.node
-        spriteNode?.zRotation
+        spriteNode = player.componentForClass(SpriteComponent.self)!.node
+        
         
         entityManager.addEntityFromEditor(player)
         
         updateCamera()
+        
+        
+        
+        joystick.stick.diameter = size.width
+        joystick.substrate.diameter = size.width
+        joystick.stick.color = UIColor.whiteColor()
+        joystick.substrate.color = UIColor.blueColor()
+        self.joystick.stick.alpha = 0.01
+        self.joystick.substrate.alpha = 0.01
+        joystick.position = CGPoint(x:0, y:0)
+        joystick.zPosition = 10
+        addChild(joystick)
+        
+        joystick.startHandler = { [unowned self] location in
+            
+            self.joystick.stick.diameter = 100
+            self.joystick.substrate.diameter = 150
+            self.joystick.position = location
+            self.joystick.stick.alpha = 1
+            self.joystick.substrate.alpha = 1
+            self.joystick.stick.color = UIColor.whiteColor()
+            self.joystick.substrate.color = UIColor.blueColor()
+        }
+        
+        
+        joystick.trackingHandler = { [unowned self] data in
+            
+            let aN = self.spriteNode
+            aN.position = CGPointMake(aN.position.x + (data.velocity.x * 0.12), aN.position.y + (data.velocity.y * 0.12))
+            aN.zRotation = data.angular
+        }
+        
+        joystick.stopHandler = { [unowned self] in
+            self.joystick.stick.diameter = self.size.width
+            self.joystick.substrate.diameter = self.size.width
+            self.joystick.zPosition = -1
+            self.joystick.stick.alpha = 0.01
+            self.joystick.substrate.alpha = 0.01
+            self.joystick.position = CGPoint(x:0, y:-self.size.height * 0.5)
+        }
         
         
 //        var healthBar = SKSpriteNode(color: UIColor.redColor(), size: CGSizeMake(50, 10))

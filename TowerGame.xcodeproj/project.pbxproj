@@ -30,6 +30,7 @@
 		3C9E5BFE1CF4EF3F005B5A32 /* BulletEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9E5BFD1CF4EF3F005B5A32 /* BulletEntity.swift */; };
 		3C9E5C021CF5FBE6005B5A32 /* ObjectEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9E5C011CF5FBE6005B5A32 /* ObjectEntity.swift */; };
 		3C9E5C041CF5FD73005B5A32 /* ControlComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9E5C031CF5FD73005B5A32 /* ControlComponent.swift */; };
+		5F58E6341CF86A070074B351 /* AnalogJoystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F58E6331CF86A070074B351 /* AnalogJoystick.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,7 @@
 		3C9E5BFD1CF4EF3F005B5A32 /* BulletEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BulletEntity.swift; sourceTree = "<group>"; };
 		3C9E5C011CF5FBE6005B5A32 /* ObjectEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectEntity.swift; sourceTree = "<group>"; };
 		3C9E5C031CF5FD73005B5A32 /* ControlComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlComponent.swift; sourceTree = "<group>"; };
+		5F58E6331CF86A070074B351 /* AnalogJoystick.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalogJoystick.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +135,7 @@
 				3C9E5BE61CF4E7F5005B5A32 /* Components */,
 				3C9E5BE51CF4E7C6005B5A32 /* Entities */,
 				3C9E5BB31CF4E790005B5A32 /* AppDelegate.swift */,
+				5F58E6331CF86A070074B351 /* AnalogJoystick.swift */,
 				3C9E5BB71CF4E790005B5A32 /* GameScene.swift */,
 				3C9E5BB91CF4E790005B5A32 /* GameViewController.swift */,
 				3C9E5BBB1CF4E790005B5A32 /* Main.storyboard */,
@@ -330,6 +333,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3C9E5BFE1CF4EF3F005B5A32 /* BulletEntity.swift in Sources */,
+				5F58E6341CF86A070074B351 /* AnalogJoystick.swift in Sources */,
 				3C9E5C021CF5FBE6005B5A32 /* ObjectEntity.swift in Sources */,
 				3C9E5BEA1CF4EB0E005B5A32 /* MovementComponent.swift in Sources */,
 				3C9E5BF61CF4EBC3005B5A32 /* TargetingComponent.swift in Sources */,
@@ -572,6 +576,7 @@
 				3C9E5BDE1CF4E790005B5A32 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3C9E5BDF1CF4E790005B5A32 /* Build configuration list for PBXNativeTarget "TowerGameTests" */ = {
 			isa = XCConfigurationList;
@@ -580,6 +585,7 @@
 				3C9E5BE11CF4E790005B5A32 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3C9E5BE21CF4E790005B5A32 /* Build configuration list for PBXNativeTarget "TowerGameUITests" */ = {
 			isa = XCConfigurationList;
@@ -588,6 +594,7 @@
 				3C9E5BE41CF4E790005B5A32 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
