@@ -12,17 +12,13 @@ import GameplayKit
 
 class BulletEntity: GKEntity {
 
+//    var positionTarget: CGPoint
+//    var position: CGPoint
+    
     init(imageName: String) {
         super.init()
         
         let spriteComponent = SpriteComponent(texture: SKTexture(imageNamed: imageName))
-        addComponent(spriteComponent)
-    }
-    
-    init(node: SKSpriteNode) {
-        super.init()
-        
-        let spriteComponent = SpriteComponent(spriteNode: node)
         addComponent(spriteComponent)
     }
     

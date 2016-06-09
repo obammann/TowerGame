@@ -38,5 +38,10 @@ class EntityManager {
         entities.remove(entity)
     }
     
+    func update(deltaTime: CFTimeInterval) {
+        for entity in entities {
+            entity.updateWithDeltaTime(deltaTime)
+        }
+    }
     
 }

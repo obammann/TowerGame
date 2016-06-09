@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C0C28941CFB88D100614C1B /* MyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0C28931CFB88D100614C1B /* MyUtils.swift */; };
 		3C9E5BB41CF4E790005B5A32 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9E5BB31CF4E790005B5A32 /* AppDelegate.swift */; };
 		3C9E5BB61CF4E790005B5A32 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3C9E5BB51CF4E790005B5A32 /* GameScene.sks */; };
 		3C9E5BB81CF4E790005B5A32 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9E5BB71CF4E790005B5A32 /* GameScene.swift */; };
@@ -51,6 +52,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3C0C28931CFB88D100614C1B /* MyUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyUtils.swift; sourceTree = "<group>"; };
 		3C9E5BB01CF4E78F005B5A32 /* TowerGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TowerGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C9E5BB31CF4E790005B5A32 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3C9E5BB51CF4E790005B5A32 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -131,11 +133,11 @@
 		3C9E5BB21CF4E790005B5A32 /* TowerGame */ = {
 			isa = PBXGroup;
 			children = (
+				3CD4D1F81CF87221008C6235 /* Helpers */,
 				3C9E5C051CF600F1005B5A32 /* Scenes */,
 				3C9E5BE61CF4E7F5005B5A32 /* Components */,
 				3C9E5BE51CF4E7C6005B5A32 /* Entities */,
 				3C9E5BB31CF4E790005B5A32 /* AppDelegate.swift */,
-				5F58E6331CF86A070074B351 /* AnalogJoystick.swift */,
 				3C9E5BB71CF4E790005B5A32 /* GameScene.swift */,
 				3C9E5BB91CF4E790005B5A32 /* GameViewController.swift */,
 				3C9E5BBB1CF4E790005B5A32 /* Main.storyboard */,
@@ -198,6 +200,15 @@
 				3C9E5BB51CF4E790005B5A32 /* GameScene.sks */,
 			);
 			name = Scenes;
+			sourceTree = "<group>";
+		};
+		3CD4D1F81CF87221008C6235 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				3C0C28931CFB88D100614C1B /* MyUtils.swift */,
+				5F58E6331CF86A070074B351 /* AnalogJoystick.swift */,
+			);
+			name = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -347,6 +358,7 @@
 				3C9E5BF41CF4EB70005B5A32 /* SpriteComponent.swift in Sources */,
 				3C9E5BFC1CF4EEDB005B5A32 /* TowerEntity.swift in Sources */,
 				3C9E5BBA1CF4E790005B5A32 /* GameViewController.swift in Sources */,
+				3C0C28941CFB88D100614C1B /* MyUtils.swift in Sources */,
 				3C9E5BF01CF4EB41005B5A32 /* JumpingComponent.swift in Sources */,
 				3C9E5BB41CF4E790005B5A32 /* AppDelegate.swift in Sources */,
 				3C9E5C041CF5FD73005B5A32 /* ControlComponent.swift in Sources */,
