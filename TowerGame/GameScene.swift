@@ -9,6 +9,8 @@
 import SpriteKit
 
 class GameScene: SKScene {
+    
+    var playerWalkingFrames : [SKTexture]!
     var entityManager: EntityManager!
     var player: PlayerEntity!
     var spriteNode: SKSpriteNode!
@@ -36,9 +38,34 @@ class GameScene: SKScene {
         cam = self.childNodeWithName("playerCamera") as! SKCameraNode
         cam.position = spriteNode.position
         
+        let playerAnimatedAtlas = SKTextureAtlas(named: "player")
+        var walkFrames = [SKTexture]()
+        
+        let numImages = playerAnimatedAtlas.textureNames.count
+        for var i=0; i<numImages; i+=1 {
+            let bearTextureName = "character\(i)"
+            walkFrames.append(playerAnimatedAtlas.textureNamed(bearTextureName))
+        }
+        playerWalkingFrames = walkFrames
+        let firstFrame = playerWalkingFrames[0]
+        
+        
 //        self.camera = cam
         
 
+    }
+    func playerMoveEnded() {
+        spriteNode.removeAllActions()
+    }
+    
+    func walkingPlayer() {
+        //This is our general runAction method to make our bear walk.
+        spriteNode.runAction(SKAction.repeatActionForever(
+            SKAction.animateWithTextures(playerWalkingFrames,
+                timePerFrame: 0.12,
+                resize: false,
+                restore: true)),
+                       withKey:"walkingInPlacePlayer")
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -71,6 +98,7 @@ class GameScene: SKScene {
         
         joystick.startHandler = { [unowned self] location in
             
+            self.walkingPlayer()
             self.joystick.stick.diameter = 100
             self.joystick.substrate.diameter = 150
             self.joystick.position = location
@@ -95,6 +123,7 @@ class GameScene: SKScene {
             self.joystick.stick.alpha = 0.01
             self.joystick.substrate.alpha = 0.01
             self.joystick.position = CGPoint(x:0, y:-self.size.height * 0.5)
+            self.playerMoveEnded()
         }
     }
 }

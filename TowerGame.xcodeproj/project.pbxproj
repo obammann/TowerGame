@@ -32,6 +32,7 @@
 		3C9E5C021CF5FBE6005B5A32 /* ObjectEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9E5C011CF5FBE6005B5A32 /* ObjectEntity.swift */; };
 		3C9E5C041CF5FD73005B5A32 /* ControlComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9E5C031CF5FD73005B5A32 /* ControlComponent.swift */; };
 		5F58E6341CF86A070074B351 /* AnalogJoystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F58E6331CF86A070074B351 /* AnalogJoystick.swift */; };
+		5FABB4491D0C228300997492 /* player.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 5FABB4481D0C228300997492 /* player.atlas */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +84,7 @@
 		3C9E5C011CF5FBE6005B5A32 /* ObjectEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectEntity.swift; sourceTree = "<group>"; };
 		3C9E5C031CF5FD73005B5A32 /* ControlComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlComponent.swift; sourceTree = "<group>"; };
 		5F58E6331CF86A070074B351 /* AnalogJoystick.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalogJoystick.swift; sourceTree = "<group>"; };
+		5FABB4481D0C228300997492 /* player.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = player.atlas; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +135,7 @@
 		3C9E5BB21CF4E790005B5A32 /* TowerGame */ = {
 			isa = PBXGroup;
 			children = (
+				5FABB4481D0C228300997492 /* player.atlas */,
 				3CD4D1F81CF87221008C6235 /* Helpers */,
 				3C9E5C051CF600F1005B5A32 /* Scenes */,
 				3C9E5BE61CF4E7F5005B5A32 /* Components */,
@@ -317,6 +320,7 @@
 			files = (
 				3C9E5BB61CF4E790005B5A32 /* GameScene.sks in Resources */,
 				3C9E5BC21CF4E790005B5A32 /* LaunchScreen.storyboard in Resources */,
+				5FABB4491D0C228300997492 /* player.atlas in Resources */,
 				3C9E5BBF1CF4E790005B5A32 /* Assets.xcassets in Resources */,
 				3C9E5BBD1CF4E790005B5A32 /* Main.storyboard in Resources */,
 			);
