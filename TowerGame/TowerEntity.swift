@@ -16,13 +16,6 @@ class TowerEntity: GKEntity {
     var towerNode: SKSpriteNode
     var didShooting = false
     
-//    init(imageName: String) {
-//        super.init()
-//        
-//        let spriteComponent = SpriteComponent(texture: SKTexture(imageNamed: imageName))
-//        addComponent(spriteComponent)
-//    }
-    
     init(node: SKSpriteNode, scene: GameScene, maxHealth: CGFloat, playerNode: SKSpriteNode) {
         self.playerNode = playerNode
         self.towerNode = node
@@ -34,30 +27,29 @@ class TowerEntity: GKEntity {
         let healthComponent = HealthComponent(scene: scene, maxHealth: maxHealth, position: node.position, associatedObject: node)
         addComponent(healthComponent)
         
-        let shootingComponent = ShootingComponent(scene: scene, positionBulletOrigin: towerNode.position, imageNameBullet: "bullet", targetSprite: self.playerNode, bulletSpeed: 5)
+        let shootingComponent = ShootingComponent(scene: scene, positionBulletOrigin: towerNode.position, imageNameBullet: "bullet", targetSprite: self.playerNode, bulletSpeed: 5, shooterNode: self.towerNode)
         addComponent(shootingComponent)
     }
     
-//    init(imageName: String, point: CGPoint) {
-//        super.init()
-//        
-//        let spriteComponent = SpriteComponent(texture: SKTexture(imageNamed: imageName))
-//        addComponent(spriteComponent)
-//    }
     
     func shoot() {
         if (!didShooting) {
             self.componentForClass(ShootingComponent.self)?.shoot()
             didShooting = !didShooting
+            let wait = SKAction.waitForDuration(1)
+            let run = SKAction.runBlock {
+                self.didShooting = false
+            }
+            towerNode.runAction(SKAction.sequence([wait, run]))
         }
-        
     }
     
     override func updateWithDeltaTime(seconds: NSTimeInterval) {
         let distanceTowerPlayer = (towerNode.position - playerNode.position).length
-        let distanceMax: CGFloat = 200
+        let distanceMax: CGFloat = 300
         if (distanceTowerPlayer() < distanceMax) {
             shoot()
+            self.componentForClass(ShootingComponent.self)?.turnToTarget()
         }
     }
 }

@@ -19,14 +19,18 @@ struct PhysicsCategory {
 class ShootingComponent: GKComponent {
     
     let targetSprite: SKSpriteNode
+    let shooterNode: SKSpriteNode
     var bulletPosition: CGPoint
     //    let bulletNode: SKSpriteNode
     let bulletSpeed: CGFloat
     let bulletImageName: String
     let scene: GameScene
     
-    init(scene: GameScene, positionBulletOrigin: CGPoint, imageNameBullet: String, targetSprite: SKSpriteNode, bulletSpeed: CGFloat) {
+    
+    
+    init(scene: GameScene, positionBulletOrigin: CGPoint, imageNameBullet: String, targetSprite: SKSpriteNode, bulletSpeed: CGFloat, shooterNode: SKSpriteNode) {
         self.targetSprite = targetSprite
+        self.shooterNode = shooterNode
         self.bulletPosition = positionBulletOrigin
         self.bulletImageName = imageNameBullet
         self.scene = scene
@@ -74,6 +78,11 @@ class ShootingComponent: GKComponent {
         projectile.runAction(SKAction.sequence([actionMove, actionMoveDone]))
     }
     
-    
+    func turnToTarget() {
+        let angle = atan2(shooterNode.position.y - targetSprite.position.y, shooterNode.position.x - targetSprite.position.x) + CGFloat(M_PI)
+        let rotateAction = SKAction.rotateToAngle(angle + CGFloat(M_PI*0.5), duration: 0.0)
+        shooterNode.runAction(rotateAction)
+
+    }
 
 }
