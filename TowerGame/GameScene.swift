@@ -29,6 +29,18 @@ class GameScene: SKScene {
         spriteNode = player.componentForClass(SpriteComponent.self)!.node
         
         entityManager.addEntityFromEditor(player)
+        let position = CGPoint(x: 50, y: 50)
+        for child in self.children {
+            if child.name == "tank" {
+                if let child = child as? SKSpriteNode {
+                    let tank = TowerEntity(node: child, scene: self, maxHealth: 5)
+                    entityManager.addEntityFromEditor(tank)
+                }
+            }
+        }
+        let bulletNode = (self.childNodeWithName("bullet") as? SKSpriteNode)!
+        var bullet = BulletEntity(bulletNode: bulletNode, targetPosition: spriteNode.position, bulletPosition: position, bulletSpeed: 10)
+        entityManager.addEntityFromEditor(bullet)
         
         
         initJoystick()
@@ -53,7 +65,7 @@ class GameScene: SKScene {
         lastUpdateTimeInterval = currentTime
         
         entityManager.update(deltaTime)
-        cam.position.x = spriteNode.position.x
+        cam.position.x = spriteNode.position.x - 200
     }
     
     

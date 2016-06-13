@@ -19,11 +19,14 @@ class TowerEntity: GKEntity {
         addComponent(spriteComponent)
     }
     
-    init(node: SKSpriteNode) {
+    init(node: SKSpriteNode, scene: GameScene, maxHealth: CGFloat) {
         super.init()
         
         let spriteComponent = SpriteComponent(spriteNode: node)
         addComponent(spriteComponent)
+        
+        let healthComponent = HealthComponent(scene: scene, maxHealth: maxHealth, position: node.position, associatedObject: node)
+        addComponent(healthComponent)
     }
     
     init(imageName: String, point: CGPoint) {
