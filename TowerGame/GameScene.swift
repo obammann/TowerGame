@@ -13,7 +13,7 @@ class GameScene: SKScene {
     var playerWalkingFrames : [SKTexture]!
     var entityManager: EntityManager!
     var player: PlayerEntity!
-    var spriteNode: SKSpriteNode!
+    var playerNode: SKSpriteNode!
     var joystick = AnalogJoystick(diameters: (1 , 1))
     
     var cam = SKCameraNode()
@@ -26,29 +26,28 @@ class GameScene: SKScene {
         
         entityManager = EntityManager(scene: self)
 
-        let playerNode = (self.childNodeWithName("player") as? SKSpriteNode)!
+        playerNode = (self.childNodeWithName("player") as? SKSpriteNode)!
         player = PlayerEntity(node: playerNode, scene: self, maxHealth: 10)
-        spriteNode = player.componentForClass(SpriteComponent.self)!.node
         
         entityManager.addEntityFromEditor(player)
         let position = CGPoint(x: 50, y: 50)
         for child in self.children {
             if child.name == "tank" {
                 if let child = child as? SKSpriteNode {
-                    let tank = TowerEntity(node: child, scene: self, maxHealth: 5)
+                    let tank = TowerEntity(node: child, scene: self, maxHealth: 5, playerNode: playerNode)
                     entityManager.addEntityFromEditor(tank)
                 }
             }
         }
-        let bulletNode = (self.childNodeWithName("bullet") as? SKSpriteNode)!
-        var bullet = BulletEntity(bulletNode: bulletNode, targetPosition: spriteNode.position, bulletPosition: position, bulletSpeed: 10)
-        entityManager.addEntityFromEditor(bullet)
+//        let bulletNode = (self.childNodeWithName("bullet") as? SKSpriteNode)!
+//        var bullet = BulletEntity(bulletNode: bulletNode, targetPosition: spriteNode.position, bulletPosition: position, bulletSpeed: 10)
+//        entityManager.addEntityFromEditor(bullet)
         
         
         initJoystick()
         
         cam = self.childNodeWithName("playerCamera") as! SKCameraNode
-        cam.position = spriteNode.position
+        cam.position = playerNode.position
         
         let playerAnimatedAtlas = SKTextureAtlas(named: "player")
         var walkFrames = [SKTexture]()
@@ -67,12 +66,12 @@ class GameScene: SKScene {
 
     }
     func playerMoveEnded() {
-        spriteNode.removeAllActions()
+        playerNode.removeAllActions()
     }
     
     func walkingPlayer() {
         //This is our general runAction method to make our bear walk.
-        spriteNode.runAction(SKAction.repeatActionForever(
+        playerNode.runAction(SKAction.repeatActionForever(
             SKAction.animateWithTextures(playerWalkingFrames,
                 timePerFrame: 0.12,
                 resize: false,
@@ -92,7 +91,7 @@ class GameScene: SKScene {
         lastUpdateTimeInterval = currentTime
         
         entityManager.update(deltaTime)
-        cam.position.x = spriteNode.position.x - 200
+        cam.position.x = playerNode.position.x - 200
     }
     
     
@@ -123,7 +122,7 @@ class GameScene: SKScene {
         
         joystick.trackingHandler = { [unowned self] data in
             
-            let aN = self.spriteNode
+            let aN = self.playerNode
             aN.position = CGPointMake(aN.position.x + (data.velocity.x * 0.05), aN.position.y + (data.velocity.y * 0.05))
             aN.zRotation = data.angular
         }

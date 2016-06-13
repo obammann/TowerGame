@@ -12,14 +12,20 @@ import GameplayKit
 
 class TowerEntity: GKEntity {
 
-    init(imageName: String) {
-        super.init()
-        
-        let spriteComponent = SpriteComponent(texture: SKTexture(imageNamed: imageName))
-        addComponent(spriteComponent)
-    }
+    var playerNode: SKSpriteNode
+    var towerNode: SKSpriteNode
+    var didShooting = false
     
-    init(node: SKSpriteNode, scene: GameScene, maxHealth: CGFloat) {
+//    init(imageName: String) {
+//        super.init()
+//        
+//        let spriteComponent = SpriteComponent(texture: SKTexture(imageNamed: imageName))
+//        addComponent(spriteComponent)
+//    }
+    
+    init(node: SKSpriteNode, scene: GameScene, maxHealth: CGFloat, playerNode: SKSpriteNode) {
+        self.playerNode = playerNode
+        self.towerNode = node
         super.init()
         
         let spriteComponent = SpriteComponent(spriteNode: node)
@@ -27,12 +33,31 @@ class TowerEntity: GKEntity {
         
         let healthComponent = HealthComponent(scene: scene, maxHealth: maxHealth, position: node.position, associatedObject: node)
         addComponent(healthComponent)
+        
+        let shootingComponent = ShootingComponent(scene: scene, positionBulletOrigin: towerNode.position, imageNameBullet: "bullet", targetSprite: self.playerNode, bulletSpeed: 5)
+        addComponent(shootingComponent)
     }
     
-    init(imageName: String, point: CGPoint) {
-        super.init()
+//    init(imageName: String, point: CGPoint) {
+//        super.init()
+//        
+//        let spriteComponent = SpriteComponent(texture: SKTexture(imageNamed: imageName))
+//        addComponent(spriteComponent)
+//    }
+    
+    func shoot() {
+        if (!didShooting) {
+            self.componentForClass(ShootingComponent.self)?.shoot()
+            didShooting = !didShooting
+        }
         
-        let spriteComponent = SpriteComponent(texture: SKTexture(imageNamed: imageName))
-        addComponent(spriteComponent)
+    }
+    
+    override func updateWithDeltaTime(seconds: NSTimeInterval) {
+        let distanceTowerPlayer = (towerNode.position - playerNode.position).length
+        let distanceMax: CGFloat = 200
+        if (distanceTowerPlayer() < distanceMax) {
+            shoot()
+        }
     }
 }

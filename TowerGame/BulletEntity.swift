@@ -12,7 +12,6 @@ import GameplayKit
 
 class BulletEntity: GKEntity {
 
-//    var positionTarget: CGPoint
     var bulletPosition: CGPoint
     var targetPosition: CGPoint
 //    let bulletNode: SKSpriteNode
@@ -56,11 +55,12 @@ class BulletEntity: GKEntity {
         bulletNode.runAction(rotateAction)
         
         let direction = targetPosition.normalized()
-        let shootAmount = direction * 1000
+//        let shootAmount = direction * 1000
+        let shootAmount = CGPoint(x: direction.x+100, y: direction.y+100)
         let newDest = shootAmount + bulletPosition
         
         
-        bulletNode.runAction(SKAction.moveTo(shootAmount, duration: 7))
+        bulletNode.runAction(SKAction.moveTo(newDest, duration: 7))
         
 //        let velocityX = bulletSpeed * cos(angle)
 //        let velocityY = bulletSpeed * sin(angle)
