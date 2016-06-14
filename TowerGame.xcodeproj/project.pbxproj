@@ -31,6 +31,7 @@
 		3C9E5BFE1CF4EF3F005B5A32 /* BulletEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9E5BFD1CF4EF3F005B5A32 /* BulletEntity.swift */; };
 		3C9E5C021CF5FBE6005B5A32 /* ObjectEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9E5C011CF5FBE6005B5A32 /* ObjectEntity.swift */; };
 		3C9E5C041CF5FD73005B5A32 /* ControlComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9E5C031CF5FD73005B5A32 /* ControlComponent.swift */; };
+		5F427D7D1D101F0C00C12660 /* JoystickEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F427D7C1D101F0C00C12660 /* JoystickEntity.swift */; };
 		5F58E6341CF86A070074B351 /* AnalogJoystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F58E6331CF86A070074B351 /* AnalogJoystick.swift */; };
 		5FABB4491D0C228300997492 /* player.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 5FABB4481D0C228300997492 /* player.atlas */; };
 /* End PBXBuildFile section */
@@ -83,6 +84,7 @@
 		3C9E5BFD1CF4EF3F005B5A32 /* BulletEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BulletEntity.swift; sourceTree = "<group>"; };
 		3C9E5C011CF5FBE6005B5A32 /* ObjectEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectEntity.swift; sourceTree = "<group>"; };
 		3C9E5C031CF5FD73005B5A32 /* ControlComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlComponent.swift; sourceTree = "<group>"; };
+		5F427D7C1D101F0C00C12660 /* JoystickEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoystickEntity.swift; sourceTree = "<group>"; };
 		5F58E6331CF86A070074B351 /* AnalogJoystick.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalogJoystick.swift; sourceTree = "<group>"; };
 		5FABB4481D0C228300997492 /* player.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = player.atlas; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -177,6 +179,7 @@
 				3C9E5BFD1CF4EF3F005B5A32 /* BulletEntity.swift */,
 				3C9E5BFB1CF4EEDB005B5A32 /* TowerEntity.swift */,
 				3C9E5C011CF5FBE6005B5A32 /* ObjectEntity.swift */,
+				5F427D7C1D101F0C00C12660 /* JoystickEntity.swift */,
 			);
 			name = Entities;
 			sourceTree = "<group>";
@@ -351,6 +354,7 @@
 				5F58E6341CF86A070074B351 /* AnalogJoystick.swift in Sources */,
 				3C9E5C021CF5FBE6005B5A32 /* ObjectEntity.swift in Sources */,
 				3C9E5BEA1CF4EB0E005B5A32 /* MovementComponent.swift in Sources */,
+				5F427D7D1D101F0C00C12660 /* JoystickEntity.swift in Sources */,
 				3C9E5BF61CF4EBC3005B5A32 /* TargetingComponent.swift in Sources */,
 				3C9E5BF81CF4ED3F005B5A32 /* EntityManager.swift in Sources */,
 				3C9E5BEC1CF4EB25005B5A32 /* AIComponent.swift in Sources */,
