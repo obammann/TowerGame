@@ -15,8 +15,8 @@ class GameScene: SKScene {
     var player: PlayerEntity!
     var spriteNode: SKSpriteNode!
     var joystick = AnalogJoystick(diameters: (1 , 1))
-    
     var cam = SKCameraNode()
+    var camOldX: CGFloat = 0.0
     
     // Update time
     var lastUpdateTimeInterval: NSTimeInterval = 0
@@ -37,6 +37,7 @@ class GameScene: SKScene {
         
         cam = self.childNodeWithName("playerCamera") as! SKCameraNode
         cam.position = spriteNode.position
+        camOldX = cam.position.x
         
         let playerAnimatedAtlas = SKTextureAtlas(named: "player")
         var walkFrames = [SKTexture]()
@@ -48,10 +49,7 @@ class GameScene: SKScene {
         }
         playerWalkingFrames = walkFrames
         let firstFrame = playerWalkingFrames[0]
-        
-        
-//        self.camera = cam
-        
+       
 
     }
     func playerMoveEnded() {
@@ -81,6 +79,9 @@ class GameScene: SKScene {
         
         entityManager.update(deltaTime)
         cam.position.x = spriteNode.position.x
+        joystick.position.x += cam.position.x - camOldX
+        camOldX = cam.position.x
+        
     }
     
     
@@ -90,9 +91,9 @@ class GameScene: SKScene {
         joystick.substrate.diameter = size.width
         joystick.stick.color = UIColor.whiteColor()
         joystick.substrate.color = UIColor.blueColor()
-        self.joystick.stick.alpha = 0.01
-        self.joystick.substrate.alpha = 0.01
-        joystick.position = CGPoint(x:0, y:0)
+        joystick.stick.alpha = 0.01
+        joystick.substrate.alpha = 0.01
+        joystick.position = CGPoint(x:-133, y:50)
         joystick.zPosition = 10
         addChild(joystick)
         
@@ -112,7 +113,7 @@ class GameScene: SKScene {
         joystick.trackingHandler = { [unowned self] data in
             
             let aN = self.spriteNode
-            aN.position = CGPointMake(aN.position.x + (data.velocity.x * 0.05), aN.position.y + (data.velocity.y * 0.05))
+            aN.position = CGPointMake(aN.position.x + (data.velocity.x * 0.15), aN.position.y + (data.velocity.y * 0.15))
             aN.zRotation = data.angular
         }
         
@@ -122,7 +123,7 @@ class GameScene: SKScene {
             self.joystick.zPosition = 10
             self.joystick.stick.alpha = 0.01
             self.joystick.substrate.alpha = 0.01
-            self.joystick.position = CGPoint(x:0, y:-self.size.height * 0.5)
+            self.joystick.position = CGPoint(x:self.cam.position.x - 79, y:-self.size.height * 0.5)
             self.playerMoveEnded()
         }
     }
