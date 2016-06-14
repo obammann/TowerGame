@@ -49,8 +49,8 @@ class ShootingComponent: GKComponent {
         projectile.runAction(rotateAction)
 
         
-        projectile.physicsBody = SKPhysicsBody(circleOfRadius: projectile.size.width/2)
-        projectile.physicsBody?.dynamic = true
+//        projectile.physicsBody = SKPhysicsBody(circleOfRadius: projectile.size.width/2)
+//        projectile.physicsBody?.dynamic = true
 //        projectile.physicsBody?.categoryBitMask = PhysicsCategory.Projectile
 //        projectile.physicsBody?.contactTestBitMask = PhysicsCategory.Player
 //        projectile.physicsBody?.collisionBitMask = PhysicsCategory.None
