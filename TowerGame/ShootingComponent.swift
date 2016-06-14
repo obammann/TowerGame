@@ -9,12 +9,6 @@
 import SpriteKit
 import GameplayKit
 
-struct PhysicsCategory {
-    static let None         : UInt32 = 0
-    static let All          : UInt32 = UInt32.max
-    static let Player       : UInt32 = 1
-    static let Projectile   : UInt32 = 2
-}
 
 class ShootingComponent: GKComponent {
     
@@ -49,12 +43,12 @@ class ShootingComponent: GKComponent {
         projectile.runAction(rotateAction)
 
         
-//        projectile.physicsBody = SKPhysicsBody(circleOfRadius: projectile.size.width/2)
-//        projectile.physicsBody?.dynamic = true
-//        projectile.physicsBody?.categoryBitMask = PhysicsCategory.Projectile
-//        projectile.physicsBody?.contactTestBitMask = PhysicsCategory.Player
-//        projectile.physicsBody?.collisionBitMask = PhysicsCategory.None
-//        projectile.physicsBody?.usesPreciseCollisionDetection = true
+        projectile.physicsBody = SKPhysicsBody(circleOfRadius: projectile.size.width/2)
+        projectile.physicsBody?.dynamic = true
+        projectile.physicsBody?.categoryBitMask = Constants.PhysicsCategory.Projectile
+        projectile.physicsBody?.contactTestBitMask = Constants.PhysicsCategory.Player
+        projectile.physicsBody?.collisionBitMask = Constants.PhysicsCategory.None
+        projectile.physicsBody?.usesPreciseCollisionDetection = true
         
         
         // 3 - Determine offset of location to projectile

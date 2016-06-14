@@ -23,6 +23,11 @@ class SpriteComponent: GKComponent {
     func setPhysicsBodyPlayer() {
         node.physicsBody = SKPhysicsBody(circleOfRadius: node.size.width/2-8)
         node.physicsBody?.affectedByGravity = false
+        node.physicsBody?.categoryBitMask = Constants.PhysicsCategory.Player
+        node.physicsBody?.contactTestBitMask = Constants.PhysicsCategory.Projectile
+        node.physicsBody?.collisionBitMask = Constants.PhysicsCategory.None
     }
+    
+    
 
 }

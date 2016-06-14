@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3C0C28941CFB88D100614C1B /* MyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0C28931CFB88D100614C1B /* MyUtils.swift */; };
 		3C43ECFF1D1055E000256D1D /* playerFeetRunning.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 3C43ECFE1D1055E000256D1D /* playerFeetRunning.atlas */; };
+		3C43ED011D105B9800256D1D /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C43ED001D105B9800256D1D /* Const.swift */; };
 		3C9E5BB41CF4E790005B5A32 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9E5BB31CF4E790005B5A32 /* AppDelegate.swift */; };
 		3C9E5BB61CF4E790005B5A32 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3C9E5BB51CF4E790005B5A32 /* GameScene.sks */; };
 		3C9E5BB81CF4E790005B5A32 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9E5BB71CF4E790005B5A32 /* GameScene.swift */; };
@@ -59,6 +60,7 @@
 /* Begin PBXFileReference section */
 		3C0C28931CFB88D100614C1B /* MyUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyUtils.swift; sourceTree = "<group>"; };
 		3C43ECFE1D1055E000256D1D /* playerFeetRunning.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = playerFeetRunning.atlas; sourceTree = "<group>"; };
+		3C43ED001D105B9800256D1D /* Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
 		3C9E5BB01CF4E78F005B5A32 /* TowerGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TowerGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C9E5BB31CF4E790005B5A32 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3C9E5BB51CF4E790005B5A32 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 			children = (
 				3C0C28931CFB88D100614C1B /* MyUtils.swift */,
 				5F58E6331CF86A070074B351 /* AnalogJoystick.swift */,
+				3C43ED001D105B9800256D1D /* Const.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -380,6 +383,7 @@
 				3C9E5BBA1CF4E790005B5A32 /* GameViewController.swift in Sources */,
 				3C0C28941CFB88D100614C1B /* MyUtils.swift in Sources */,
 				3C9E5BF01CF4EB41005B5A32 /* JumpingComponent.swift in Sources */,
+				3C43ED011D105B9800256D1D /* Const.swift in Sources */,
 				3C9E5BB41CF4E790005B5A32 /* AppDelegate.swift in Sources */,
 				3C9E5C041CF5FD73005B5A32 /* ControlComponent.swift in Sources */,
 			);
