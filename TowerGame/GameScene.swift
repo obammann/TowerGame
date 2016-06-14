@@ -14,6 +14,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var entityManager: EntityManager!
     var player: PlayerEntity!
     var playerNode: SKSpriteNode!
+    var attackButtonNode: SKSpriteNode!
     var joystick = AnalogJoystick(diameters: (1 , 1))
     var cam = SKCameraNode()
     var camOldX: CGFloat = 0.0
@@ -29,6 +30,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         entityManager = EntityManager(scene: self)
 
+        attackButtonNode = (self.childNodeWithName("attackButton") as? SKSpriteNode)!
+        attackButtonNode.zPosition = 100
+        attackButtonNode.size = CGSize(width: 150, height: 150)
         playerNode = (self.childNodeWithName("player") as? SKSpriteNode)!
         player = PlayerEntity(node: playerNode, scene: self, maxHealth: 10)
         view.showsPhysics = true
@@ -62,6 +66,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         entityManager.update(deltaTime)
         cam.position.x = playerNode.position.x - 200
         joystick.position.x += cam.position.x - camOldX
+        attackButtonNode.position.x += cam.position.x - camOldX
         camOldX = cam.position.x
         
     }

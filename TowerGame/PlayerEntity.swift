@@ -59,7 +59,7 @@ class PlayerEntity: GKEntity {
     func playerWalk() {
         self.player.runAction(SKAction.repeatActionForever(
             SKAction.animateWithTextures(self.playerWalkingFrames,
-                timePerFrame: 0.12,
+                timePerFrame: 0.08,
                 resize: false,
                 restore: true)),
                                         withKey:"walkingInPlacePlayer")

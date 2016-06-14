@@ -24,8 +24,8 @@ class JoystickEntity: GKEntity {
         super.init()
         joystick.stick.diameter = scene.size.width
         joystick.substrate.diameter = scene.size.width
-        joystick.stick.color = UIColor.whiteColor()
-        joystick.substrate.color = UIColor.blueColor()
+        joystick.stick.texture = SKTexture(imageNamed: "joystickUp")
+        joystick.substrate.texture = SKTexture(imageNamed: "joystickDown")
         joystick.stick.alpha = 0.01
         joystick.substrate.alpha = 0.01
         joystick.position = CGPoint(x:-133, y:50)
@@ -40,8 +40,8 @@ class JoystickEntity: GKEntity {
             self.joystick.position = location
             self.joystick.stick.alpha = 1
             self.joystick.substrate.alpha = 1
-            self.joystick.stick.color = UIColor.whiteColor()
-            self.joystick.substrate.color = UIColor.blueColor()
+            //self.joystick.stick.color = UIColor.whiteColor()
+            //self.joystick.substrate.color = UIColor.blueColor()
         }
         
         
