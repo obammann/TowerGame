@@ -16,13 +16,15 @@ class HealthComponent: GKComponent {
     let barSize: CGSize
     var currentHealth: CGFloat
     var healthBar: SKSpriteNode
+    let associatedObject: SKSpriteNode
     
     init(scene: GameScene, maxHealth: CGFloat, position: CGPoint, associatedObject: SKSpriteNode) {
         self.maxHealth = maxHealth
         self.currentHealth = maxHealth
         self.scene = scene
         self.healthBar = SKSpriteNode()
-        self.barSize = CGSize(width: associatedObject.size.width * 1.3, height: 10)
+        self.barSize = CGSize(width: associatedObject.size.width * 1.3, height: 20)
+        self.associatedObject = associatedObject
         super.init()
         self.healthBar = createHealthBar(associatedObject)
         scene.addChild(healthBar)
@@ -43,7 +45,7 @@ class HealthComponent: GKComponent {
         
         var bar = SKSpriteNode(color: UIColor.redColor(), size: barSize)
         bar.anchorPoint = CGPointMake(0, 0.5)
-        bar.position = CGPoint(x: associatedObject.position.x, y: associatedObject.position.y + associatedObject.size.height*0.6)
+        bar.position = CGPoint(x: associatedObject.position.x, y: associatedObject.position.y + associatedObject.size.height*0.8)
         bar.zPosition = 2
         return bar
     }
@@ -60,8 +62,13 @@ class HealthComponent: GKComponent {
         updateHealthBar()
     }
     
+    func updatePosition() {
+        healthBar.position = CGPoint(x: associatedObject.position.x, y: associatedObject.position.y + associatedObject.size.height*0.8)
+    }
     
-    
+    override func updateWithDeltaTime(seconds: NSTimeInterval) {
+        updatePosition()
+    }
     
     
     

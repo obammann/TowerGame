@@ -13,7 +13,7 @@ class GameScene: SKScene {
     var playerWalkingFrames : [SKTexture]!
     var entityManager: EntityManager!
     var player: PlayerEntity!
-    var spriteNode: SKSpriteNode!
+    var playerNode: SKSpriteNode!
     var joystick = AnalogJoystick(diameters: (1 , 1))
     var cam = SKCameraNode()
     var camOldX: CGFloat = 0.0
@@ -26,11 +26,22 @@ class GameScene: SKScene {
         
         entityManager = EntityManager(scene: self)
 
-        let playerNode = (self.childNodeWithName("player") as? SKSpriteNode)!
+        playerNode = (self.childNodeWithName("player") as? SKSpriteNode)!
         player = PlayerEntity(node: playerNode, scene: self, maxHealth: 10)
-        spriteNode = player.componentForClass(SpriteComponent.self)!.node
         
         entityManager.addEntityFromEditor(player)
+        let position = CGPoint(x: 50, y: 50)
+        for child in self.children {
+            if child.name == "tank" {
+                if let child = child as? SKSpriteNode {
+                    let tank = TowerEntity(node: child, scene: self, maxHealth: 5, playerNode: playerNode)
+                    entityManager.addEntityFromEditor(tank)
+                }
+            }
+        }
+//        let bulletNode = (self.childNodeWithName("bullet") as? SKSpriteNode)!
+//        var bullet = BulletEntity(bulletNode: bulletNode, targetPosition: spriteNode.position, bulletPosition: position, bulletSpeed: 10)
+//        entityManager.addEntityFromEditor(bullet)
         
         
         initJoystick()
@@ -53,12 +64,12 @@ class GameScene: SKScene {
 
     }
     func playerMoveEnded() {
-        spriteNode.removeAllActions()
+        playerNode.removeAllActions()
     }
     
     func walkingPlayer() {
         //This is our general runAction method to make our bear walk.
-        spriteNode.runAction(SKAction.repeatActionForever(
+        playerNode.runAction(SKAction.repeatActionForever(
             SKAction.animateWithTextures(playerWalkingFrames,
                 timePerFrame: 0.12,
                 resize: false,
