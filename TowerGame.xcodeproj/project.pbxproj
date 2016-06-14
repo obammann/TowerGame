@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3C0C28941CFB88D100614C1B /* MyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0C28931CFB88D100614C1B /* MyUtils.swift */; };
+		3C43ECFF1D1055E000256D1D /* playerFeetRunning.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 3C43ECFE1D1055E000256D1D /* playerFeetRunning.atlas */; };
 		3C9E5BB41CF4E790005B5A32 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9E5BB31CF4E790005B5A32 /* AppDelegate.swift */; };
 		3C9E5BB61CF4E790005B5A32 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3C9E5BB51CF4E790005B5A32 /* GameScene.sks */; };
 		3C9E5BB81CF4E790005B5A32 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9E5BB71CF4E790005B5A32 /* GameScene.swift */; };
@@ -57,6 +58,7 @@
 
 /* Begin PBXFileReference section */
 		3C0C28931CFB88D100614C1B /* MyUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyUtils.swift; sourceTree = "<group>"; };
+		3C43ECFE1D1055E000256D1D /* playerFeetRunning.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = playerFeetRunning.atlas; sourceTree = "<group>"; };
 		3C9E5BB01CF4E78F005B5A32 /* TowerGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TowerGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C9E5BB31CF4E790005B5A32 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3C9E5BB51CF4E790005B5A32 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 		3C9E5BB21CF4E790005B5A32 /* TowerGame */ = {
 			isa = PBXGroup;
 			children = (
+				3C43ECFE1D1055E000256D1D /* playerFeetRunning.atlas */,
 				3CB6F3AB1D104B2E007822EE /* playerKnifeAttack.atlas */,
 				3CB6F3A91D103ED1007822EE /* player2.atlas */,
 				5FABB4481D0C228300997492 /* player.atlas */,
@@ -327,6 +330,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C43ECFF1D1055E000256D1D /* playerFeetRunning.atlas in Resources */,
 				3C9E5BB61CF4E790005B5A32 /* GameScene.sks in Resources */,
 				3C9E5BC21CF4E790005B5A32 /* LaunchScreen.storyboard in Resources */,
 				3CB6F3AC1D104B2E007822EE /* playerKnifeAttack.atlas in Resources */,

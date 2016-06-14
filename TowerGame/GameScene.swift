@@ -31,6 +31,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         playerNode = (self.childNodeWithName("player") as? SKSpriteNode)!
         player = PlayerEntity(node: playerNode, scene: self, maxHealth: 10)
+        view.showsPhysics = true
         
         
         joystickEntity = JoystickEntity(joystick: joystick, scene: self)
