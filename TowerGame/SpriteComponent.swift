@@ -20,8 +20,8 @@ class SpriteComponent: GKComponent {
         node = spriteNode
     }
     
-    func setPhysicsBody() {
-        node.physicsBody = SKPhysicsBody(circleOfRadius: node.size.width/2)
+    func setPhysicsBodyPlayer() {
+        node.physicsBody = SKPhysicsBody(circleOfRadius: node.size.width/2-8)
         node.physicsBody?.affectedByGravity = false
     }
 
