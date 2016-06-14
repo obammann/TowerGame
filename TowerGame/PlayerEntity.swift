@@ -29,12 +29,23 @@ class PlayerEntity: GKEntity {
         let healthComponent = HealthComponent(scene: scene, maxHealth: maxHealth, position: node.position, associatedObject: node)
         addComponent(healthComponent)
         
-        let playerAnimatedAtlas = SKTextureAtlas(named: "player")
+//        let playerAnimatedAtlas = SKTextureAtlas(named: "player")
+//        var walkFrames = [SKTexture]()
+//        
+//        let numImages = playerAnimatedAtlas.textureNames.count
+//        for i in 0 ..< numImages {
+//            let playerTextureName = "character\(i)"
+//            walkFrames.append(playerAnimatedAtlas.textureNamed(playerTextureName))
+//        }
+//        playerWalkingFrames = walkFrames
+//        let firstFrame = playerWalkingFrames[0]
+        
+        let playerAnimatedAtlas = SKTextureAtlas(named: "player2")
         var walkFrames = [SKTexture]()
         
         let numImages = playerAnimatedAtlas.textureNames.count
         for i in 0 ..< numImages {
-            let playerTextureName = "character\(i)"
+            let playerTextureName = "survivor-move_knife_\(i)"
             walkFrames.append(playerAnimatedAtlas.textureNamed(playerTextureName))
         }
         playerWalkingFrames = walkFrames

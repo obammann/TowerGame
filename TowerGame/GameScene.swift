@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     var entityManager: EntityManager!
@@ -24,6 +24,8 @@ class GameScene: SKScene {
     
     
     override func didMoveToView(view: SKView) {
+        // Setup physics world's contact delegate
+        physicsWorld.contactDelegate = self
         
         entityManager = EntityManager(scene: self)
 
@@ -39,8 +41,6 @@ class GameScene: SKScene {
         
 
         
-
-        
         entityManager.addEntityFromEditor(player)
         let position = CGPoint(x: 50, y: 50)
         for child in self.children {
@@ -51,23 +51,6 @@ class GameScene: SKScene {
                 }
             }
         }
-//        let bulletNode = (self.childNodeWithName("bullet") as? SKSpriteNode)!
-//        var bullet = BulletEntity(bulletNode: bulletNode, targetPosition: spriteNode.position, bulletPosition: position, bulletSpeed: 10)
-//        entityManager.addEntityFromEditor(bullet)
-        
-        
-
-       
-
-    }
-
-    
-
-    
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-       /* Called when a touch begins */
-        
-        
     }
    
     override func update(currentTime: CFTimeInterval) {
@@ -76,12 +59,36 @@ class GameScene: SKScene {
         lastUpdateTimeInterval = currentTime
         
         entityManager.update(deltaTime)
-        cam.position.x = playerNode.position.x
+        cam.position.x = playerNode.position.x - 200
         joystick.position.x += cam.position.x - camOldX
         camOldX = cam.position.x
         
     }
     
-    
-
+//    func didBeginContact(contact: SKPhysicsContact) {
+//        
+//        // 1
+//        var firstBody: SKPhysicsBody
+//        var secondBody: SKPhysicsBody
+//        if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
+//            firstBody = contact.bodyA
+//            secondBody = contact.bodyB
+//        } else {
+//            firstBody = contact.bodyB
+//            secondBody = contact.bodyA
+//        }
+//        
+//        // 2
+//        if ((firstBody.categoryBitMask & PhysicsCategory.Monster != 0) &&
+//            (secondBody.categoryBitMask & PhysicsCategory.Projectile != 0)) {
+//            projectileDidCollideWithMonster(firstBody.node as! SKSpriteNode, monster: secondBody.node as! SKSpriteNode)
+//        }
+//        
+//    }
+//    
+//    func projectileDidCollideWithMonster(projectile:SKSpriteNode, monster:SKSpriteNode) {
+//        print("Hit")
+//        projectile.removeFromParent()
+//        monster.removeFromParent()
+//    }
 }
