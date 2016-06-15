@@ -32,7 +32,7 @@
 		3C9E5BFC1CF4EEDB005B5A32 /* TowerEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9E5BFB1CF4EEDB005B5A32 /* TowerEntity.swift */; };
 		3C9E5BFE1CF4EF3F005B5A32 /* BulletEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9E5BFD1CF4EF3F005B5A32 /* BulletEntity.swift */; };
 		3C9E5C021CF5FBE6005B5A32 /* ObjectEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9E5C011CF5FBE6005B5A32 /* ObjectEntity.swift */; };
-		3C9E5C041CF5FD73005B5A32 /* ControlComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9E5C031CF5FD73005B5A32 /* ControlComponent.swift */; };
+		3C9E5C041CF5FD73005B5A32 /* AttackComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9E5C031CF5FD73005B5A32 /* AttackComponent.swift */; };
 		3CB6F3AA1D103ED1007822EE /* player2.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 3CB6F3A91D103ED1007822EE /* player2.atlas */; };
 		3CB6F3AC1D104B2E007822EE /* playerKnifeAttack.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 3CB6F3AB1D104B2E007822EE /* playerKnifeAttack.atlas */; };
 		5F427D7D1D101F0C00C12660 /* JoystickEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F427D7C1D101F0C00C12660 /* JoystickEntity.swift */; };
@@ -89,7 +89,7 @@
 		3C9E5BFB1CF4EEDB005B5A32 /* TowerEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TowerEntity.swift; sourceTree = "<group>"; };
 		3C9E5BFD1CF4EF3F005B5A32 /* BulletEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BulletEntity.swift; sourceTree = "<group>"; };
 		3C9E5C011CF5FBE6005B5A32 /* ObjectEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectEntity.swift; sourceTree = "<group>"; };
-		3C9E5C031CF5FD73005B5A32 /* ControlComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlComponent.swift; sourceTree = "<group>"; };
+		3C9E5C031CF5FD73005B5A32 /* AttackComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttackComponent.swift; sourceTree = "<group>"; };
 		3CB6F3A91D103ED1007822EE /* player2.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = player2.atlas; sourceTree = "<group>"; };
 		3CB6F3AB1D104B2E007822EE /* playerKnifeAttack.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = playerKnifeAttack.atlas; sourceTree = "<group>"; };
 		5F427D7C1D101F0C00C12660 /* JoystickEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoystickEntity.swift; sourceTree = "<group>"; };
@@ -214,7 +214,7 @@
 				3C9E5BF11CF4EB57005B5A32 /* CollisionComponent.swift */,
 				3C9E5BF31CF4EB70005B5A32 /* SpriteComponent.swift */,
 				3C9E5BF51CF4EBC3005B5A32 /* TargetingComponent.swift */,
-				3C9E5C031CF5FD73005B5A32 /* ControlComponent.swift */,
+				3C9E5C031CF5FD73005B5A32 /* AttackComponent.swift */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -393,7 +393,7 @@
 				3C9E5BF01CF4EB41005B5A32 /* JumpingComponent.swift in Sources */,
 				3C43ED011D105B9800256D1D /* Const.swift in Sources */,
 				3C9E5BB41CF4E790005B5A32 /* AppDelegate.swift in Sources */,
-				3C9E5C041CF5FD73005B5A32 /* ControlComponent.swift in Sources */,
+				3C9E5C041CF5FD73005B5A32 /* AttackComponent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

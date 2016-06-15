@@ -26,6 +26,9 @@ class PlayerEntity: GKEntity {
         let spriteComponent = SpriteComponent(spriteNode: node)
         addComponent(spriteComponent)
         
+        let attackComponent = AttackComponent(player: self.player)
+        addComponent(attackComponent)
+        
         let physicsComponent = PhysicsComponent(node: node)
         addComponent(physicsComponent)
         self.componentForClass(PhysicsComponent.self)?.setPhysicsBodyPlayer()
@@ -57,6 +60,7 @@ class PlayerEntity: GKEntity {
         
         
     }
+    
 
     
     func playerWalk() {

@@ -57,6 +57,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
     }
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        let location = touches.first!.locationInNode(self)
+        let node = self.nodeAtPoint(location)
+        if (node.name == "attackButton") {
+            for component in player.components{
+                if (component is AttackComponent){
+                    let comp = component as! AttackComponent
+                    comp.attack()
+                }
+            }
+        }
+    }
    
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
