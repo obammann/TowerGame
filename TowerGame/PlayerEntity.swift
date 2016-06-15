@@ -61,8 +61,8 @@ class PlayerEntity: GKEntity {
         
         
     }
-    func togglePlayerAttack(){
-        playerInAttack = !playerInAttack
+    func setPlayerAttack(isAttack: Bool){
+        playerInAttack = isAttack
     }
     
 

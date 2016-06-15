@@ -109,16 +109,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //            projectileDidCollideWithMonster(firstBody.node as! SKSpriteNode, monster: secondBody.node as! SKSpriteNode)
             for entity in entityManager.entities {
                 let entityNode = entity.componentForClass(SpriteComponent)?.node
-                if (entityNode == firstBody.node) {
+                if (entityNode == firstBody.node && !player.playerInAttack) {
                     if let healthComponent = entity.componentForClass(HealthComponent) {
                         healthComponent.doDamage(1)
                         if healthComponent.currentHealth == 0 {
                             entityManager.remove(entity)
+                            //lose()
                         }
                     }
                 }
-                if (entityNode == secondBody.node) {
-                    entityManager.remove(entity)
+                if (entityNode == secondBody.node && !player.playerInAttack) {
+                    if (player.playerInAttack){
+                        entityNode?.setScale(2)
+                    }else{
+                        entityManager.remove(entity)
+                    }
+                    
+                    
                 }
             }
         }
