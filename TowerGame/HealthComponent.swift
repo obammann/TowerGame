@@ -15,6 +15,11 @@ class HealthComponent: GKComponent {
     let maxHealth: CGFloat
     let barSize: CGSize
     var currentHealth: CGFloat
+        {
+        didSet {
+            updateHealthBar()
+        }
+    }
     var healthBar: SKSpriteNode
     let associatedObject: SKSpriteNode
     
@@ -33,7 +38,8 @@ class HealthComponent: GKComponent {
     func updateHealthBar() {
         
         if (currentHealth > 0) {
-            
+            self.healthBar.size = CGSize(width: associatedObject.size.width * 1.3 *
+                self.currentHealth/self.maxHealth, height: 20)
         } else {
             healthBar.removeFromParent()
         }
