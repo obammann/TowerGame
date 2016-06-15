@@ -23,7 +23,11 @@ class BulletEntity: GKEntity {
         
         let spriteComponent = SpriteComponent(texture: SKTexture(imageNamed: imageName), position: bulletOriginPosition)
         addComponent(spriteComponent)
-        self.componentForClass(SpriteComponent.self)?.setPhysicsBodyBullet()
+        
+        
+        let physicsComponent = PhysicsComponent(node: (self.componentForClass(SpriteComponent.self)?.node)!)
+        addComponent(physicsComponent)
+        self.componentForClass(PhysicsComponent.self)?.setPhysicsBodyBullet()
         
         turnToTarget((self.componentForClass(SpriteComponent.self)?.node)!)
         

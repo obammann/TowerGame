@@ -25,7 +25,6 @@ class PlayerEntity: GKEntity {
         
         let spriteComponent = SpriteComponent(spriteNode: node)
         addComponent(spriteComponent)
-        self.componentForClass(SpriteComponent.self)?.setPhysicsBodyPlayer()
         
         let physicsComponent = PhysicsComponent(node: node)
         addComponent(physicsComponent)
