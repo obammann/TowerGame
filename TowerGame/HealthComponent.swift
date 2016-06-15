@@ -15,11 +15,6 @@ class HealthComponent: GKComponent {
     let maxHealth: CGFloat
     let barSize: CGSize
     var currentHealth: CGFloat
-        {
-        didSet {
-            updateHealthBar()
-        }
-    }
     var healthBar: SKSpriteNode
     let associatedObject: SKSpriteNode
     
