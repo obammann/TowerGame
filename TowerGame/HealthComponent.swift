@@ -28,7 +28,6 @@ class HealthComponent: GKComponent {
         super.init()
         self.healthBar = createHealthBar(associatedObject)
         scene.addChild(healthBar)
-//        updateHealthBar()
     }
     
     func updateHealthBar() {
@@ -42,7 +41,6 @@ class HealthComponent: GKComponent {
     }
     
     func createHealthBar(associatedObject: SKSpriteNode) -> SKSpriteNode {
-        
         var bar = SKSpriteNode(color: UIColor.redColor(), size: barSize)
         bar.anchorPoint = CGPointMake(0, 0.5)
         bar.position = CGPoint(x: associatedObject.position.x, y: associatedObject.position.y + associatedObject.size.height*0.8)
@@ -54,10 +52,9 @@ class HealthComponent: GKComponent {
         currentHealth -= damage
         if currentHealth <= 0 {
             currentHealth = 0
-            
         } else {
-            healthBar.runAction(SKAction.resizeToWidth(healthBar.size.width - damage, duration: 1))
-            
+//            healthBar.runAction(SKAction.resizeToWidth(healthBar.size.width - damage, duration: 1))
+            healthBar.size.width -= damage
         }
         updateHealthBar()
     }

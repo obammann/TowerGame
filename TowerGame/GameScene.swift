@@ -86,34 +86,44 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
-//    func didBeginContact(contact: SKPhysicsContact) {
-//        
-//        for entity in entityManager.entities {
-//            
-//        }
-//        
-//        // 1
-//        var firstBody: SKPhysicsBody
-//        var secondBody: SKPhysicsBody
-//        if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
-//            firstBody = contact.bodyA
-//            secondBody = contact.bodyB
-//        } else {
-//            firstBody = contact.bodyB
-//            secondBody = contact.bodyA
-//        }
-//        
-//        // 2
-//        if ((firstBody.categoryBitMask & Constants.PhysicsCategory.Player != 0) &&
-//            (secondBody.categoryBitMask & Constants.PhysicsCategory.Bullet != 0)) {
+    func didBeginContact(contact: SKPhysicsContact) {
+        
+        // SecondBody = Bullet
+        var firstBody: SKPhysicsBody
+        var secondBody: SKPhysicsBody
+        if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
+            firstBody = contact.bodyA
+            secondBody = contact.bodyB
+        } else {
+            firstBody = contact.bodyB
+            secondBody = contact.bodyA
+        }
+        
+        // 2
+        if ((firstBody.categoryBitMask == Constants.PhysicsCategory.Player) &&
+            (secondBody.categoryBitMask == Constants.PhysicsCategory.Bullet)) {
 //            projectileDidCollideWithMonster(firstBody.node as! SKSpriteNode, monster: secondBody.node as! SKSpriteNode)
-//        }
-//
-//    }
-//    
-//    func projectileDidCollideWithMonster(projectile:SKSpriteNode, monster:SKSpriteNode) {
-//        print("Hit")
-//        projectile.removeFromParent()
-//        monster.removeFromParent()
-//    }
+            for entity in entityManager.entities {
+                let entityNode = entity.componentForClass(SpriteComponent)?.node
+                if (entityNode == firstBody.node) {
+                    if let healthComponent = entity.componentForClass(HealthComponent) {
+                        healthComponent.doDamage(1)
+                        if healthComponent.currentHealth == 0 {
+                            entityManager.remove(entity)
+                        }
+                    }
+                }
+                if (entityNode == secondBody.node) {
+                    entityManager.remove(entity)
+                }
+            }
+        }
+
+    }
+    
+    func projectileDidCollideWithMonster(projectile:SKSpriteNode, monster:SKSpriteNode) {
+        print("Hit")
+        projectile.removeFromParent()
+        monster.removeFromParent()
+    }
 }
