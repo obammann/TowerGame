@@ -21,7 +21,7 @@
 		3C9E5BD81CF4E790005B5A32 /* TowerGameUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9E5BD71CF4E790005B5A32 /* TowerGameUITests.swift */; };
 		3C9E5BE81CF4EAC7005B5A32 /* HealthComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9E5BE71CF4EAC7005B5A32 /* HealthComponent.swift */; };
 		3C9E5BEA1CF4EB0E005B5A32 /* MovementComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9E5BE91CF4EB0E005B5A32 /* MovementComponent.swift */; };
-		3C9E5BEC1CF4EB25005B5A32 /* AIComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9E5BEB1CF4EB25005B5A32 /* AIComponent.swift */; };
+		3C9E5BEC1CF4EB25005B5A32 /* PhysicsComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9E5BEB1CF4EB25005B5A32 /* PhysicsComponent.swift */; };
 		3C9E5BEE1CF4EB34005B5A32 /* ShootingComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9E5BED1CF4EB34005B5A32 /* ShootingComponent.swift */; };
 		3C9E5BF01CF4EB41005B5A32 /* JumpingComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9E5BEF1CF4EB41005B5A32 /* JumpingComponent.swift */; };
 		3C9E5BF21CF4EB57005B5A32 /* CollisionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9E5BF11CF4EB57005B5A32 /* CollisionComponent.swift */; };
@@ -78,7 +78,7 @@
 		3C9E5BD91CF4E790005B5A32 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3C9E5BE71CF4EAC7005B5A32 /* HealthComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthComponent.swift; sourceTree = "<group>"; };
 		3C9E5BE91CF4EB0E005B5A32 /* MovementComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovementComponent.swift; sourceTree = "<group>"; };
-		3C9E5BEB1CF4EB25005B5A32 /* AIComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIComponent.swift; sourceTree = "<group>"; };
+		3C9E5BEB1CF4EB25005B5A32 /* PhysicsComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsComponent.swift; sourceTree = "<group>"; };
 		3C9E5BED1CF4EB34005B5A32 /* ShootingComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShootingComponent.swift; sourceTree = "<group>"; };
 		3C9E5BEF1CF4EB41005B5A32 /* JumpingComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JumpingComponent.swift; sourceTree = "<group>"; };
 		3C9E5BF11CF4EB57005B5A32 /* CollisionComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollisionComponent.swift; sourceTree = "<group>"; };
@@ -208,7 +208,7 @@
 			children = (
 				3C9E5BE71CF4EAC7005B5A32 /* HealthComponent.swift */,
 				3C9E5BE91CF4EB0E005B5A32 /* MovementComponent.swift */,
-				3C9E5BEB1CF4EB25005B5A32 /* AIComponent.swift */,
+				3C9E5BEB1CF4EB25005B5A32 /* PhysicsComponent.swift */,
 				3C9E5BED1CF4EB34005B5A32 /* ShootingComponent.swift */,
 				3C9E5BEF1CF4EB41005B5A32 /* JumpingComponent.swift */,
 				3C9E5BF11CF4EB57005B5A32 /* CollisionComponent.swift */,
@@ -380,7 +380,7 @@
 				5F427D7D1D101F0C00C12660 /* JoystickEntity.swift in Sources */,
 				3C9E5BF61CF4EBC3005B5A32 /* TargetingComponent.swift in Sources */,
 				3C9E5BF81CF4ED3F005B5A32 /* EntityManager.swift in Sources */,
-				3C9E5BEC1CF4EB25005B5A32 /* AIComponent.swift in Sources */,
+				3C9E5BEC1CF4EB25005B5A32 /* PhysicsComponent.swift in Sources */,
 				3C9E5BFA1CF4EE80005B5A32 /* PlayerEntity.swift in Sources */,
 				3C9E5BB81CF4E790005B5A32 /* GameScene.swift in Sources */,
 				3C9E5BE81CF4EAC7005B5A32 /* HealthComponent.swift in Sources */,
