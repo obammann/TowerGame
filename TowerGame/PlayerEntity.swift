@@ -41,12 +41,12 @@ class PlayerEntity: GKEntity {
 //        playerWalkingFrames = walkFrames
 //        let firstFrame = playerWalkingFrames[0]
         
-        let playerAnimatedAtlas = SKTextureAtlas(named: "player2")
+        let playerAnimatedAtlas = SKTextureAtlas(named: "playerMove")
         var walkFrames = [SKTexture]()
         
         let numImages = playerAnimatedAtlas.textureNames.count
         for i in 0 ..< numImages {
-            let playerTextureName = "survivor-move_knife_\(i)"
+            let playerTextureName = "survivor-move_\(i)"
             walkFrames.append(playerAnimatedAtlas.textureNamed(playerTextureName))
         }
         playerWalkingFrames = walkFrames
