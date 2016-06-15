@@ -31,8 +31,7 @@ class AttackComponent: GKComponent {
     
     func attack(){
         
-        self.player.setPlayerAttack(true)
-        player.player.runAction(SKAction.animateWithTextures(self.playerAttackFrames,
+       player.player.runAction(SKAction.animateWithTextures(self.playerAttackFrames,
             timePerFrame: 0.055,
             resize: false,
             restore: true), completion: {self.player.setPlayerAttack(false)})

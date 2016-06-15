@@ -61,10 +61,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         let location = touches.first!.locationInNode(self)
         let node = self.nodeAtPoint(location)
-        if (node.name == "attackButton") {
+        if (node.name == "attackButton" && !player.playerInAttack) {
             for component in player.components{
                 if (component is AttackComponent){
                     let comp = component as! AttackComponent
+                    self.player.setPlayerAttack(true)
                     comp.attack()
                 }
             }
