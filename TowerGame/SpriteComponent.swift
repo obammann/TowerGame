@@ -12,8 +12,9 @@ import GameplayKit
 class SpriteComponent: GKComponent {
     let node: SKSpriteNode
     
-    init(texture: SKTexture) {
+    init(texture: SKTexture, position: CGPoint) {
         node = SKSpriteNode(texture: texture, color: SKColor.whiteColor(), size: texture.size())
+        node.position = position
     }
     
     init(spriteNode: SKSpriteNode) {
@@ -26,6 +27,16 @@ class SpriteComponent: GKComponent {
         node.physicsBody?.categoryBitMask = Constants.PhysicsCategory.Player
         node.physicsBody?.contactTestBitMask = Constants.PhysicsCategory.Projectile
         node.physicsBody?.collisionBitMask = Constants.PhysicsCategory.None
+    }
+    
+    func setPhysicsBodyBullet() {
+        node.zPosition = 10
+        node.physicsBody = SKPhysicsBody(circleOfRadius: node.size.width/2-3)
+        node.physicsBody?.dynamic = true
+        node.physicsBody?.categoryBitMask = Constants.PhysicsCategory.Projectile
+        node.physicsBody?.contactTestBitMask = Constants.PhysicsCategory.Player
+        node.physicsBody?.collisionBitMask = Constants.PhysicsCategory.None
+        node.physicsBody?.usesPreciseCollisionDetection = true
     }
     
     

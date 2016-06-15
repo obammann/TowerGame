@@ -51,7 +51,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         for child in self.children {
             if child.name == "tank" {
                 if let child = child as? SKSpriteNode {
-                    let tank = TowerEntity(node: child, scene: self, maxHealth: 5, playerNode: playerNode)
+                    let tank = TowerEntity(node: child, scene: self, maxHealth: 5, targetNode: playerNode)
                     entityManager.addEntityFromEditor(tank)
                 }
             }
@@ -63,7 +63,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let deltaTime = currentTime - lastUpdateTimeInterval
         lastUpdateTimeInterval = currentTime
         
+        //Update all entities
         entityManager.update(deltaTime)
+        
+        //Update camera and button/joystick with player position
         cam.position.x = playerNode.position.x - 200
         joystick.position.x += cam.position.x - camOldX
         attackButtonNode.position.x += cam.position.x - camOldX

@@ -11,72 +11,87 @@ import GameplayKit
 
 
 class ShootingComponent: GKComponent {
-    
-    let targetSprite: SKSpriteNode
-    let shooterNode: SKSpriteNode
-    var bulletPosition: CGPoint
-    //    let bulletNode: SKSpriteNode
-    let bulletSpeed: CGFloat
+
+    var bulletOriginPosition: CGPoint
+    var didShooting = false
     let bulletImageName: String
     let scene: GameScene
+    var bulletNode: SKSpriteNode?
+    
+    //SpriteNode of associated Entity
+    let entityNode: SKSpriteNode
+    
+    //SpriteNode of Target
+    let targetNode: SKSpriteNode
     
     
     
-    init(scene: GameScene, positionBulletOrigin: CGPoint, imageNameBullet: String, targetSprite: SKSpriteNode, bulletSpeed: CGFloat, shooterNode: SKSpriteNode) {
-        self.targetSprite = targetSprite
-        self.shooterNode = shooterNode
-        self.bulletPosition = positionBulletOrigin
-        self.bulletImageName = imageNameBullet
+    init(scene: GameScene, bulletOriginPosition: CGPoint, bulletImageName: String, entityNode: SKSpriteNode, targetNode: SKSpriteNode) {
+        self.bulletOriginPosition = bulletOriginPosition
+        self.bulletImageName = bulletImageName
         self.scene = scene
-        self.bulletSpeed = bulletSpeed
+        self.entityNode = entityNode
+        self.targetNode = targetNode
+        
         super.init()
+        
     }
     
+    //Create and shoot the bullet in the target's direction
     func shoot() {
-        // 2 - Set up initial location of projectile
-        let projectile = SKSpriteNode(imageNamed: bulletImageName)
-        projectile.position = bulletPosition
-        projectile.zPosition = 10
+        if (!didShooting) {
+            
+            //Create BulletEntity and add it to the EntityManager
+            let bullet = BulletEntity(imageName: bulletImageName, targetPosition: targetNode.position, bulletOriginPosition: bulletOriginPosition)
+            scene.entityManager.addBullet(bullet)
+            self.bulletNode = (bullet.componentForClass(SpriteComponent.self)?.node)!
+            
+            //Rotate the bullet to the target's direction
+            let angle = atan2(bulletOriginPosition.y - targetNode.position.y, bulletOriginPosition.x - targetNode.position.x) + CGFloat(M_PI)
+            let rotateAction = SKAction.rotateToAngle(angle + CGFloat(M_PI*0.5), duration: 0.0)
+            bulletNode!.runAction(rotateAction)
+            
+            // Determine offset of location to bullet
+            let offset = targetNode.position - bulletOriginPosition
+            
+            // Get the direction of where to shoot
+            let direction = offset.normalized()
+            
+            // Make it shoot far enough to be guaranteed off screen
+            let shootAmount = direction * 1000
+            
+            // Add the shoot amount to the current position
+            let realDest = shootAmount + bulletOriginPosition
+            
+            // Create the actions
+            let actionMove = SKAction.moveTo(realDest, duration: Double(Constants.BulletSpeed))
+            let actionMoveDone = SKAction.runBlock {
+                self.scene.entityManager.removeBullet(bullet)
+            }
+            bulletNode!.runAction(SKAction.sequence([actionMove, actionMoveDone]))
+            
+            didShooting = !didShooting
+            let wait = SKAction.waitForDuration(1)
+            let run = SKAction.runBlock {
+                self.didShooting = false
+            }
+            entityNode.runAction(SKAction.sequence([wait, run]))
+        }
         
-        let angle = atan2(bulletPosition.y - targetSprite.position.y, bulletPosition.x - targetSprite.position.x) + CGFloat(M_PI)
-        let rotateAction = SKAction.rotateToAngle(angle + CGFloat(M_PI*0.5), duration: 0.0)
-        projectile.runAction(rotateAction)
-
-        
-        projectile.physicsBody = SKPhysicsBody(circleOfRadius: projectile.size.width/2)
-        projectile.physicsBody?.dynamic = true
-        projectile.physicsBody?.categoryBitMask = Constants.PhysicsCategory.Projectile
-        projectile.physicsBody?.contactTestBitMask = Constants.PhysicsCategory.Player
-        projectile.physicsBody?.collisionBitMask = Constants.PhysicsCategory.None
-        projectile.physicsBody?.usesPreciseCollisionDetection = true
-        
-        
-        // 3 - Determine offset of location to projectile
-        let offset = targetSprite.position - projectile.position
-        
-        // 5 - OK to add now - you've double checked position
-        scene.addChild(projectile)
-        
-        // 6 - Get the direction of where to shoot
-        let direction = offset.normalized()
-        
-        // 7 - Make it shoot far enough to be guaranteed off screen
-        let shootAmount = direction * 1000
-        
-        // 8 - Add the shoot amount to the current position
-        let realDest = shootAmount + projectile.position
-        
-        // 9 - Create the actions
-        let actionMove = SKAction.moveTo(realDest, duration: Double(bulletSpeed))
-        let actionMoveDone = SKAction.removeFromParent()
-        projectile.runAction(SKAction.sequence([actionMove, actionMoveDone]))
     }
     
     func turnToTarget() {
-        let angle = atan2(shooterNode.position.y - targetSprite.position.y, shooterNode.position.x - targetSprite.position.x) + CGFloat(M_PI)
+        let angle = atan2(entityNode.position.y - targetNode.position.y, entityNode.position.x - targetNode.position.x) + CGFloat(M_PI)
         let rotateAction = SKAction.rotateToAngle(angle + CGFloat(M_PI*0.5), duration: 0.0)
-        shooterNode.runAction(rotateAction)
-
+        entityNode.runAction(rotateAction)
+    }
+    
+    override func updateWithDeltaTime(seconds: NSTimeInterval) {
+        let distanceTowerPlayer = (entityNode.position - targetNode.position).length
+        if (distanceTowerPlayer() < CGFloat(Constants.DistanceToTarget)) {
+            turnToTarget()
+            shoot()
+        }
     }
 
 }

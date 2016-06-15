@@ -12,13 +12,15 @@ import GameplayKit
 
 class TowerEntity: GKEntity {
 
-    var playerNode: SKSpriteNode
+    var targetNode: SKSpriteNode
     var towerNode: SKSpriteNode
     var didShooting = false
+    let scene: GameScene
     
-    init(node: SKSpriteNode, scene: GameScene, maxHealth: CGFloat, playerNode: SKSpriteNode) {
-        self.playerNode = playerNode
+    init(node: SKSpriteNode, scene: GameScene, maxHealth: CGFloat, targetNode: SKSpriteNode) {
+        self.targetNode = targetNode
         self.towerNode = node
+        self.scene = scene
         super.init()
         
         let spriteComponent = SpriteComponent(spriteNode: node)
@@ -27,29 +29,16 @@ class TowerEntity: GKEntity {
         let healthComponent = HealthComponent(scene: scene, maxHealth: maxHealth, position: node.position, associatedObject: node)
         addComponent(healthComponent)
         
-        let shootingComponent = ShootingComponent(scene: scene, positionBulletOrigin: towerNode.position, imageNameBullet: "bullet", targetSprite: self.playerNode, bulletSpeed: 5, shooterNode: self.towerNode)
+//        let shootingComponent = ShootingComponent(scene: scene, positionBulletOrigin: towerNode.position, imageNameBullet: "bullet", targetSprite: self.playerNode, bulletSpeed: 5, shooterNode: self.towerNode)
+//        addComponent(shootingComponent)
+        
+        let shootingComponent = ShootingComponent(scene: scene, bulletOriginPosition: towerNode.position, bulletImageName: "bullet", entityNode: towerNode, targetNode: targetNode)
         addComponent(shootingComponent)
     }
     
-    
-    func shoot() {
-        if (!didShooting) {
-            self.componentForClass(ShootingComponent.self)?.shoot()
-            didShooting = !didShooting
-            let wait = SKAction.waitForDuration(1)
-            let run = SKAction.runBlock {
-                self.didShooting = false
-            }
-            towerNode.runAction(SKAction.sequence([wait, run]))
-        }
-    }
-    
-    override func updateWithDeltaTime(seconds: NSTimeInterval) {
-        let distanceTowerPlayer = (towerNode.position - playerNode.position).length
-        let distanceMax: CGFloat = 300
-        if (distanceTowerPlayer() < distanceMax) {
-            shoot()
-            self.componentForClass(ShootingComponent.self)?.turnToTarget()
-        }
+    func turnToTarget() {
+        let angle = atan2(towerNode.position.y - targetNode.position.y, towerNode.position.x - targetNode.position.x) + CGFloat(M_PI)
+        let rotateAction = SKAction.rotateToAngle(angle + CGFloat(M_PI*0.5), duration: 0.0)
+        towerNode.runAction(rotateAction)
     }
 }
