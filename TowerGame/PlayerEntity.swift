@@ -15,6 +15,7 @@ class PlayerEntity: GKEntity {
     var player: SKSpriteNode
     var scene: GameScene
     var playerWalkingFrames : [SKTexture]!
+    var playerInAttack = false
     
     init(node: SKSpriteNode, scene: GameScene, maxHealth: CGFloat) {
         
@@ -26,7 +27,7 @@ class PlayerEntity: GKEntity {
         let spriteComponent = SpriteComponent(spriteNode: node)
         addComponent(spriteComponent)
         
-        let attackComponent = AttackComponent(player: self.player)
+        let attackComponent = AttackComponent(player: self)
         addComponent(attackComponent)
         
         let physicsComponent = PhysicsComponent(node: node)
@@ -59,6 +60,9 @@ class PlayerEntity: GKEntity {
         let firstFrame = playerWalkingFrames[0]
         
         
+    }
+    func togglePlayerAttacks(){
+        playerInAttack = !playerInAttack
     }
     
 

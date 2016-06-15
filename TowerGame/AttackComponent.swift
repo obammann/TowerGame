@@ -11,10 +11,10 @@ import GameplayKit
 
 class AttackComponent: GKComponent {
     
-    var player: SKSpriteNode
+    var player: PlayerEntity
     var playerAttackFrames : [SKTexture]!
     
-    init(player: SKSpriteNode) {
+    init(player: PlayerEntity) {
         self.player = player
         
         let playerAnimatedAtlas = SKTextureAtlas(named: "playerKnifeAttack")
@@ -30,10 +30,10 @@ class AttackComponent: GKComponent {
     }
     
     func attack(){
-        player.runAction(SKAction.animateWithTextures(self.playerAttackFrames,
+        player.player.runAction(SKAction.animateWithTextures(self.playerAttackFrames,
             timePerFrame: 0.08,
             resize: false,
-            restore: true))
+            restore: true), completion: {player.togglePlayerAttack()})
             
     }
 }
