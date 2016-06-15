@@ -43,7 +43,7 @@ class ShootingComponent: GKComponent {
             
             //Create BulletEntity and add it to the EntityManager
             let bullet = BulletEntity(imageName: bulletImageName, targetPosition: targetNode.position, bulletOriginPosition: bulletOriginPosition)
-            scene.entityManager.addBullet(bullet)
+            scene.entityManager.add(bullet)
             self.bulletNode = (bullet.componentForClass(SpriteComponent.self)?.node)!
             
             //Rotate the bullet to the target's direction
@@ -66,7 +66,7 @@ class ShootingComponent: GKComponent {
             // Create the actions
             let actionMove = SKAction.moveTo(realDest, duration: Double(Constants.BulletSpeed))
             let actionMoveDone = SKAction.runBlock {
-                self.scene.entityManager.removeBullet(bullet)
+                self.scene.entityManager.remove(bullet)
             }
             bulletNode!.runAction(SKAction.sequence([actionMove, actionMoveDone]))
             

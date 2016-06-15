@@ -13,8 +13,9 @@ struct Constants {
         static let None         : UInt32 = 0
         static let All          : UInt32 = UInt32.max
         static let Player       : UInt32 = 1
-        static let Projectile   : UInt32 = 2
+        static let Bullet       : UInt32 = 2
         static let Tower        : UInt32 = 1
+        static let Object       : UInt32 = 1
     }
     
     static let BulletSpeed = 5

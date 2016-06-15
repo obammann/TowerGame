@@ -76,6 +76,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
 //    func didBeginContact(contact: SKPhysicsContact) {
 //        
+//        for entity in entityManager.entities {
+//            
+//        }
+//        
 //        // 1
 //        var firstBody: SKPhysicsBody
 //        var secondBody: SKPhysicsBody
@@ -88,11 +92,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //        }
 //        
 //        // 2
-//        if ((firstBody.categoryBitMask & PhysicsCategory.Monster != 0) &&
-//            (secondBody.categoryBitMask & PhysicsCategory.Projectile != 0)) {
+//        if ((firstBody.categoryBitMask & Constants.PhysicsCategory.Player != 0) &&
+//            (secondBody.categoryBitMask & Constants.PhysicsCategory.Bullet != 0)) {
 //            projectileDidCollideWithMonster(firstBody.node as! SKSpriteNode, monster: secondBody.node as! SKSpriteNode)
 //        }
-//        
+//
 //    }
 //    
 //    func projectileDidCollideWithMonster(projectile:SKSpriteNode, monster:SKSpriteNode) {
