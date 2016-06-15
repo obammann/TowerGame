@@ -61,7 +61,7 @@ class PlayerEntity: GKEntity {
         
         
     }
-    func togglePlayerAttacks(){
+    func togglePlayerAttack(){
         playerInAttack = !playerInAttack
     }
     

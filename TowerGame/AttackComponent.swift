@@ -33,7 +33,7 @@ class AttackComponent: GKComponent {
         player.player.runAction(SKAction.animateWithTextures(self.playerAttackFrames,
             timePerFrame: 0.08,
             resize: false,
-            restore: true), completion: {player.togglePlayerAttack()})
+            restore: true), completion: {self.player.togglePlayerAttack()})
             
     }
 }
