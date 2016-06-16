@@ -119,9 +119,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         }
                     }
                 }
-                if (entityNode == secondBody.node && !player.playerInAttack) {
+                if (entityNode == secondBody.node) {
                     if (player.playerInAttack){
-                        entityNode?.setScale(2)
+                        let bulletEntity = entity as! BulletEntity
+                        bulletEntity.turnFromPlayer(secondBody.node as! SKSpriteNode,
+                                                    player: firstBody.node as! SKSpriteNode)
+                        
                     }else{
                         entityManager.remove(entity)
                     }
