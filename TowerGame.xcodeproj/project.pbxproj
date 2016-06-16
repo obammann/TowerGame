@@ -36,6 +36,8 @@
 		3CB6F3AA1D103ED1007822EE /* player2.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 3CB6F3A91D103ED1007822EE /* player2.atlas */; };
 		3CB6F3AC1D104B2E007822EE /* playerKnifeAttack.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 3CB6F3AB1D104B2E007822EE /* playerKnifeAttack.atlas */; };
 		5F427D7D1D101F0C00C12660 /* JoystickEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F427D7C1D101F0C00C12660 /* JoystickEntity.swift */; };
+		5F5078CB1D12A7A4003A1689 /* MenuScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 5F5078CA1D12A7A4003A1689 /* MenuScene.sks */; };
+		5F5078CD1D12AD36003A1689 /* MenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5078CC1D12AD36003A1689 /* MenuScene.swift */; };
 		5F58E6341CF86A070074B351 /* AnalogJoystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F58E6331CF86A070074B351 /* AnalogJoystick.swift */; };
 		5FABB4491D0C228300997492 /* player.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 5FABB4481D0C228300997492 /* player.atlas */; };
 /* End PBXBuildFile section */
@@ -93,6 +95,8 @@
 		3CB6F3A91D103ED1007822EE /* player2.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = player2.atlas; sourceTree = "<group>"; };
 		3CB6F3AB1D104B2E007822EE /* playerKnifeAttack.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = playerKnifeAttack.atlas; sourceTree = "<group>"; };
 		5F427D7C1D101F0C00C12660 /* JoystickEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoystickEntity.swift; sourceTree = "<group>"; };
+		5F5078CA1D12A7A4003A1689 /* MenuScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MenuScene.sks; sourceTree = "<group>"; };
+		5F5078CC1D12AD36003A1689 /* MenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuScene.swift; sourceTree = "<group>"; };
 		5F58E6331CF86A070074B351 /* AnalogJoystick.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalogJoystick.swift; sourceTree = "<group>"; };
 		5FABB4481D0C228300997492 /* player.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = player.atlas; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -163,6 +167,7 @@
 				3C9E5BE51CF4E7C6005B5A32 /* Entities */,
 				3C9E5BB31CF4E790005B5A32 /* AppDelegate.swift */,
 				3C9E5BB71CF4E790005B5A32 /* GameScene.swift */,
+				5F5078CC1D12AD36003A1689 /* MenuScene.swift */,
 				3C9E5BB91CF4E790005B5A32 /* GameViewController.swift */,
 				3C9E5BBB1CF4E790005B5A32 /* Main.storyboard */,
 				3C9E5BBE1CF4E790005B5A32 /* Assets.xcassets */,
@@ -223,6 +228,7 @@
 			isa = PBXGroup;
 			children = (
 				3C9E5BB51CF4E790005B5A32 /* GameScene.sks */,
+				5F5078CA1D12A7A4003A1689 /* MenuScene.sks */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -345,6 +351,7 @@
 				3C9E5BC21CF4E790005B5A32 /* LaunchScreen.storyboard in Resources */,
 				3CB6F3AC1D104B2E007822EE /* playerKnifeAttack.atlas in Resources */,
 				5FABB4491D0C228300997492 /* player.atlas in Resources */,
+				5F5078CB1D12A7A4003A1689 /* MenuScene.sks in Resources */,
 				3CB6F3AA1D103ED1007822EE /* player2.atlas in Resources */,
 				3C9E5BBF1CF4E790005B5A32 /* Assets.xcassets in Resources */,
 				3C9E5BBD1CF4E790005B5A32 /* Main.storyboard in Resources */,
@@ -386,6 +393,7 @@
 				3C9E5BE81CF4EAC7005B5A32 /* HealthComponent.swift in Sources */,
 				3C9E5BEE1CF4EB34005B5A32 /* ShootingComponent.swift in Sources */,
 				3C9E5BF21CF4EB57005B5A32 /* CollisionComponent.swift in Sources */,
+				5F5078CD1D12AD36003A1689 /* MenuScene.swift in Sources */,
 				3C9E5BF41CF4EB70005B5A32 /* SpriteComponent.swift in Sources */,
 				3C9E5BFC1CF4EEDB005B5A32 /* TowerEntity.swift in Sources */,
 				3C9E5BBA1CF4E790005B5A32 /* GameViewController.swift in Sources */,
@@ -539,6 +547,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "de.hs-bremen.mc.spritekit.TowerGame";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -550,6 +559,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "de.hs-bremen.mc.spritekit.TowerGame";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
