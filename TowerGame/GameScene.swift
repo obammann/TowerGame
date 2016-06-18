@@ -97,7 +97,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         entityManager.update(deltaTime)
         
         //Update camera and button/joystick with player position
-        if (playerNode.position.x > 200 && playerNode.position.x < 1065) {
+        if (true /*playerNode.position.x > 200 && playerNode.position.x < 1065*/) {
             cam.position.x += playerNode.position.x - playerOldX
             joystick.position.x += playerNode.position.x - playerOldX
             
