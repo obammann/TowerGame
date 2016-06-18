@@ -48,7 +48,7 @@ class JoystickEntity: GKEntity {
         self.joystick.trackingHandler = { [unowned self] data in
             
             let aN = scene.playerNode
-            aN.position = CGPointMake(aN.position.x + (data.velocity.x * 0.05), aN.position.y + (data.velocity.y * 0.05))
+            aN.position = CGPointMake(aN.position.x + (data.velocity.x * 0.5), aN.position.y + (data.velocity.y * 0.5))
             aN.zRotation = data.angular
         }
         

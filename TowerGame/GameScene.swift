@@ -43,9 +43,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         joystickEntity = JoystickEntity(joystick: joystick, scene: self)
         
         cam = self.childNodeWithName("playerCamera") as! SKCameraNode
-        cam.position = playerNode.position
-        cam.position.x += 47
+        //cam.position = playerNode.position
         playerOldX = playerNode.position.x
+        
+        print(playerNode.position)
+        print(cam.position)
         
 
         //Add Entities to entityManager
