@@ -19,8 +19,8 @@ struct Constants {
         static let Wall         : UInt32 = 10
     }
     
-    static let BulletSpeed = 5
+    static let BulletSpeed = 3
     
     //Distance to target when the tower begins to shoot
-    static let DistanceToTarget = 300
+    static let DistanceToTarget = 600
 }

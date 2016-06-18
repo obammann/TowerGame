@@ -12,65 +12,82 @@ import GameplayKit
 class HealthComponent: GKComponent {
     
     weak var scene: GameScene!
-    let maxHealth: CGFloat
-    let barSize: CGSize
-    var currentHealth: CGFloat
-    var healthBar: SKSpriteNode
-    let associatedObject: SKSpriteNode
+    let maxHealth: Int
+    var currentHealth: Int
+    var healthContainerSize: CGSize
+    var healthContainer: [SKSpriteNode]!
     
-    init(scene: GameScene, maxHealth: CGFloat, associatedObject: SKSpriteNode, healthBarVisible: Bool) {
+    init(scene: GameScene, maxHealth: Int, healthBarVisible: Bool) {
         self.maxHealth = maxHealth
         self.currentHealth = maxHealth
         self.scene = scene
-        self.healthBar = SKSpriteNode()
-        self.barSize = CGSize(width: associatedObject.size.width * 1.3, height: 20)
-        self.associatedObject = associatedObject
+        
+        healthContainer = [SKSpriteNode]()
+        healthContainerSize = CGSize(width: 96, height: 54)
+        
+        for i in (0) ..< self.maxHealth {
+            healthContainer.append(SKSpriteNode(imageNamed: "heart"))
+            healthContainer[i].zPosition = 100
+            
+        }
+        
         super.init()
-        self.healthBar = createHealthBar(associatedObject)
         if healthBarVisible {
-            scene.addChild(healthBar)
+            for i in (0) ..< healthContainer.count-1 {
+                scene.addChild(healthContainer[i])
+                
+            }
+
+            
         }
     }
     
-    func updateHealthBar() {
+    func updateHealthBar(hearts: Float) {
         
-        if (currentHealth > 0) {
-            self.healthBar.size = CGSize(width: associatedObject.size.width * 1.3 *
-                self.currentHealth/self.maxHealth, height: 20)
+        if (hearts < 0) {
+            for _ in 0 ..< Int(hearts * -1) {
+                healthContainer.last!.removeFromParent()
+                healthContainer.removeLast()
+            }
         } else {
-            healthBar.removeFromParent()
+            for _ in 0 ..< Int(hearts) {
+                healthContainer.append(SKSpriteNode(imageNamed: "heart"))
+                healthContainer[healthContainer.count].zPosition = 100
+            }
+            
         }
         
     }
     
-    func createHealthBar(associatedObject: SKSpriteNode) -> SKSpriteNode {
-        var bar = SKSpriteNode(color: UIColor.redColor(), size: barSize)
-        bar.anchorPoint = CGPointMake(0, 0.5)
-        bar.position = CGPoint(x: associatedObject.position.x, y: associatedObject.position.y + associatedObject.size.height*0.8)
-        bar.zPosition = 2
-        return bar
-    }
+
     
-    func doDamage(damage: CGFloat) {
+    func doDamage(damage: Int) {
         currentHealth -= damage
         if currentHealth <= 0 {
             currentHealth = 0
         } else {
 //            healthBar.runAction(SKAction.resizeToWidth(healthBar.size.width - damage, duration: 1))
-            healthBar.size.width -= damage
+            //healthBar.size.width -= damage
         }
-        updateHealthBar()
+        updateHealthBar(Float(-damage))
     }
     
     func updatePosition() {
-        healthBar.position = CGPoint(x: associatedObject.position.x, y: associatedObject.position.y + associatedObject.size.height*0.8)
+        let startXPosition = scene.cam.position.x - 150//scene.cam.size.width/2 + 32
+        let startYPosition = scene.cam.position.y + 250//scene.cam.height/2 - 32
+        
+        
+        
+        for i in (0) ..< healthContainer.count-1 {
+            healthContainer[i].position.x = startXPosition
+                + healthContainerSize.width*CGFloat(i+1)
+            healthContainer[i].position.y = startYPosition
+        }
     }
     
     override func updateWithDeltaTime(seconds: NSTimeInterval) {
         updatePosition()
     }
-    
-    
-    
+   
 
 }

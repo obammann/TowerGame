@@ -241,9 +241,9 @@
 		3CD4D1F81CF87221008C6235 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				3C43ED001D105B9800256D1D /* Const.swift */,
 				3C0C28931CFB88D100614C1B /* MyUtils.swift */,
 				5F58E6331CF86A070074B351 /* AnalogJoystick.swift */,
-				3C43ED001D105B9800256D1D /* Const.swift */,
 				5F5078CE1D13F139003A1689 /* SKButtonNode.swift */,
 			);
 			name = Helpers;

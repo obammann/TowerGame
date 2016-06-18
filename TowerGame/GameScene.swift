@@ -20,6 +20,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var playerOldX: CGFloat = 0.0
     var joystickEntity: JoystickEntity!
     
+    
     // Update time
     var lastUpdateTimeInterval: NSTimeInterval = 0
     
@@ -30,11 +31,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         entityManager = EntityManager(scene: self)
 
+        
         attackButtonNode = (self.childNodeWithName("attackButton") as? SKSpriteNode)!
         attackButtonNode.zPosition = 100
         attackButtonNode.size = CGSize(width: 150, height: 150)
         playerNode = (self.childNodeWithName("player") as? SKSpriteNode)!
-        player = PlayerEntity(node: playerNode, scene: self, maxHealth: 10)
+        player = PlayerEntity(node: playerNode, scene: self, maxHealth: 3)
         view.showsPhysics = true
         
         
@@ -107,9 +109,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if (playerNode.position.x > 200 && playerNode.position.x < 1065) {
             cam.position.x += playerNode.position.x - playerOldX
             joystick.position.x += playerNode.position.x - playerOldX
-            attackButtonNode.position.x += playerNode.position.x - playerOldX
+            
         }
-        
+        attackButtonNode.position.x = cam.position.x - 20
         playerOldX = playerNode.position.x
     }
     
