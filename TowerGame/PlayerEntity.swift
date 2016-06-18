@@ -15,7 +15,7 @@ class PlayerEntity: GKEntity {
     var node: SKSpriteNode
     var scene: GameScene
     
-    init(node: SKSpriteNode, scene: GameScene, maxHealth: CGFloat) {
+    init(node: SKSpriteNode, scene: GameScene, maxHealth: Int) {
         
         self.scene = scene
         self.node = node
@@ -32,7 +32,7 @@ class PlayerEntity: GKEntity {
         addComponent(physicsComponent)
         self.componentForClass(PhysicsComponent.self)?.setPhysicsBodyPlayer()
         
-        let healthComponent = HealthComponent(scene: scene, maxHealth: maxHealth, associatedObject: node, healthBarVisible: false)
+        let healthComponent = HealthComponent(scene: scene, maxHealth: maxHealth, healthBarVisible: false)
         addComponent(healthComponent)
         
         let movementComponent = MovementComponent(textureName: "survivor-move_", textureAtlasName: "playerMove", node: self.node)
