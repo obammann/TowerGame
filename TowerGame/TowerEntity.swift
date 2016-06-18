@@ -26,14 +26,15 @@ class TowerEntity: GKEntity {
         let spriteComponent = SpriteComponent(spriteNode: node)
         addComponent(spriteComponent)
         
-        let healthComponent = HealthComponent(scene: scene, maxHealth: maxHealth, position: node.position, associatedObject: node)
+        let healthComponent = HealthComponent(scene: scene, maxHealth: maxHealth, associatedObject: node, healthBarVisible: true)
         addComponent(healthComponent)
-        
-//        let shootingComponent = ShootingComponent(scene: scene, positionBulletOrigin: towerNode.position, imageNameBullet: "bullet", targetSprite: self.playerNode, bulletSpeed: 5, shooterNode: self.towerNode)
-//        addComponent(shootingComponent)
         
         let shootingComponent = ShootingComponent(scene: scene, bulletOriginPosition: towerNode.position, bulletImageName: "bullet", entityNode: towerNode, targetNode: targetNode)
         addComponent(shootingComponent)
+        
+        let physicsComponent = PhysicsComponent(node: self.towerNode)
+        addComponent(physicsComponent)
+        self.componentForClass(PhysicsComponent.self)?.setPhysicsBodyTower()
     }
     
     func turnToTarget() {

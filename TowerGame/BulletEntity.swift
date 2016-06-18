@@ -13,11 +13,9 @@ import GameplayKit
 class BulletEntity: GKEntity {
 
     var bulletOriginPosition: CGPoint
-    var targetPosition: CGPoint
     
-    init(imageName: String, targetPosition: CGPoint, bulletOriginPosition: CGPoint) {
+    init(imageName: String, bulletOriginPosition: CGPoint) {
         self.bulletOriginPosition = bulletOriginPosition
-        self.targetPosition = targetPosition
 
         super.init()
         
@@ -28,25 +26,21 @@ class BulletEntity: GKEntity {
         let physicsComponent = PhysicsComponent(node: (self.componentForClass(SpriteComponent.self)?.node)!)
         addComponent(physicsComponent)
         self.componentForClass(PhysicsComponent.self)?.setPhysicsBodyBullet()
-        
-        turnToTarget((self.componentForClass(SpriteComponent.self)?.node)!)
-        
     }
+    
     func turnFromPlayer(bulletNode: SKSpriteNode, player: SKSpriteNode) {
         bulletNode.removeAllActions()
         
+        let angle = player.zRotation + CGFloat(M_PI)
+        bulletNode.runAction(SKAction.rotateToAngle(angle, duration: 0.0))
         
-        bulletNode.runAction(SKAction.rotateToAngle(player.zRotation + CGFloat(M_PI*1.0), duration: 0.0))
+        let velocityX = cos(angle-CGFloat(M_PI/2))
+        let velocityY = sin(angle-CGFloat(M_PI/2))
         
-        /*
-        
-        let velocityX = cos(player.zRotation + CGFloat(M_PI*1.0))
-        let velocityY = sin(player.zRotation + CGFloat(M_PI*1.0))
-        
-        let offset = CGPoint(x: velocityX, y: velocityY) - player.position
+        let offset = CGPoint(x: velocityX, y: velocityY)
         
         // Get the direction of where to shoot
-        let direction = offset.normalized()
+        var direction = offset.normalized()
         
         // Make it shoot far enough to be guaranteed off screen
         let shootAmount = direction * 1000
@@ -55,13 +49,10 @@ class BulletEntity: GKEntity {
         let realDest = shootAmount + player.position
         
         // Create the actions
-        bulletNode.runAction(SKAction.moveTo(realDest, duration: Double(Constants.BulletSpeed)))*/
-        //player.
-    }
-    
-    func turnToTarget(bulletNode: SKSpriteNode) {
-        let angle = atan2(bulletOriginPosition.y - targetPosition.y, bulletOriginPosition.x - targetPosition.x) + CGFloat(M_PI)
-        let rotateAction = SKAction.rotateToAngle(angle + CGFloat(M_PI*0.5), duration: 0.0)
-        bulletNode.runAction(rotateAction)
+        let actionMove = SKAction.moveTo(realDest, duration: Double(Constants.BulletSpeed))
+        let actionMoveDone = SKAction.runBlock {
+            bulletNode.removeFromParent()
+        }
+        bulletNode.runAction(SKAction.sequence([actionMove, actionMoveDone]))
     }
 }

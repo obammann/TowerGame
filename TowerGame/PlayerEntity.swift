@@ -12,71 +12,53 @@ import GameplayKit
 
 class PlayerEntity: GKEntity {
 
-    var player: SKSpriteNode
+    var node: SKSpriteNode
     var scene: GameScene
-    var playerWalkingFrames : [SKTexture]!
-    var playerInAttack = false
     
     init(node: SKSpriteNode, scene: GameScene, maxHealth: CGFloat) {
         
         self.scene = scene
-        self.player = node
+        self.node = node
         
         super.init()
         
         let spriteComponent = SpriteComponent(spriteNode: node)
         addComponent(spriteComponent)
         
-        let attackComponent = AttackComponent(player: self)
+        let attackComponent = AttackComponent(node: self.node)
         addComponent(attackComponent)
         
         let physicsComponent = PhysicsComponent(node: node)
         addComponent(physicsComponent)
         self.componentForClass(PhysicsComponent.self)?.setPhysicsBodyPlayer()
         
-        let healthComponent = HealthComponent(scene: scene, maxHealth: maxHealth, position: node.position, associatedObject: node)
+        let healthComponent = HealthComponent(scene: scene, maxHealth: maxHealth, associatedObject: node, healthBarVisible: true)
         addComponent(healthComponent)
         
-//        let playerAnimatedAtlas = SKTextureAtlas(named: "player")
-//        var walkFrames = [SKTexture]()
-//        
-//        let numImages = playerAnimatedAtlas.textureNames.count
-//        for i in 0 ..< numImages {
-//            let playerTextureName = "character\(i)"
-//            walkFrames.append(playerAnimatedAtlas.textureNamed(playerTextureName))
-//        }
-//        playerWalkingFrames = walkFrames
-//        let firstFrame = playerWalkingFrames[0]
-        
-        let playerAnimatedAtlas = SKTextureAtlas(named: "playerMove")
-        var walkFrames = [SKTexture]()
-        
-        let numImages = playerAnimatedAtlas.textureNames.count
-        for i in 0 ..< numImages {
-            let playerTextureName = "survivor-move_\(i)"
-            walkFrames.append(playerAnimatedAtlas.textureNamed(playerTextureName))
-        }
-        playerWalkingFrames = walkFrames
-        let firstFrame = playerWalkingFrames[0]
-        
-        
+        let movementComponent = MovementComponent(textureName: "survivor-move_", textureAtlasName: "playerMove", node: self.node)
+        addComponent(movementComponent)
     }
-    func setPlayerAttack(isAttack: Bool){
-        playerInAttack = isAttack
-    }
-    
-
     
     func playerWalk() {
-        self.player.runAction(SKAction.repeatActionForever(
-            SKAction.animateWithTextures(self.playerWalkingFrames,
-                timePerFrame: 0.08,
-                resize: false,
-                restore: true)),
-                                        withKey:"walkingInPlacePlayer")
+        self.componentForClass(MovementComponent)?.doMovement()
+    }
+    
+    func playerStand() {
+        
+    }
+    
+    func attack() {
+        self.componentForClass(AttackComponent)?.attack()
+    }
+    
+    func fend() {
+        if ((self.componentForClass(AttackComponent)?.inAttack) == true) {
+            self.componentForClass(AttackComponent)?.fend(scene, shootAngle: node.zRotation + CGFloat(M_PI))
+        }
     }
     
     func playerEndAnimations() {
-        self.player.removeAllActions()
+        self.node.removeAllActions()
     }
+    
 }

@@ -57,6 +57,17 @@ class EntityManager {
         entities.remove(entity)
     }
     
+    func findEntityFromNode(node: SKSpriteNode) -> GKEntity? {
+        for entity in self.entities {
+            if let entityNode = entity.componentForClass(SpriteComponent)?.node {
+                if (entityNode == node) {
+                    return entity
+                }
+            }
+        }
+        return nil
+    }
+    
     func update(deltaTime: CFTimeInterval) {
         for entity in entities {
             entity.updateWithDeltaTime(deltaTime)

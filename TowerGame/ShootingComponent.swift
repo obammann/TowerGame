@@ -40,14 +40,15 @@ class ShootingComponent: GKComponent {
     //Create and shoot the bullet in the target's direction
     func shoot() {
         if (!didShooting) {
-            
             //Create BulletEntity and add it to the EntityManager
-            let bullet = BulletEntity(imageName: bulletImageName, targetPosition: targetNode.position, bulletOriginPosition: bulletOriginPosition)
+            let bullet = BulletEntity(imageName: bulletImageName, /*targetPosition: targetNode.position,*/ bulletOriginPosition: bulletOriginPosition)
             scene.entityManager.add(bullet)
             self.bulletNode = (bullet.componentForClass(SpriteComponent.self)?.node)!
             
-            //Rotate the bullet to the target's direction
+            //Angle to the target's direction
             let angle = atan2(bulletOriginPosition.y - targetNode.position.y, bulletOriginPosition.x - targetNode.position.x) + CGFloat(M_PI)
+            
+            //Rotate the bullet to the target's direction
             let rotateAction = SKAction.rotateToAngle(angle + CGFloat(M_PI*0.5), duration: 0.0)
             bulletNode!.runAction(rotateAction)
             

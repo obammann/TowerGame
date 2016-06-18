@@ -18,7 +18,7 @@ class HealthComponent: GKComponent {
     var healthBar: SKSpriteNode
     let associatedObject: SKSpriteNode
     
-    init(scene: GameScene, maxHealth: CGFloat, position: CGPoint, associatedObject: SKSpriteNode) {
+    init(scene: GameScene, maxHealth: CGFloat, associatedObject: SKSpriteNode, healthBarVisible: Bool) {
         self.maxHealth = maxHealth
         self.currentHealth = maxHealth
         self.scene = scene
@@ -27,7 +27,9 @@ class HealthComponent: GKComponent {
         self.associatedObject = associatedObject
         super.init()
         self.healthBar = createHealthBar(associatedObject)
-        scene.addChild(healthBar)
+        if healthBarVisible {
+            scene.addChild(healthBar)
+        }
     }
     
     func updateHealthBar() {

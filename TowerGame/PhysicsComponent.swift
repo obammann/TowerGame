@@ -28,6 +28,7 @@ class PhysicsComponent: GKComponent {
     func setPhysicsBodyBullet() {
         node.zPosition = 10
         node.physicsBody = SKPhysicsBody(circleOfRadius: node.size.width/2-3)
+        node.physicsBody?.affectedByGravity = false
         node.physicsBody?.dynamic = true
         node.physicsBody?.categoryBitMask = Constants.PhysicsCategory.Bullet
         node.physicsBody?.contactTestBitMask = Constants.PhysicsCategory.Player
@@ -36,11 +37,22 @@ class PhysicsComponent: GKComponent {
     }
     
     func setPhysicsBodyObjects() {
-        
+//        node.zPosition = 10
+        node.physicsBody = SKPhysicsBody(rectangleOfSize: node.size)
+        node.physicsBody?.affectedByGravity = false
+        node.physicsBody?.dynamic = true
+        node.physicsBody?.categoryBitMask = Constants.PhysicsCategory.Object
+        node.physicsBody?.contactTestBitMask = Constants.PhysicsCategory.Bullet
+        node.physicsBody?.collisionBitMask = Constants.PhysicsCategory.None
     }
     
     func setPhysicsBodyTower() {
-        
+        node.physicsBody = SKPhysicsBody(rectangleOfSize: node.size)
+        node.physicsBody?.affectedByGravity = false
+        node.physicsBody?.dynamic = true
+        node.physicsBody?.categoryBitMask = Constants.PhysicsCategory.Tower
+//        node.physicsBody?.contactTestBitMask = Constants.PhysicsCategory.Bullet
+        node.physicsBody?.collisionBitMask = Constants.PhysicsCategory.None
     }
     
 }
