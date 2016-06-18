@@ -12,7 +12,7 @@ import GameplayKit
 class AttackComponent: GKComponent {
     
     var entityNode: SKSpriteNode
-    var playerAttackFrames : [SKTexture]!
+    var entityAttackFrames : [SKTexture]!
     var inAttack = false
     
     init(node: SKSpriteNode) {
@@ -26,15 +26,15 @@ class AttackComponent: GKComponent {
             let playerTextureName = "survivor-meleeattack_knife_\(i)"
             attackFrames.append(playerAnimatedAtlas.textureNamed(playerTextureName))
         }
-        playerAttackFrames = attackFrames
-        let firstFrame = playerAttackFrames[0]
+        entityAttackFrames = attackFrames
+        let firstFrame = entityAttackFrames[0]
     }
     
     
     func attack() {
         if !inAttack {
             inAttack = true
-            let animationAction = SKAction.animateWithTextures(self.playerAttackFrames,
+            let animationAction = SKAction.animateWithTextures(self.entityAttackFrames,
                                                                timePerFrame: 0.055,
                                                                resize: false,
                                                                restore: true)
@@ -43,32 +43,21 @@ class AttackComponent: GKComponent {
             }
             entityNode.runAction(SKAction.sequence([animationAction, setInAttackFalse]))
         }
-        
-//        node.runAction(SKAction.animateWithTextures(self.playerAttackFrames,
-//            timePerFrame: 0.055,
-//            resize: false,
-//            restore: true))
     }
     
-    func fend(scene: GameScene, shootAngle: CGFloat) {
-        //Create BulletEntity and add it to the EntityManager
-        let bullet = BulletEntity(imageName: "bullet", /*targetPosition: targetNode.position,*/ bulletOriginPosition: entityNode.position)
-        scene.entityManager.add(bullet)
-        let bulletNode = (bullet.componentForClass(SpriteComponent.self)?.node)!
+    func fend(scene: GameScene, bulletNode: SKSpriteNode) {
+        bulletNode.removeAllActions()
         
-        //Rotate the bullet to the target's direction
-        let angle = shootAngle
+        let angle = entityNode.zRotation + CGFloat(M_PI)
+        bulletNode.runAction(SKAction.rotateToAngle(angle, duration: 0.0))
         
-        let rotateAction = SKAction.rotateToAngle(angle + CGFloat(M_PI*0.5), duration: 0.0)
-        bulletNode.runAction(rotateAction)
-        
-        let velocityX = cos(angle)
-        let velocityY = sin(angle)
+        let velocityX = cos(angle-CGFloat(M_PI/2))
+        let velocityY = sin(angle-CGFloat(M_PI/2))
         
         let offset = CGPoint(x: velocityX, y: velocityY)
         
         // Get the direction of where to shoot
-        let direction = offset.normalized()
+        var direction = offset.normalized()
         
         // Make it shoot far enough to be guaranteed off screen
         let shootAmount = direction * 1000
@@ -79,7 +68,8 @@ class AttackComponent: GKComponent {
         // Create the actions
         let actionMove = SKAction.moveTo(realDest, duration: Double(Constants.BulletSpeed))
         let actionMoveDone = SKAction.runBlock {
-            scene.entityManager.remove(bullet)
+            let bulletEntity = scene.entityManager.findEntityFromNode(bulletNode)
+            scene.entityManager.remove(bulletEntity!)
         }
         bulletNode.runAction(SKAction.sequence([actionMove, actionMoveDone]))
     }

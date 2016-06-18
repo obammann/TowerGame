@@ -28,31 +28,31 @@ class BulletEntity: GKEntity {
         self.componentForClass(PhysicsComponent.self)?.setPhysicsBodyBullet()
     }
     
-    func turnFromPlayer(bulletNode: SKSpriteNode, player: SKSpriteNode) {
-        bulletNode.removeAllActions()
-        
-        let angle = player.zRotation + CGFloat(M_PI)
-        bulletNode.runAction(SKAction.rotateToAngle(angle, duration: 0.0))
-        
-        let velocityX = cos(angle-CGFloat(M_PI/2))
-        let velocityY = sin(angle-CGFloat(M_PI/2))
-        
-        let offset = CGPoint(x: velocityX, y: velocityY)
-        
-        // Get the direction of where to shoot
-        var direction = offset.normalized()
-        
-        // Make it shoot far enough to be guaranteed off screen
-        let shootAmount = direction * 1000
-        
-        // Add the shoot amount to the current position
-        let realDest = shootAmount + player.position
-        
-        // Create the actions
-        let actionMove = SKAction.moveTo(realDest, duration: Double(Constants.BulletSpeed))
-        let actionMoveDone = SKAction.runBlock {
-            bulletNode.removeFromParent()
-        }
-        bulletNode.runAction(SKAction.sequence([actionMove, actionMoveDone]))
-    }
+//    func turnFromPlayer(bulletNode: SKSpriteNode, player: SKSpriteNode) {
+//        bulletNode.removeAllActions()
+//        
+//        let angle = player.zRotation + CGFloat(M_PI)
+//        bulletNode.runAction(SKAction.rotateToAngle(angle, duration: 0.0))
+//        
+//        let velocityX = cos(angle-CGFloat(M_PI/2))
+//        let velocityY = sin(angle-CGFloat(M_PI/2))
+//        
+//        let offset = CGPoint(x: velocityX, y: velocityY)
+//        
+//        // Get the direction of where to shoot
+//        var direction = offset.normalized()
+//        
+//        // Make it shoot far enough to be guaranteed off screen
+//        let shootAmount = direction * 1000
+//        
+//        // Add the shoot amount to the current position
+//        let realDest = shootAmount + player.position
+//        
+//        // Create the actions
+//        let actionMove = SKAction.moveTo(realDest, duration: Double(Constants.BulletSpeed))
+//        let actionMoveDone = SKAction.runBlock {
+//            bulletNode.removeFromParent()
+//        }
+//        bulletNode.runAction(SKAction.sequence([actionMove, actionMoveDone]))
+//    }
 }
