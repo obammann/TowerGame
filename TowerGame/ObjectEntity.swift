@@ -11,13 +11,13 @@ import GameplayKit
 
 class ObjectEntity: GKEntity {
     
-    init(node: SKSpriteNode, scene: GameScene, maxHealth: CGFloat) {
+    init(node: SKSpriteNode, scene: GameScene, maxHealth: Int) {
         super.init()
         
         let spriteComponent = SpriteComponent(spriteNode: node)
         addComponent(spriteComponent)
         
-        let healthComponent = HealthComponent(scene: scene, maxHealth: maxHealth, associatedObject: node, healthBarVisible: false)
+        let healthComponent = HealthComponent(scene: scene, maxHealth: maxHealth, healthBarVisible: false)
         addComponent(healthComponent)
         
         let physicsComponent = PhysicsComponent(node: node)
