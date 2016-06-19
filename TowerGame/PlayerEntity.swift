@@ -32,11 +32,8 @@ class PlayerEntity: GKEntity {
         addComponent(physicsComponent)
         self.componentForClass(PhysicsComponent.self)?.setPhysicsBodyPlayer()
         
-<<<<<<< HEAD
+
         let healthComponent = HealthComponent(scene: scene, maxHealth: Int(maxHealth), healthBarVisible: false)
-=======
-        let healthComponent = HealthComponent(scene: scene, maxHealth: maxHealth, healthBarVisible: false)
->>>>>>> 6cbf516a7bc560b9556b427ec400a3f793260c5a
         addComponent(healthComponent)
         
         let movementComponent = MovementComponent(textureName: "survivor-move_", textureAtlasName: "playerMove", node: self.node)

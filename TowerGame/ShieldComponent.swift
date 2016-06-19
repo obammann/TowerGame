@@ -60,7 +60,7 @@ class ShieldComponent: GKComponent {
     func shrinkShieldBar() {
         if !holdingShield {
             holdingShield = true
-            shieldBar!.runAction(SKAction.resizeToWidth(0, duration: Double(maxShieldCapacity)))
+            shieldBar!.runAction(SKAction.resizeToWidth(0, duration: Double((shieldBar?.size.width)!/20)))
         }
     }
     
