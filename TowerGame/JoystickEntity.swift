@@ -18,6 +18,7 @@ class JoystickEntity: GKEntity {
     
     
     
+    
     init(joystick: AnalogJoystick, scene: GameScene) {
         self.scene = scene
         self.joystick = joystick
@@ -50,6 +51,8 @@ class JoystickEntity: GKEntity {
             let aN = scene.playerNode
             aN.position = CGPointMake(aN.position.x + (data.velocity.x * 0.05), aN.position.y + (data.velocity.y * 0.05))
             aN.zRotation = data.angular
+            scene.player.createGas()
+
         }
         
         self.joystick.stopHandler = { [unowned self] in

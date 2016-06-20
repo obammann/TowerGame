@@ -20,7 +20,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var playerOldX: CGFloat = 0.0
     var joystickEntity: JoystickEntity!
     var blinkSequence: SKAction!
-    var didSmoke: Bool = false
+    
     
     
     // Update time
@@ -104,15 +104,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //Update all entities
         entityManager.update(deltaTime)
         
-        if !didSmoke{
-            //player.createGas()
-            didSmoke = !didSmoke
-            let wait = SKAction.waitForDuration(1)
-            let run = SKAction.runBlock {
-                self.didSmoke = false
-            }
-            playerNode.runAction(SKAction.sequence([wait, run]))
-        }
+
 
         
         //Update camera and button/joystick with player position

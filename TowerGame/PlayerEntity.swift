@@ -16,6 +16,7 @@ class PlayerEntity: GKEntity {
     var scene: GameScene
     var movementFrames: [SKTexture]!
     let group: SKAction
+    var didSmoke: Bool = false
     
     init(node: SKSpriteNode, scene: GameScene, maxHealth: Int) {
         
@@ -38,21 +39,21 @@ class PlayerEntity: GKEntity {
          restore: true)),
          withKey:"movement")*/
         
-        let scaleAction = SKAction.scaleTo(1, duration: 5)
+        let scaleAction = SKAction.scaleTo(0.25, duration: 1)
 
         
         let playerAnimatedAtlas = SKTextureAtlas(named: "puff")
         var walkFrames = [SKTexture]()
         
-        let numberImages = playerAnimatedAtlas.textureNames.count
-        for i in 0 ..< numberImages {
+        let numberImages = playerAnimatedAtlas.textureNames.count + 10
+        for i in 10 ..< numberImages {
             let textureName = "whitePuff\(i)"
             walkFrames.append(playerAnimatedAtlas.textureNamed(textureName))
         }
         movementFrames = walkFrames
         
         let textureAction = SKAction.animateWithTextures(self.movementFrames,
-                timePerFrame: 0.2,
+                timePerFrame: 0.1,
                 resize: false,
                 restore: true)
         
@@ -88,12 +89,26 @@ class PlayerEntity: GKEntity {
         
     }
     func createGas() {
-        let gas = SKSpriteNode(imageNamed: "whitePuff0")
-        gas.setScale(0.2)
-        gas.position = scene.playerNode.position
-        scene.addChild(gas)
-        print(gas)
-        gas.runAction(SKAction.sequence([group, SKAction.removeFromParent()]))
+        if !self.didSmoke{
+            
+            self.didSmoke = !self.didSmoke
+            let wait = SKAction.waitForDuration(0.25)
+            let run = SKAction.runBlock {
+                self.didSmoke = false
+            }
+            self.node.runAction(SKAction.sequence([wait, run]))
+            
+            let gas = SKSpriteNode(imageNamed: "whitePuff10")
+            gas.alpha = 0.75
+            gas.zPosition = 100
+            gas.setScale(0.05)
+            gas.position = scene.playerNode.position
+            scene.addChild(gas)
+            print(gas)
+            gas.runAction(SKAction.sequence([group, SKAction.removeFromParent()]))
+        }
+        
+
     }
     
     func playerWalk() {
