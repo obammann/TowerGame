@@ -28,7 +28,7 @@ class ShieldComponent: GKComponent {
         self.entityNode = node
         self.maxShieldCapacity = maxShieldCapacity
         self.currentShieldCapacity = maxShieldCapacity
-        self.shieldBarWidth = maxShieldCapacity * 20
+        self.shieldBarWidth = maxShieldCapacity * 25
         self.barShrinkDuration = 3.0
         super.init()
         createShieldBar()
@@ -69,7 +69,7 @@ class ShieldComponent: GKComponent {
     func shrinkShieldBar() {
         if !holdingShield {
             holdingShield = true
-            let shrinkDuration = barShrinkDuration * (((shieldBar?.size.width)!/20) / (self.maxShieldCapacity))
+            let shrinkDuration = barShrinkDuration * (((shieldBar?.size.width)!/25) / (self.maxShieldCapacity))
             shieldBar!.runAction(SKAction.resizeToWidth(0, duration: Double(shrinkDuration)))
         }
     }
@@ -80,15 +80,15 @@ class ShieldComponent: GKComponent {
             let shieldEntity = self.scene.entityManager.findEntityFromNode(shieldNode!)
             self.scene.entityManager.remove(shieldEntity!)
             holdingShield = false
-            let shieldLoadDuration = maxShieldCapacity - (shieldBar!.size.width)/20
+            let shieldLoadDuration = (maxShieldCapacity - (shieldBar!.size.width)/25) * 0.5
             shieldBar!.runAction(SKAction.resizeToWidth(shieldBarWidth, duration: Double(shieldLoadDuration)))
         }
     }
     
     func updatePosition() {
-        shieldBar?.position.x = scene.cam.position.x - 510//scene.cam.size.width/2 + 32
+        shieldBar?.position.x = scene.cam.position.x - 518//scene.cam.size.width/2 + 32
         shieldBar?.position.y = scene.cam.position.y + 190//scene.cam.height/2 - 32
-        shieldBarBorder?.position.x = (shieldBar?.position.x)! + 100
+        shieldBarBorder?.position.x = (shieldBar?.position.x)! + 125
         shieldBarBorder?.position.y = (shieldBar?.position.y)!
         if holdingShield {
             let angle = entityNode.zRotation + CGFloat(M_PI)
