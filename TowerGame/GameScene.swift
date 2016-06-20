@@ -145,16 +145,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     healthComponent.doDamage(1)
                     if healthComponent.currentHealth == 0 {
                         entityManager.remove(entity1!)
+                        let smokeEntity = SmokeEntity(position: (secondBody.node?.position)!, sizeScale: 1, scene: self)
+                        self.entityManager.add(smokeEntity)
                     }
                     let entity2 = entityManager.findEntityFromNode(secondBody.node as! SKSpriteNode)
                     entityManager.remove(entity2!)
+                    let smokeEntity = SmokeEntity(position: (secondBody.node?.position)!, sizeScale: 0.4, scene: self)
+                    self.entityManager.add(smokeEntity)
                 }
+                let smokeEntity = SmokeEntity(position: (secondBody.node?.position)!, sizeScale: 0.4, scene: self)
+                self.entityManager.add(smokeEntity)
             } else if (firstBody.categoryBitMask == Constants.PhysicsCategory.Wall) {
                 //firstBody = Wall
                 //secondBody = Bullet
                 //Evtl Verhalten zwischen Wall und Bullet anpassen
                 let entity = entityManager.findEntityFromNode(secondBody.node as! SKSpriteNode)
                 entityManager.remove(entity!)
+                //Add smoke when shooting
+                let smokeEntity = SmokeEntity(position: (secondBody.node?.position)!, sizeScale: 0.4, scene: self)
+                self.entityManager.add(smokeEntity)
             } else if (firstBody.categoryBitMask == Constants.PhysicsCategory.Object) {
                 //firstBody = Object
                 //secondBody = Bullet
@@ -165,11 +174,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     firstBody.node?.runAction(SKAction.colorizeWithColor(UIColor.whiteColor(), colorBlendFactor: 0, duration: 1))
                     if healthComponent.currentHealth == 0 {
                         entityManager.remove(entity1!)
+                        let smokeEntity = SmokeEntity(position: (secondBody.node?.position)!, sizeScale: 0.8, scene: self)
+                        self.entityManager.add(smokeEntity)
                     }
                 }
                 
                 let entity2 = entityManager.findEntityFromNode(secondBody.node as! SKSpriteNode)
                 entityManager.remove(entity2!)
+                let smokeEntity = SmokeEntity(position: (secondBody.node?.position)!, sizeScale: 0.4, scene: self)
+                self.entityManager.add(smokeEntity)
             }
         }
     }
