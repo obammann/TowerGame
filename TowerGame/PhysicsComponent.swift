@@ -18,8 +18,8 @@ class PhysicsComponent: GKComponent {
     }
     
     func setPhysicsBodyPlayer() {
-//        node.physicsBody = SKPhysicsBody(circleOfRadius: node.size.width/2)
-        node.physicsBody = SKPhysicsBody(rectangleOfSize: node.size)
+        node.physicsBody = SKPhysicsBody(circleOfRadius: node.size.width/2)
+//        node.physicsBody = SKPhysicsBody(rectangleOfSize: node.size)
         node.physicsBody?.affectedByGravity = false
         node.physicsBody?.dynamic = true
         node.physicsBody?.categoryBitMask = Constants.PhysicsCategory.Player

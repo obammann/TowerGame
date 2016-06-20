@@ -40,17 +40,10 @@ class ShootingComponent: GKComponent {
     //Create and shoot the bullet in the target's direction
     func shoot() {
         if (!didShooting) {
-            //Create BulletEntity and add it to the EntityManager
-            let bullet = BulletEntity(imageName: bulletImageName, /*targetPosition: targetNode.position,*/ bulletOriginPosition: bulletOriginPosition)
-            scene.entityManager.add(bullet)
-            self.bulletNode = (bullet.componentForClass(SpriteComponent.self)?.node)!
+            
             
             //Angle to the target's direction
             let angle = atan2(bulletOriginPosition.y - targetNode.position.y, bulletOriginPosition.x - targetNode.position.x) + CGFloat(M_PI)
-            
-            //Rotate the bullet to the target's direction
-            let rotateAction = SKAction.rotateToAngle(angle + CGFloat(M_PI*0.5), duration: 0.0)
-            bulletNode!.runAction(rotateAction)
             
             // Determine offset of location to bullet
             let offset = targetNode.position - bulletOriginPosition
@@ -64,12 +57,36 @@ class ShootingComponent: GKComponent {
             // Add the shoot amount to the current position
             let realDest = shootAmount + bulletOriginPosition
             
+            //Create BulletEntity and add it to the EntityManager
+            let bullet = BulletEntity(imageName: bulletImageName, /*targetPosition: targetNode.position,*/ bulletOriginPosition: bulletOriginPosition+direction*45)
+            scene.entityManager.add(bullet)
+            self.bulletNode = (bullet.componentForClass(SpriteComponent.self)?.node)!
+            
+            //Rotate the bullet to the target's direction
+            let rotateAction = SKAction.rotateToAngle(angle + CGFloat(M_PI*0.5), duration: 0.0)
+            bulletNode!.runAction(rotateAction)
+            
             // Create the actions
             let actionMove = SKAction.moveTo(realDest, duration: Double(Constants.BulletSpeed))
             let actionMoveDone = SKAction.runBlock {
                 self.scene.entityManager.remove(bullet)
             }
             bulletNode!.runAction(SKAction.sequence([actionMove, actionMoveDone]))
+            
+            let smoke = SKSpriteNode(imageNamed: "smokeWhiteSmall")
+            smoke.size = CGSize(width: smoke.size.width * 0.4, height: smoke.size.height * 0.4)
+            smoke.position = bulletOriginPosition+direction*45
+            smoke.zPosition = 40
+            smoke.alpha = 0.5
+            self.scene.addChild(smoke)
+            let scaleAction = SKAction.scaleBy(3, duration: 1)
+            let removeAction = SKAction.runBlock {
+                smoke.removeFromParent()
+            }
+            let fadeOutAction = SKAction.runBlock {
+                SKAction.sequence([SKAction.fadeOutWithDuration(2), removeAction])
+            }
+            smoke.runAction(SKAction.sequence([scaleAction, removeAction]))
             
             didShooting = !didShooting
             let wait = SKAction.waitForDuration(1)
