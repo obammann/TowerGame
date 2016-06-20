@@ -19,6 +19,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var cam = SKCameraNode()
     var playerOldX: CGFloat = 0.0
     var joystickEntity: JoystickEntity!
+    var blinkSequence: SKAction!
     
     
     // Update time
@@ -28,6 +29,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func didMoveToView(view: SKView) {
         // Setup physics world's contact delegate
         physicsWorld.contactDelegate = self
+        
+        blinkSequence = SKAction.sequence([SKAction.fadeOutWithDuration(0.1)
+            , SKAction.fadeInWithDuration(0.1)])
         
         
         SKAction.playSoundFileNamed("shot.caf", waitForCompletion: false)
@@ -50,9 +54,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         cam = self.childNodeWithName("playerCamera") as! SKCameraNode
         
         playerOldX = playerNode.position.x
-        
-        print(playerNode.position)
-        print(cam.position)
+
         
 
         //Add Entities to entityManager
@@ -181,6 +183,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             secondBody = contact.bodyA
         }
         
+        firstBody.node?.runAction(blinkSequence)
         collisionAction(firstBody, secondBody: secondBody)
     }
 }

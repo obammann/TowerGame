@@ -31,7 +31,6 @@ class PlayerEntity: GKEntity {
         let physicsComponent = PhysicsComponent(node: node)
         addComponent(physicsComponent)
         self.componentForClass(PhysicsComponent.self)?.setPhysicsBodyPlayer()
-        print(maxHealth)
 
         let healthComponent = HealthComponent(scene: scene, maxHealth: Int(maxHealth), healthBarVisible: true)
         addComponent(healthComponent)
