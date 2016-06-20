@@ -44,7 +44,9 @@ class ShieldComponent: GKComponent {
         let direction = offset.normalized()
         shieldNode!.position = entityNode.position + (direction * 10)
         self.shrinkShieldBar()
-        self.scene.addChild(shieldNode!)
+        self.scene.entityManager.add(ShieldEntity(shieldNode: shieldNode!))
+        
+//        self.scene.addChild(shieldNode!)
     }
     
     func createShieldBar() {
@@ -67,7 +69,9 @@ class ShieldComponent: GKComponent {
     func putShieldDown() {
         if holdingShield {
             shieldBar!.removeAllActions()
-            shieldNode!.removeFromParent()
+//            let shieldEntity = self.scene.entityManager.findEntityFromNode(shieldNode!)
+//            self.scene.entityManager.remove(shieldEntity!)
+            self.shieldNode?.removeFromParent()
             holdingShield = false
             let shieldLoadDuration = maxShieldCapacity - (shieldBar!.size.width)/20
             shieldBar!.runAction(SKAction.resizeToWidth(shieldBarWidth, duration: Double(shieldLoadDuration)))

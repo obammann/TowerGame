@@ -11,7 +11,15 @@ import GameplayKit
 
 class ShieldEntity: GKEntity {
     
-    override init() {
+    init(shieldNode: SKSpriteNode) {
+        super.init()
         
+        let spriteComponent = SpriteComponent(spriteNode: shieldNode)
+        addComponent(spriteComponent)
+        
+        let physicsComponent = PhysicsComponent(node: shieldNode)
+        addComponent(physicsComponent)
+        physicsComponent.setPhysicsBodyShield()
     }
+    
 }

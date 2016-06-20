@@ -59,13 +59,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
             if child.name == "box" {
                 if let child = child as? SKSpriteNode {
-                    let box = ObjectEntity(node: child, scene: self, maxHealth: 2)
+                    let box = ObjectEntity(node: child, scene: self, maxHealth: 2, object: "box")
                     entityManager.addEntityFromEditor(box)
                 }
             }
             if child.name == "border" {
                 if let child = child as? SKSpriteNode {
-                    let wall = ObjectEntity(node: child, scene: self)
+                    let wall = ObjectEntity(node: child, scene: self, object: "wall")
                     entityManager.addEntityFromEditor(wall)
                 }
             }
