@@ -16,12 +16,13 @@ class HealthComponent: GKComponent {
     var currentHealth: Int
     var healthContainerSize: CGSize
     var healthContainer: [SKSpriteNode]!
+    var healthBarVisible: Bool
     
     init(scene: GameScene, maxHealth: Int, healthBarVisible: Bool) {
         self.maxHealth = maxHealth
         self.currentHealth = maxHealth
         self.scene = scene
-        
+        self.healthBarVisible = healthBarVisible
         healthContainer = [SKSpriteNode]()
         healthContainerSize = CGSize(width: 96, height: 54)
         
@@ -34,6 +35,8 @@ class HealthComponent: GKComponent {
                 scene.addChild(healthContainer[i])
                 
             }
+            
+        }else {
             
         }
 
@@ -49,6 +52,7 @@ class HealthComponent: GKComponent {
                 
                 healthContainer.last!.removeFromParent()
                 healthContainer.removeLast()
+                
             }
         } else {
             for _ in 0 ..< Int(hearts) {
@@ -64,13 +68,16 @@ class HealthComponent: GKComponent {
     
     func doDamage(damage: Int) {
         currentHealth -= damage
+        
         if currentHealth <= 0 {
             currentHealth = 0
         } else {
 //            healthBar.runAction(SKAction.resizeToWidth(healthBar.size.width - damage, duration: 1))
             //healthBar.size.width -= damage
         }
-        updateHealthBar(Float(-damage))
+        if self.healthBarVisible {
+            updateHealthBar(Float(-damage))
+        }
     }
     
     func updatePosition() {
