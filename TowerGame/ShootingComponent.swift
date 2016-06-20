@@ -65,7 +65,7 @@ class ShootingComponent: GKComponent {
             //Rotate the bullet to the target's direction
             let rotateAction = SKAction.rotateToAngle(angle + CGFloat(M_PI*0.5), duration: 0.0)
             bulletNode!.runAction(rotateAction)
-            bulletNode?.runAction(SKAction.playSoundFileNamed("shot.wav", waitForCompletion: false))
+            bulletNode?.runAction(SKAction.playSoundFileNamed("shot.caf", waitForCompletion: false))
             // Create the actions
             let actionMove = SKAction.moveTo(realDest, duration: Double(Constants.BulletSpeed))
             let actionMoveDone = SKAction.runBlock {

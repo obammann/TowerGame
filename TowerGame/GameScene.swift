@@ -29,6 +29,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Setup physics world's contact delegate
         physicsWorld.contactDelegate = self
         
+        
+        SKAction.playSoundFileNamed("shot.caf", waitForCompletion: false)
+        SKAction.playSoundFileNamed("playerHit.caf", waitForCompletion: false)
+        SKAction.playSoundFileNamed("playerRicochet.caf", waitForCompletion: false)
+        
         entityManager = EntityManager(scene: self)
 
         
@@ -113,6 +118,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 //secondBody = Bullet
                 let entity1 = entityManager.findEntityFromNode(firstBody.node as! SKSpriteNode) as! PlayerEntity
                 if let healthComponent = entity1.componentForClass(HealthComponent) {
+                    firstBody.node?.runAction(SKAction.playSoundFileNamed("playerHit.caf", waitForCompletion: false))
                     healthComponent.doDamage(1)
                     if healthComponent.currentHealth == 0 {
                         entityManager.remove(entity1)
@@ -123,6 +129,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             } else if (firstBody.categoryBitMask == Constants.PhysicsCategory.Shield) {
                 //firstBody = Shield
                 //secondBody = Bullet
+                firstBody.node!.runAction(SKAction.playSoundFileNamed("playerRicochet.caf", waitForCompletion: false))
                 player.fend(secondBody.node as! SKSpriteNode)
             } else if (firstBody.categoryBitMask == Constants.PhysicsCategory.Tower) {
                 //firstBody = Tower
