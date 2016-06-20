@@ -43,7 +43,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         joystickEntity = JoystickEntity(joystick: joystick, scene: self)
         
         cam = self.childNodeWithName("playerCamera") as! SKCameraNode
-        //cam.position = playerNode.position
+        
         playerOldX = playerNode.position.x
         
         print(playerNode.position)
@@ -76,16 +76,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         let location = touches.first!.locationInNode(self)
-        let node = self.nodeAtPoint(location)
-        if (node.name! == "attackButton") {
+        if (self.nodeAtPoint(location) == self.attackButtonNode) {
             player.playerProtect()
         }
     }
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         let location = touches.first!.locationInNode(self)
-        let node = self.nodeAtPoint(location)
-        if (node.name! == "attackButton") {
+        if (self.nodeAtPoint(location) == self.attackButtonNode) {
             player.playerShieldDown()
         }
     }
@@ -99,12 +97,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         entityManager.update(deltaTime)
         
         //Update camera and button/joystick with player position
-        if (true /*playerNode.position.x > 200 && playerNode.position.x < 1065*/) {
+        if (playerNode.position.x > 300 && playerNode.position.x < 15164) {
             cam.position.x += playerNode.position.x - playerOldX
             joystick.position.x += playerNode.position.x - playerOldX
-            
+            attackButtonNode.position.x += playerNode.position.x - playerOldX
         }
-        attackButtonNode.position.x = cam.position.x - 20
+        
         playerOldX = playerNode.position.x
     }
     

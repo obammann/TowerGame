@@ -26,7 +26,7 @@ class TowerEntity: GKEntity {
         let spriteComponent = SpriteComponent(spriteNode: node)
         addComponent(spriteComponent)
         
-        let healthComponent = HealthComponent(scene: scene, maxHealth: maxHealth, healthBarVisible: true)
+        let healthComponent = HealthComponent(scene: scene, maxHealth: maxHealth, healthBarVisible: false)
         addComponent(healthComponent)
         
         let shootingComponent = ShootingComponent(scene: scene, bulletOriginPosition: towerNode.position, bulletImageName: "bullet", entityNode: towerNode, targetNode: targetNode)

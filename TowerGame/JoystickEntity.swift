@@ -28,8 +28,8 @@ class JoystickEntity: GKEntity {
         joystick.substrate.texture = SKTexture(imageNamed: "joystickDown")
         joystick.stick.alpha = 0.01
         joystick.substrate.alpha = 0.01
-        joystick.position = CGPoint(x:-133, y:50)
-        joystick.zPosition = 10
+        joystick.zPosition = 90
+        self.joystick.position = CGPoint(x:scene.cam.position.x + 450, y:-scene.size.height * 0.4)
         scene.addChild(joystick)
         
         self.joystick.startHandler = { [unowned self] location in
@@ -48,7 +48,7 @@ class JoystickEntity: GKEntity {
         self.joystick.trackingHandler = { [unowned self] data in
             
             let aN = scene.playerNode
-            aN.position = CGPointMake(aN.position.x + (data.velocity.x * 0.5), aN.position.y + (data.velocity.y * 0.5))
+            aN.position = CGPointMake(aN.position.x + (data.velocity.x * 0.05), aN.position.y + (data.velocity.y * 0.05))
             aN.zRotation = data.angular
         }
         
@@ -58,7 +58,7 @@ class JoystickEntity: GKEntity {
             self.joystick.zPosition = 10
             self.joystick.stick.alpha = 0.01
             self.joystick.substrate.alpha = 0.01
-            self.joystick.position = CGPoint(x:scene.cam.position.x - 79, y:-scene.size.height * 0.5)
+            self.joystick.position = CGPoint(x:scene.cam.position.x - 50, y:-scene.size.height * 0.4)
             self.scene.player.playerEndAnimations()
         }
     }

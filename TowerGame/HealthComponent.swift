@@ -25,27 +25,28 @@ class HealthComponent: GKComponent {
         healthContainer = [SKSpriteNode]()
         healthContainerSize = CGSize(width: 96, height: 54)
         
-        for i in (0) ..< self.maxHealth {
-            healthContainer.append(SKSpriteNode(imageNamed: "heart"))
-            healthContainer[i].zPosition = 100
-            
-        }
         
-        super.init()
         if healthBarVisible {
-            for i in (0) ..< healthContainer.count-1 {
+            for i in (0) ..< self.maxHealth {
+                healthContainer.append(SKSpriteNode(imageNamed: "heart"))
+                healthContainer[i].zPosition = 100
+                healthContainer[i].position.y = scene.cam.position.y + 570
                 scene.addChild(healthContainer[i])
                 
             }
-
             
         }
+
+        
+        super.init()
+
     }
     
     func updateHealthBar(hearts: Float) {
         
         if (hearts < 0) {
             for _ in 0 ..< Int(hearts * -1) {
+                
                 healthContainer.last!.removeFromParent()
                 healthContainer.removeLast()
             }
@@ -73,15 +74,10 @@ class HealthComponent: GKComponent {
     }
     
     func updatePosition() {
-        let startXPosition = scene.cam.position.x - 150//scene.cam.size.width/2 + 32
-        let startYPosition = scene.cam.position.y + 250//scene.cam.height/2 - 32
-        
-        
-        
-        for i in (0) ..< healthContainer.count-1 {
+        let startXPosition = scene.attackButtonNode.position.x - scene.attackButtonNode.size.width*3/4
+        for i in (0) ..< healthContainer.count {
             healthContainer[i].position.x = startXPosition
                 + healthContainerSize.width*CGFloat(i+1)
-            healthContainer[i].position.y = startYPosition
         }
     }
     
