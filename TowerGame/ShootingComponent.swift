@@ -65,7 +65,7 @@ class ShootingComponent: GKComponent {
             //Rotate the bullet to the target's direction
             let rotateAction = SKAction.rotateToAngle(angle + CGFloat(M_PI*0.5), duration: 0.0)
             bulletNode!.runAction(rotateAction)
-            
+            bulletNode?.runAction(SKAction.playSoundFileNamed("shot.wav", waitForCompletion: false))
             // Create the actions
             let actionMove = SKAction.moveTo(realDest, duration: Double(Constants.BulletSpeed))
             let actionMoveDone = SKAction.runBlock {
@@ -74,8 +74,8 @@ class ShootingComponent: GKComponent {
             bulletNode!.runAction(SKAction.sequence([actionMove, actionMoveDone]))
             
             //Add smoke when shooting
-            let smokeEntity = SmokeEntity(position: bulletOriginPosition+direction*45, imageName: "smokeWhiteSmall", sizeScale: 0.4, scene: self.scene)
-            self.scene.entityManager.add(smokeEntity)
+            //let smokeEntity = SmokeEntity(position: bulletOriginPosition+direction*45, imageName: "smokeWhiteSmall", sizeScale: 0.4, scene: self.scene)
+            //self.scene.entityManager.add(smokeEntity)
             
             didShooting = !didShooting
             let wait = SKAction.waitForDuration(1)

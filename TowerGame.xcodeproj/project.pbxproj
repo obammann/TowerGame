@@ -42,6 +42,7 @@
 		5F5078CB1D12A7A4003A1689 /* MenuScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 5F5078CA1D12A7A4003A1689 /* MenuScene.sks */; };
 		5F5078CD1D12AD36003A1689 /* MenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5078CC1D12AD36003A1689 /* MenuScene.swift */; };
 		5F5078CF1D13F139003A1689 /* SKButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5078CE1D13F139003A1689 /* SKButtonNode.swift */; };
+		5F5185CB1D18323500A70D5E /* shot.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5F5185CA1D18323500A70D5E /* shot.wav */; };
 		5F58E6341CF86A070074B351 /* AnalogJoystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F58E6331CF86A070074B351 /* AnalogJoystick.swift */; };
 		5FABB4491D0C228300997492 /* player.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 5FABB4481D0C228300997492 /* player.atlas */; };
 /* End PBXBuildFile section */
@@ -105,6 +106,7 @@
 		5F5078CA1D12A7A4003A1689 /* MenuScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MenuScene.sks; sourceTree = "<group>"; };
 		5F5078CC1D12AD36003A1689 /* MenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuScene.swift; sourceTree = "<group>"; };
 		5F5078CE1D13F139003A1689 /* SKButtonNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKButtonNode.swift; sourceTree = "<group>"; };
+		5F5185CA1D18323500A70D5E /* shot.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = shot.wav; sourceTree = "<group>"; };
 		5F58E6331CF86A070074B351 /* AnalogJoystick.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalogJoystick.swift; sourceTree = "<group>"; };
 		5FABB4481D0C228300997492 /* player.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = player.atlas; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -175,6 +177,7 @@
 				3C9E5BE51CF4E7C6005B5A32 /* Entities */,
 				3C9E5BB31CF4E790005B5A32 /* AppDelegate.swift */,
 				3C9E5BB71CF4E790005B5A32 /* GameScene.swift */,
+				5F5185CA1D18323500A70D5E /* shot.wav */,
 				5F5078CC1D12AD36003A1689 /* MenuScene.swift */,
 				3C9E5BB91CF4E790005B5A32 /* GameViewController.swift */,
 				3C9E5BBB1CF4E790005B5A32 /* Main.storyboard */,
@@ -359,6 +362,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5F5185CB1D18323500A70D5E /* shot.wav in Resources */,
 				3C9E5BB61CF4E790005B5A32 /* GameScene.sks in Resources */,
 				3C9E5BC21CF4E790005B5A32 /* LaunchScreen.storyboard in Resources */,
 				3CB6F3AC1D104B2E007822EE /* playerKnifeAttack.atlas in Resources */,
