@@ -11,30 +11,22 @@ import GameplayKit
 
 class MovementComponent: GKComponent {
 
-    var movementFrames: [SKTexture]!
+    
     let node: SKSpriteNode
     
     init(textureName: String, textureAtlasName: String, node: SKSpriteNode) {
         self.node = node
+        let scale = self.node.xScale
+        self.node.runAction(SKAction.repeatActionForever(
+        SKAction.sequence([SKAction.scaleTo(scale*1.05, duration: 0.1),
+            SKAction.scaleTo(scale, duration: 0.1)])))
         
-        let playerAnimatedAtlas = SKTextureAtlas(named: textureAtlasName)
-        var walkFrames = [SKTexture]()
-        
-        let numberImages = playerAnimatedAtlas.textureNames.count
-        for i in 0 ..< numberImages {
-            let textureName = textureName + "\(i)"
-            walkFrames.append(playerAnimatedAtlas.textureNamed(textureName))
-        }
-        movementFrames = walkFrames
+
     }
     
     func doMovement() {
-        /*self.node.runAction(SKAction.repeatActionForever(
-            SKAction.animateWithTextures(self.movementFrames,
-                timePerFrame: 0.08,
-                resize: false,
-                restore: true)),
-                withKey:"movement")*/
+        
     }
+    
     
 }

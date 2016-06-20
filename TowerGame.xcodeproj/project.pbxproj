@@ -46,6 +46,7 @@
 		5FABB4491D0C228300997492 /* player.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 5FABB4481D0C228300997492 /* player.atlas */; };
 		5FCE54041D1880EF00E43135 /* playerHit.caf in Resources */ = {isa = PBXBuildFile; fileRef = 5FCE54021D1880EF00E43135 /* playerHit.caf */; };
 		5FCE54051D1880EF00E43135 /* playerRicochet.caf in Resources */ = {isa = PBXBuildFile; fileRef = 5FCE54031D1880EF00E43135 /* playerRicochet.caf */; };
+		5FCE54071D18A20400E43135 /* puff.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 5FCE54061D18A20400E43135 /* puff.atlas */; };
 		5FFAB0C31D18796400316E43 /* shot.caf in Resources */ = {isa = PBXBuildFile; fileRef = 5FFAB0C21D18796400316E43 /* shot.caf */; };
 /* End PBXBuildFile section */
 
@@ -112,6 +113,7 @@
 		5FABB4481D0C228300997492 /* player.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = player.atlas; sourceTree = "<group>"; };
 		5FCE54021D1880EF00E43135 /* playerHit.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = playerHit.caf; sourceTree = "<group>"; };
 		5FCE54031D1880EF00E43135 /* playerRicochet.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = playerRicochet.caf; sourceTree = "<group>"; };
+		5FCE54061D18A20400E43135 /* puff.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = puff.atlas; sourceTree = "<group>"; };
 		5FFAB0C21D18796400316E43 /* shot.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = shot.caf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -143,6 +145,7 @@
 		3C43ED021D1141B600256D1D /* Atlas */ = {
 			isa = PBXGroup;
 			children = (
+				5FCE54061D18A20400E43135 /* puff.atlas */,
 				3C43ED071D1143C000256D1D /* playerMove.atlas */,
 				3CB6F3AB1D104B2E007822EE /* playerKnifeAttack.atlas */,
 				3CB6F3A91D103ED1007822EE /* player2.atlas */,
@@ -380,6 +383,7 @@
 				3C9E5BB61CF4E790005B5A32 /* GameScene.sks in Resources */,
 				3C9E5BC21CF4E790005B5A32 /* LaunchScreen.storyboard in Resources */,
 				5FCE54051D1880EF00E43135 /* playerRicochet.caf in Resources */,
+				5FCE54071D18A20400E43135 /* puff.atlas in Resources */,
 				3CB6F3AC1D104B2E007822EE /* playerKnifeAttack.atlas in Resources */,
 				5FABB4491D0C228300997492 /* player.atlas in Resources */,
 				5F5078CB1D12A7A4003A1689 /* MenuScene.sks in Resources */,
