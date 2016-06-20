@@ -58,7 +58,7 @@ class ShootingComponent: GKComponent {
             let realDest = shootAmount + bulletOriginPosition
             
             //Create BulletEntity and add it to the EntityManager
-            let bullet = BulletEntity(imageName: bulletImageName, /*targetPosition: targetNode.position,*/ bulletOriginPosition: bulletOriginPosition+direction*45)
+            let bullet = BulletEntity(imageName: bulletImageName, /*targetPosition: targetNode.position,*/ bulletOriginPosition: bulletOriginPosition+direction*50)
             scene.entityManager.add(bullet)
             self.bulletNode = (bullet.componentForClass(SpriteComponent.self)?.node)!
             
@@ -73,20 +73,9 @@ class ShootingComponent: GKComponent {
             }
             bulletNode!.runAction(SKAction.sequence([actionMove, actionMoveDone]))
             
-            let smoke = SKSpriteNode(imageNamed: "smokeWhiteSmall")
-            smoke.size = CGSize(width: smoke.size.width * 0.4, height: smoke.size.height * 0.4)
-            smoke.position = bulletOriginPosition+direction*45
-            smoke.zPosition = 40
-            smoke.alpha = 0.5
-            self.scene.addChild(smoke)
-            let scaleAction = SKAction.scaleBy(2, duration: 0.8)
-            let removeAction = SKAction.runBlock {
-                smoke.removeFromParent()
-            }
-            let fadeOutAction = SKAction.runBlock {
-                SKAction.sequence([SKAction.fadeOutWithDuration(2), removeAction])
-            }
-            smoke.runAction(SKAction.sequence([scaleAction, removeAction]))
+            //Add smoke when shooting
+            let smokeEntity = SmokeEntity(position: bulletOriginPosition+direction*45, imageName: "smokeWhiteSmall", sizeScale: 0.4, scene: self.scene)
+            self.scene.entityManager.add(smokeEntity)
             
             didShooting = !didShooting
             let wait = SKAction.waitForDuration(1)
