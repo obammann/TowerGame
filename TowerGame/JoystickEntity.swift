@@ -30,7 +30,7 @@ class JoystickEntity: GKEntity {
         joystick.stick.alpha = 0.01
         joystick.substrate.alpha = 0.01
         joystick.zPosition = 90
-        self.joystick.position = CGPoint(x:scene.cam.position.x + 450, y:-scene.size.height * 0.4)
+        self.joystick.position = CGPoint(x:scene.cam.position.x + 550, y:-scene.size.height * 0.4)
         scene.addChild(joystick)
         
         self.joystick.startHandler = { [unowned self] location in
@@ -51,7 +51,7 @@ class JoystickEntity: GKEntity {
             let aN = scene.playerNode
             aN.position = CGPointMake(aN.position.x + (data.velocity.x * 0.05), aN.position.y + (data.velocity.y * 0.05))
             aN.zRotation = data.angular
-            scene.player.createGas()
+            scene.player.createGas(0.75)
 
         }
         

@@ -88,21 +88,31 @@ class PlayerEntity: GKEntity {
         
         
     }
-    func createGas() {
+    func createGas(alpha: CGFloat) {
         if !self.didSmoke{
             
+            let angle = node.zRotation
+            
+            let velocityX = cos(angle-CGFloat(M_PI/2))
+            let velocityY = sin(angle-CGFloat(M_PI/2))
+            
+            let offset = CGPoint(x: velocityX, y: velocityY)
+            
+            // Get the direction of where to shoot
+            let direction = offset.normalized()
+            
             self.didSmoke = !self.didSmoke
-            let wait = SKAction.waitForDuration(0.25)
+            let wait = SKAction.waitForDuration(0.15)
             let run = SKAction.runBlock {
                 self.didSmoke = false
             }
             self.node.runAction(SKAction.sequence([wait, run]))
             
             let gas = SKSpriteNode(imageNamed: "whitePuff10")
-            gas.alpha = 0.75
+            gas.alpha = alpha
             gas.zPosition = 100
             gas.setScale(0.05)
-            gas.position = scene.playerNode.position
+            gas.position = scene.playerNode.position + direction * 30
             scene.addChild(gas)
             print(gas)
             gas.runAction(SKAction.sequence([group, SKAction.removeFromParent()]))
