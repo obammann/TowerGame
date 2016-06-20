@@ -31,7 +31,7 @@ class PhysicsComponent: GKComponent {
         node.zPosition = 10
         node.physicsBody = SKPhysicsBody(circleOfRadius: node.size.width/2-3)
         node.physicsBody?.affectedByGravity = false
-        node.physicsBody?.dynamic = false
+        node.physicsBody?.dynamic = true
         node.physicsBody?.categoryBitMask = Constants.PhysicsCategory.Bullet
         node.physicsBody?.contactTestBitMask = Constants.PhysicsCategory.Player
 //        node.physicsBody?.collisionBitMask = Constants.PhysicsCategory.None
