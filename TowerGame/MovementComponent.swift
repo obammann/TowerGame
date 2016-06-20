@@ -29,12 +29,12 @@ class MovementComponent: GKComponent {
     }
     
     func doMovement() {
-        self.node.runAction(SKAction.repeatActionForever(
+        /*self.node.runAction(SKAction.repeatActionForever(
             SKAction.animateWithTextures(self.movementFrames,
                 timePerFrame: 0.08,
                 resize: false,
                 restore: true)),
-                withKey:"movement")
+                withKey:"movement")*/
     }
     
 }
