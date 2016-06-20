@@ -16,6 +16,7 @@ class PlayerEntity: GKEntity {
     var scene: GameScene
     var movementFrames: [SKTexture]!
     let group: SKAction
+    var didSmoke: Bool = false
     
     init(node: SKSpriteNode, scene: GameScene, maxHealth: Int) {
         
@@ -38,21 +39,21 @@ class PlayerEntity: GKEntity {
          restore: true)),
          withKey:"movement")*/
         
-        let scaleAction = SKAction.scaleTo(1, duration: 5)
+        let scaleAction = SKAction.scaleTo(0.25, duration: 1)
 
         
         let playerAnimatedAtlas = SKTextureAtlas(named: "puff")
         var walkFrames = [SKTexture]()
         
-        let numberImages = playerAnimatedAtlas.textureNames.count
-        for i in 0 ..< numberImages {
+        let numberImages = playerAnimatedAtlas.textureNames.count + 10
+        for i in 10 ..< numberImages {
             let textureName = "whitePuff\(i)"
             walkFrames.append(playerAnimatedAtlas.textureNamed(textureName))
         }
         movementFrames = walkFrames
         
         let textureAction = SKAction.animateWithTextures(self.movementFrames,
-                timePerFrame: 0.2,
+                timePerFrame: 0.1,
                 resize: false,
                 restore: true)
         
@@ -87,13 +88,37 @@ class PlayerEntity: GKEntity {
         
         
     }
-    func createGas() {
-        let gas = SKSpriteNode(imageNamed: "whitePuff0")
-        gas.setScale(0.2)
-        gas.position = scene.playerNode.position
-        scene.addChild(gas)
-        print(gas)
-        gas.runAction(SKAction.sequence([group, SKAction.removeFromParent()]))
+    func createGas(alpha: CGFloat) {
+        if !self.didSmoke{
+            
+            let angle = node.zRotation
+            
+            let velocityX = cos(angle-CGFloat(M_PI/2))
+            let velocityY = sin(angle-CGFloat(M_PI/2))
+            
+            let offset = CGPoint(x: velocityX, y: velocityY)
+            
+            // Get the direction of where to shoot
+            let direction = offset.normalized()
+            
+            self.didSmoke = !self.didSmoke
+            let wait = SKAction.waitForDuration(0.15)
+            let run = SKAction.runBlock {
+                self.didSmoke = false
+            }
+            self.node.runAction(SKAction.sequence([wait, run]))
+            
+            let gas = SKSpriteNode(imageNamed: "whitePuff10")
+            gas.alpha = alpha
+            gas.zPosition = 100
+            gas.setScale(0.05)
+            gas.position = scene.playerNode.position + direction * 30
+            scene.addChild(gas)
+            print(gas)
+            gas.runAction(SKAction.sequence([group, SKAction.removeFromParent()]))
+        }
+        
+
     }
     
     func playerWalk() {

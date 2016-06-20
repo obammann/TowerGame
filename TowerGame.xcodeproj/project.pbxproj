@@ -43,10 +43,10 @@
 		5F5078CD1D12AD36003A1689 /* MenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5078CC1D12AD36003A1689 /* MenuScene.swift */; };
 		5F5078CF1D13F139003A1689 /* SKButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5078CE1D13F139003A1689 /* SKButtonNode.swift */; };
 		5F58E6341CF86A070074B351 /* AnalogJoystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F58E6331CF86A070074B351 /* AnalogJoystick.swift */; };
+		5F83905A1D18B1A40081DD49 /* puff.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 5F8390591D18B1A40081DD49 /* puff.atlas */; };
 		5FABB4491D0C228300997492 /* player.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 5FABB4481D0C228300997492 /* player.atlas */; };
 		5FCE54041D1880EF00E43135 /* playerHit.caf in Resources */ = {isa = PBXBuildFile; fileRef = 5FCE54021D1880EF00E43135 /* playerHit.caf */; };
 		5FCE54051D1880EF00E43135 /* playerRicochet.caf in Resources */ = {isa = PBXBuildFile; fileRef = 5FCE54031D1880EF00E43135 /* playerRicochet.caf */; };
-		5FCE54071D18A20400E43135 /* puff.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 5FCE54061D18A20400E43135 /* puff.atlas */; };
 		5FFAB0C31D18796400316E43 /* shot.caf in Resources */ = {isa = PBXBuildFile; fileRef = 5FFAB0C21D18796400316E43 /* shot.caf */; };
 /* End PBXBuildFile section */
 
@@ -110,10 +110,10 @@
 		5F5078CC1D12AD36003A1689 /* MenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuScene.swift; sourceTree = "<group>"; };
 		5F5078CE1D13F139003A1689 /* SKButtonNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKButtonNode.swift; sourceTree = "<group>"; };
 		5F58E6331CF86A070074B351 /* AnalogJoystick.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalogJoystick.swift; sourceTree = "<group>"; };
+		5F8390591D18B1A40081DD49 /* puff.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = puff.atlas; sourceTree = "<group>"; };
 		5FABB4481D0C228300997492 /* player.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = player.atlas; sourceTree = "<group>"; };
 		5FCE54021D1880EF00E43135 /* playerHit.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = playerHit.caf; sourceTree = "<group>"; };
 		5FCE54031D1880EF00E43135 /* playerRicochet.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = playerRicochet.caf; sourceTree = "<group>"; };
-		5FCE54061D18A20400E43135 /* puff.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = puff.atlas; sourceTree = "<group>"; };
 		5FFAB0C21D18796400316E43 /* shot.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = shot.caf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -145,7 +145,7 @@
 		3C43ED021D1141B600256D1D /* Atlas */ = {
 			isa = PBXGroup;
 			children = (
-				5FCE54061D18A20400E43135 /* puff.atlas */,
+				5F8390591D18B1A40081DD49 /* puff.atlas */,
 				3C43ED071D1143C000256D1D /* playerMove.atlas */,
 				3CB6F3AB1D104B2E007822EE /* playerKnifeAttack.atlas */,
 				3CB6F3A91D103ED1007822EE /* player2.atlas */,
@@ -383,10 +383,10 @@
 				3C9E5BB61CF4E790005B5A32 /* GameScene.sks in Resources */,
 				3C9E5BC21CF4E790005B5A32 /* LaunchScreen.storyboard in Resources */,
 				5FCE54051D1880EF00E43135 /* playerRicochet.caf in Resources */,
-				5FCE54071D18A20400E43135 /* puff.atlas in Resources */,
 				3CB6F3AC1D104B2E007822EE /* playerKnifeAttack.atlas in Resources */,
 				5FABB4491D0C228300997492 /* player.atlas in Resources */,
 				5F5078CB1D12A7A4003A1689 /* MenuScene.sks in Resources */,
+				5F83905A1D18B1A40081DD49 /* puff.atlas in Resources */,
 				3CB6F3AA1D103ED1007822EE /* player2.atlas in Resources */,
 				3C9E5BBF1CF4E790005B5A32 /* Assets.xcassets in Resources */,
 				3C9E5BBD1CF4E790005B5A32 /* Main.storyboard in Resources */,
