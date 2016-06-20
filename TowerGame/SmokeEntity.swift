@@ -78,7 +78,7 @@ class SmokeEntity: GKEntity {
         let smoke = self.componentForClass(SpriteComponent)?.node
         smoke!.size = CGSize(width: smoke!.size.width * sizeScale, height: smoke!.size.height * sizeScale)
         smoke!.zPosition = 40
-        smoke!.alpha = 0.7
+        smoke!.alpha = 0.8
         let scaleAction = SKAction.scaleBy(2, duration: 0.6)
         let removeAction = SKAction.runBlock {
             self.scene.entityManager.remove(self)
