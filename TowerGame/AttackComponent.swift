@@ -47,7 +47,6 @@ class AttackComponent: GKComponent {
     
     func fend(scene: GameScene, bulletNode: SKSpriteNode) {
         bulletNode.removeAllActions()
-        
         let angle = entityNode.zRotation + CGFloat(M_PI)
         bulletNode.runAction(SKAction.rotateToAngle(angle, duration: 0.0))
         
@@ -71,7 +70,9 @@ class AttackComponent: GKComponent {
             let bulletEntity = scene.entityManager.findEntityFromNode(bulletNode)
             scene.entityManager.remove(bulletEntity!)
         }
+        
         bulletNode.runAction(SKAction.sequence([actionMove, actionMoveDone]))
+        
     }
     
 }
