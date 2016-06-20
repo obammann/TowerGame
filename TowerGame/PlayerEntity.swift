@@ -35,7 +35,7 @@ class PlayerEntity: GKEntity {
         let healthComponent = HealthComponent(scene: scene, maxHealth: Int(maxHealth), healthBarVisible: true)
         addComponent(healthComponent)
         
-        let movementComponent = MovementComponent(textureName: "survivor-move_", textureAtlasName: "playerMove", node: self.node)
+        let movementComponent = MovementComponent(textureName: "whitePuff", textureAtlasName: "puff", node: self.node)
         addComponent(movementComponent)
         
         let shieldComponent = ShieldComponent(node: self.node, maxShieldCapacity: 10, scene: self.scene)
