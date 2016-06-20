@@ -112,16 +112,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 //firstBody = Player
                 //secondBody = Bullet
                 let entity1 = entityManager.findEntityFromNode(firstBody.node as! SKSpriteNode) as! PlayerEntity
-                if ((entity1.componentForClass(ShieldComponent)?.holdingShield) == false) {
-                    if let healthComponent = entity1.componentForClass(HealthComponent) {
-                        healthComponent.doDamage(1)
-                        if healthComponent.currentHealth == 0 {
-                            entityManager.remove(entity1)
-                        }
+                if let healthComponent = entity1.componentForClass(HealthComponent) {
+                    healthComponent.doDamage(1)
+                    if healthComponent.currentHealth == 0 {
+                        entityManager.remove(entity1)
                     }
                     let entity2 = entityManager.findEntityFromNode(secondBody.node as! SKSpriteNode) as! BulletEntity
                     entityManager.remove(entity2)
                 }
+            } else if (firstBody.categoryBitMask == Constants.PhysicsCategory.Shield) {
+                //firstBody = Shield
+                //secondBody = Bullet
                 player.fend(secondBody.node as! SKSpriteNode)
             } else if (firstBody.categoryBitMask == Constants.PhysicsCategory.Wall) {
                 //firstBody = Wall

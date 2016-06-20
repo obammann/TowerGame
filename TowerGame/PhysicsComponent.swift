@@ -18,7 +18,8 @@ class PhysicsComponent: GKComponent {
     }
     
     func setPhysicsBodyPlayer() {
-        node.physicsBody = SKPhysicsBody(circleOfRadius: node.size.width/2-8)
+//        node.physicsBody = SKPhysicsBody(circleOfRadius: node.size.width/2)
+        node.physicsBody = SKPhysicsBody(rectangleOfSize: node.size)
         node.physicsBody?.affectedByGravity = false
         node.physicsBody?.dynamic = true
         node.physicsBody?.categoryBitMask = Constants.PhysicsCategory.Player
@@ -66,12 +67,12 @@ class PhysicsComponent: GKComponent {
     }
     
     func setPhysicsBodyShield() {
-        node.physicsBody = SKPhysicsBody(rectangleOfSize: node.size)
+        node.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "shield"), size: node.size)
         node.physicsBody?.affectedByGravity = false
         node.physicsBody?.dynamic = true
         node.physicsBody?.categoryBitMask = Constants.PhysicsCategory.Shield
         node.physicsBody?.contactTestBitMask = Constants.PhysicsCategory.Bullet
-        //        node.physicsBody?.collisionBitMask = Constants.PhysicsCategory.None
+//                node.physicsBody?.collisionBitMask = Constants.PhysicsCategory.None
     }
     
 }

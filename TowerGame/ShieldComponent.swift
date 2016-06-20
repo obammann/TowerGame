@@ -13,6 +13,7 @@ class ShieldComponent: GKComponent {
     
     let scene: GameScene
     var entityNode: SKSpriteNode
+//    let shieldEntity: GKEntity?
     var shieldNode: SKSpriteNode?
     var shieldBar: SKSpriteNode?
     let shieldBarWidth: CGFloat
@@ -32,7 +33,9 @@ class ShieldComponent: GKComponent {
     }
     
     func createShield() {
-        self.shieldNode = SKSpriteNode(color: UIColor.blueColor(), size: CGSize(width: entityNode.size.width, height: 20))
+//        self.shieldNode = SKSpriteNode(color: UIColor.blueColor(), size: CGSize(width: entityNode.size.width, height: 20))
+        self.shieldNode = SKSpriteNode(imageNamed: "shield")
+        self.shieldNode?.size = CGSize(width: entityNode.size.width+40, height: 52 )
         self.shieldNode!.zPosition = 50
         let angle = entityNode.zRotation + CGFloat(M_PI)
         self.shieldNode!.runAction(SKAction.rotateToAngle(angle, duration: 0.0))
@@ -42,7 +45,7 @@ class ShieldComponent: GKComponent {
         
         let offset = CGPoint(x: directionX, y: directionY)
         let direction = offset.normalized()
-        shieldNode!.position = entityNode.position + (direction * 10)
+//        shieldNode!.position = entityNode.position + (direction * 50)
         self.shrinkShieldBar()
         self.scene.entityManager.add(ShieldEntity(shieldNode: shieldNode!))
         
@@ -69,9 +72,9 @@ class ShieldComponent: GKComponent {
     func putShieldDown() {
         if holdingShield {
             shieldBar!.removeAllActions()
-//            let shieldEntity = self.scene.entityManager.findEntityFromNode(shieldNode!)
-//            self.scene.entityManager.remove(shieldEntity!)
-            self.shieldNode?.removeFromParent()
+            let shieldEntity = self.scene.entityManager.findEntityFromNode(shieldNode!)
+            self.scene.entityManager.remove(shieldEntity!)
+//            self.shieldNode?.removeFromParent()
             holdingShield = false
             let shieldLoadDuration = maxShieldCapacity - (shieldBar!.size.width)/20
             shieldBar!.runAction(SKAction.resizeToWidth(shieldBarWidth, duration: Double(shieldLoadDuration)))
@@ -90,7 +93,7 @@ class ShieldComponent: GKComponent {
             
             let offset = CGPoint(x: directionX, y: directionY)
             let direction = offset.normalized()
-            shieldNode!.position = entityNode.position + (direction * 30)
+            shieldNode!.position = entityNode.position + (direction * 35)
         }
     }
     

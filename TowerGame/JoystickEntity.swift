@@ -34,7 +34,7 @@ class JoystickEntity: GKEntity {
         
         self.joystick.startHandler = { [unowned self] location in
             
-            self.scene.player.playerWalk()
+//            self.scene.player.playerWalk()
             self.joystick.stick.diameter = 100
             self.joystick.substrate.diameter = 150
             self.joystick.position = location
