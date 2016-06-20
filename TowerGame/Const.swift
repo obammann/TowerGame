@@ -21,6 +21,7 @@ struct Constants {
     }
     
     static let BulletSpeed = 3
+    static let BulletSpeedShield = BulletSpeed/2
     
     //Distance to target when the tower begins to shoot
     static let DistanceToTarget = 600
