@@ -28,7 +28,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func didMoveToView(view: SKView) {
         // Setup physics world's contact delegate
         physicsWorld.contactDelegate = self
-        
+        SKAction.playSoundFileNamed("shot.caf", waitForCompletion: false)
         entityManager = EntityManager(scene: self)
 
         
