@@ -61,7 +61,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
             if child.name == "box" {
                 if let child = child as? SKSpriteNode {
-                    let box = ObjectEntity(node: child, scene: self, maxHealth: 2, object: "box")
+                    let box = ObjectEntity(node: child, scene: self, maxHealth: 5, object: "box")
                     entityManager.addEntityFromEditor(box)
                 }
             }
@@ -149,6 +149,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 let entity1 = entityManager.findEntityFromNode(firstBody.node as! SKSpriteNode)
                 if let healthComponent = entity1!.componentForClass(HealthComponent) {
                     healthComponent.doDamage(1)
+                    firstBody.node?.runAction(SKAction.colorizeWithColor(UIColor.whiteColor(), colorBlendFactor: 0, duration: 1))
                     if healthComponent.currentHealth == 0 {
                         entityManager.remove(entity1!)
                     }
