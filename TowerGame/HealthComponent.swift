@@ -33,7 +33,6 @@ class HealthComponent: GKComponent {
                 healthContainer[i].zPosition = 100
                 healthContainer[i].position.y = scene.cam.position.y + 570
                 scene.addChild(healthContainer[i])
-                
             }
             
         }else {

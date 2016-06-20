@@ -13,14 +13,15 @@ class ShieldComponent: GKComponent {
     
     let scene: GameScene
     var entityNode: SKSpriteNode
-//    let shieldEntity: GKEntity?
     var shieldNode: SKSpriteNode?
     var shieldBar: SKSpriteNode?
+    var shieldBarBorder: SKSpriteNode?
     let shieldBarWidth: CGFloat
     var holdingShield = false
     var shieldBarEmpty = false
     let maxShieldCapacity: CGFloat
     let currentShieldCapacity: CGFloat
+    let barShrinkDuration: CGFloat
     
     init(node: SKSpriteNode, maxShieldCapacity: CGFloat, scene: GameScene) {
         self.scene = scene
@@ -28,14 +29,14 @@ class ShieldComponent: GKComponent {
         self.maxShieldCapacity = maxShieldCapacity
         self.currentShieldCapacity = maxShieldCapacity
         self.shieldBarWidth = maxShieldCapacity * 20
+        self.barShrinkDuration = 3.0
         super.init()
         createShieldBar()
     }
     
     func createShield() {
-//        self.shieldNode = SKSpriteNode(color: UIColor.blueColor(), size: CGSize(width: entityNode.size.width, height: 20))
         self.shieldNode = SKSpriteNode(imageNamed: "shield")
-        self.shieldNode?.size = CGSize(width: entityNode.size.width+40, height: 52 )
+        self.shieldNode?.size = CGSize(width: entityNode.size.width+40, height: 52)
         self.shieldNode!.zPosition = 50
         let angle = entityNode.zRotation + CGFloat(M_PI)
         self.shieldNode!.runAction(SKAction.rotateToAngle(angle, duration: 0.0))
@@ -54,9 +55,13 @@ class ShieldComponent: GKComponent {
     
     func createShieldBar() {
         if !shieldBarEmpty {
-            let bar = SKSpriteNode(color: UIColor.redColor(), size: CGSize(width: shieldBarWidth, height: 30))
+            let bar = SKSpriteNode(color: UIColor.greenColor(), size: CGSize(width: shieldBarWidth, height: 30))
             bar.anchorPoint = CGPointMake(0, 0.5)
             bar.zPosition = 100
+            //shieldBar border
+            self.shieldBarBorder = SKSpriteNode(color: UIColor.blackColor(), size: CGSize(width: shieldBarWidth + 10, height: 40))
+            self.shieldBarBorder!.zPosition = 99
+            self.scene.addChild(self.shieldBarBorder!)
             self.shieldBar = bar
             self.scene.addChild(shieldBar!)
         }
@@ -65,7 +70,8 @@ class ShieldComponent: GKComponent {
     func shrinkShieldBar() {
         if !holdingShield {
             holdingShield = true
-            shieldBar!.runAction(SKAction.resizeToWidth(0, duration: Double((shieldBar?.size.width)!/20)))
+            let shrinkDuration = barShrinkDuration * (((shieldBar?.size.width)!/20) / (self.maxShieldCapacity))
+            shieldBar!.runAction(SKAction.resizeToWidth(0, duration: Double(shrinkDuration)))
         }
     }
     
@@ -82,8 +88,9 @@ class ShieldComponent: GKComponent {
     }
     
     func updatePosition() {
-        shieldBar?.position.x = scene.cam.position.x - 100//scene.cam.size.width/2 + 32
-        shieldBar?.position.y = scene.cam.position.y + 200//scene.cam.height/2 - 32
+        shieldBar?.position.x = scene.cam.position.x - 510//scene.cam.size.width/2 + 32
+        shieldBar?.position.y = scene.cam.position.y + 190//scene.cam.height/2 - 32
+        shieldBarBorder?.position = (shieldBar?.position)!
         if holdingShield {
             let angle = entityNode.zRotation + CGFloat(M_PI)
             self.shieldNode!.runAction(SKAction.rotateToAngle(angle, duration: 0.0))
