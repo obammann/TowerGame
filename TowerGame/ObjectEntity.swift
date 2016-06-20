@@ -11,7 +11,7 @@ import GameplayKit
 
 class ObjectEntity: GKEntity {
     
-    init(node: SKSpriteNode, scene: GameScene, maxHealth: Int) {
+    init(node: SKSpriteNode, scene: GameScene, maxHealth: Int, object: String) {
         super.init()
         
         let spriteComponent = SpriteComponent(spriteNode: node)
@@ -20,20 +20,26 @@ class ObjectEntity: GKEntity {
         let healthComponent = HealthComponent(scene: scene, maxHealth: maxHealth, healthBarVisible: false)
         addComponent(healthComponent)
         
-        let physicsComponent = PhysicsComponent(node: node)
-        addComponent(physicsComponent)
-        self.componentForClass(PhysicsComponent.self)?.setPhysicsBodyObjects()
+        createPhysicsComponent(node, object: object)
     }
     
-    init(node: SKSpriteNode, scene: GameScene) {
+    init(node: SKSpriteNode, scene: GameScene, object: String) {
         super.init()
         
         let spriteComponent = SpriteComponent(spriteNode: node)
         addComponent(spriteComponent)
         
+        createPhysicsComponent(node, object: object)
+    }
+    
+    func createPhysicsComponent(node: SKSpriteNode, object: String) {
         let physicsComponent = PhysicsComponent(node: node)
         addComponent(physicsComponent)
-        self.componentForClass(PhysicsComponent.self)?.setPhysicsBodyObjects()
+        if object == "wall" {
+            self.componentForClass(PhysicsComponent.self)?.setPhysicsBodyWall()
+        } else {
+            self.componentForClass(PhysicsComponent.self)?.setPhysicsBodyObjects()
+        }
     }
 
 }

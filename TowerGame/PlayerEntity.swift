@@ -32,7 +32,8 @@ class PlayerEntity: GKEntity {
         addComponent(physicsComponent)
         self.componentForClass(PhysicsComponent.self)?.setPhysicsBodyPlayer()
         
-        let healthComponent = HealthComponent(scene: scene, maxHealth: maxHealth, healthBarVisible: false)
+
+        let healthComponent = HealthComponent(scene: scene, maxHealth: Int(maxHealth), healthBarVisible: false)
         addComponent(healthComponent)
         
         let movementComponent = MovementComponent(textureName: "survivor-move_", textureAtlasName: "playerMove", node: self.node)
@@ -59,8 +60,8 @@ class PlayerEntity: GKEntity {
     }
     
     func fend(bulletNode: SKSpriteNode) {
-        if ((self.componentForClass(AttackComponent)?.inAttack) == true) {
-            self.componentForClass(AttackComponent)?.fend(scene, bulletNode: bulletNode)
+        if ((self.componentForClass(ShieldComponent)?.holdingShield) == true) {
+            self.componentForClass(ShieldComponent)?.fend(scene, bulletNode: bulletNode)
         }
     }
     

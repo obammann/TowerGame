@@ -17,6 +17,7 @@ struct Constants {
         static let Tower        : UInt32 = 2
         static let Object       : UInt32 = 3
         static let Wall         : UInt32 = 10
+        static let Shield       : UInt32 = 5
     }
     
     static let BulletSpeed = 3

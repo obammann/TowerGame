@@ -61,13 +61,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
             if child.name == "box" {
                 if let child = child as? SKSpriteNode {
-                    let box = ObjectEntity(node: child, scene: self, maxHealth: 2)
+                    let box = ObjectEntity(node: child, scene: self, maxHealth: 2, object: "box")
                     entityManager.addEntityFromEditor(box)
                 }
             }
             if child.name == "border" {
                 if let child = child as? SKSpriteNode {
-                    let wall = ObjectEntity(node: child, scene: self)
+                    let wall = ObjectEntity(node: child, scene: self, object: "wall")
                     entityManager.addEntityFromEditor(wall)
                 }
             }
@@ -87,15 +87,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let node = self.nodeAtPoint(location)
         if (node.name! == "attackButton") {
             player.playerShieldDown()
-//            for component in player.components{
-//                if (component is AttackComponent){
-//                    let comp = component as! AttackComponent
-//                    self.player.setPlayerAttack(true)
-//                    comp.attack()
-//                }
-//            }
-            
-            
         }
     }
    
@@ -122,29 +113,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if (firstBody.categoryBitMask == Constants.PhysicsCategory.Player) {
                 //firstBody = Player
                 //secondBody = Bullet
-                
-                            let entity1 = entityManager.findEntityFromNode(firstBody.node as! SKSpriteNode)
-                            if let healthComponent = entity1!.componentForClass(HealthComponent) {
-                                healthComponent.doDamage(1)
-                                if healthComponent.currentHealth == 0 {
-                                    entityManager.remove(entity1!)
-                                }
-                            }
-                let entity2 = entityManager.findEntityFromNode(secondBody.node as! SKSpriteNode) as! BulletEntity
-                //            entityManager.remove(entity2!)
-//                let entity1 = entityManager.findEntityFromNode(firstBody.node as! SKSpriteNode) as! PlayerEntity
-                if (entity1!.componentForClass(AttackComponent)?.inAttack == true) {
-                    //                entity2.turnFromPlayer(secondBody.node as! SKSpriteNode, player: playerNode)
-                    player.fend(secondBody.node as! SKSpriteNode)
+                let entity1 = entityManager.findEntityFromNode(firstBody.node as! SKSpriteNode) as! PlayerEntity
+                if ((entity1.componentForClass(ShieldComponent)?.holdingShield) == false) {
+                    if let healthComponent = entity1.componentForClass(HealthComponent) {
+                        healthComponent.doDamage(1)
+                        if healthComponent.currentHealth == 0 {
+                            entityManager.remove(entity1)
+                        }
+                    }
+                    let entity2 = entityManager.findEntityFromNode(secondBody.node as! SKSpriteNode) as! BulletEntity
+                    entityManager.remove(entity2)
                 }
-                
+                player.fend(secondBody.node as! SKSpriteNode)
             } else if (firstBody.categoryBitMask == Constants.PhysicsCategory.Wall) {
                 //firstBody = Wall
                 //secondBody = Bullet
                 //Evtl Verhalten zwischen Wall und Bullet anpassen
                 let entity = entityManager.findEntityFromNode(secondBody.node as! SKSpriteNode)
                 entityManager.remove(entity!)
-                
             } else if (firstBody.categoryBitMask == Constants.PhysicsCategory.Object) {
                 //firstBody = Object
                 //secondBody = Bullet
@@ -161,7 +147,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 entityManager.remove(entity2!)
             }
         }
-        
     }
     
     func didBeginContact(contact: SKPhysicsContact) {

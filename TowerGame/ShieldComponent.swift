@@ -15,7 +15,9 @@ class ShieldComponent: GKComponent {
     var entityNode: SKSpriteNode
     var shieldNode: SKSpriteNode?
     var shieldBar: SKSpriteNode?
+    let shieldBarWidth: CGFloat
     var holdingShield = false
+    var shieldBarEmpty = false
     let maxShieldCapacity: CGFloat
     let currentShieldCapacity: CGFloat
     
@@ -24,9 +26,9 @@ class ShieldComponent: GKComponent {
         self.entityNode = node
         self.maxShieldCapacity = maxShieldCapacity
         self.currentShieldCapacity = maxShieldCapacity
+        self.shieldBarWidth = maxShieldCapacity * 20
         super.init()
         createShieldBar()
-
     }
     
     func createShield() {
@@ -40,39 +42,62 @@ class ShieldComponent: GKComponent {
         
         let offset = CGPoint(x: directionX, y: directionY)
         let direction = offset.normalized()
-        shieldNode!.position = direction * 5
+        shieldNode!.position = entityNode.position + (direction * 10)
         self.shrinkShieldBar()
-        self.scene.addChild(shieldNode!)
+        self.scene.entityManager.add(ShieldEntity(shieldNode: shieldNode!))
+        
+//        self.scene.addChild(shieldNode!)
     }
     
     func createShieldBar() {
-        let bar = SKSpriteNode(color: UIColor.redColor(), size: CGSize(width: maxShieldCapacity, height: 20))
-        bar.anchorPoint = CGPointMake(0, 0.5)
-        bar.position = CGPoint(x: entityNode.position.x, y: entityNode.position.y + entityNode.size.height*2.0)
-        bar.zPosition = 100
-        self.shieldBar = bar
-        self.scene.addChild(shieldBar!)
+        if !shieldBarEmpty {
+            let bar = SKSpriteNode(color: UIColor.redColor(), size: CGSize(width: shieldBarWidth, height: 30))
+            bar.anchorPoint = CGPointMake(0, 0.5)
+            bar.zPosition = 100
+            self.shieldBar = bar
+            self.scene.addChild(shieldBar!)
+        }
     }
     
     func shrinkShieldBar() {
         if !holdingShield {
             holdingShield = true
-            shieldBar!.runAction(SKAction.resizeToWidth(0, duration: Double(maxShieldCapacity)))
+            shieldBar!.runAction(SKAction.resizeToWidth(0, duration: Double((shieldBar?.size.width)!/20)))
         }
     }
     
     func putShieldDown() {
-        shieldBar!.removeAllActions()
-        shieldNode!.removeFromParent()
-        holdingShield = false
-        let shieldLoadDuration = maxShieldCapacity - shieldBar!.size.width
-        shieldBar!.runAction(SKAction.resizeToWidth(maxShieldCapacity, duration: Double(shieldLoadDuration)))
+        if holdingShield {
+            shieldBar!.removeAllActions()
+//            let shieldEntity = self.scene.entityManager.findEntityFromNode(shieldNode!)
+//            self.scene.entityManager.remove(shieldEntity!)
+            self.shieldNode?.removeFromParent()
+            holdingShield = false
+            let shieldLoadDuration = maxShieldCapacity - (shieldBar!.size.width)/20
+            shieldBar!.runAction(SKAction.resizeToWidth(shieldBarWidth, duration: Double(shieldLoadDuration)))
+        }
+    }
+    
+    func updatePosition() {
+        shieldBar?.position.x = scene.cam.position.x - 100//scene.cam.size.width/2 + 32
+        shieldBar?.position.y = scene.cam.position.y + 200//scene.cam.height/2 - 32
+        if holdingShield {
+            let angle = entityNode.zRotation + CGFloat(M_PI)
+            self.shieldNode!.runAction(SKAction.rotateToAngle(angle, duration: 0.0))
+            
+            let directionX = cos(angle-CGFloat(M_PI/2))
+            let directionY = sin(angle-CGFloat(M_PI/2))
+            
+            let offset = CGPoint(x: directionX, y: directionY)
+            let direction = offset.normalized()
+            shieldNode!.position = entityNode.position + (direction * 30)
+        }
     }
     
     func fend(scene: GameScene, bulletNode: SKSpriteNode) {
         bulletNode.removeAllActions()
         
-        let angle = entityNode.zRotation + CGFloat(M_PI)
+        let angle = shieldNode!.zRotation
         bulletNode.runAction(SKAction.rotateToAngle(angle, duration: 0.0))
         
         let velocityX = cos(angle-CGFloat(M_PI/2))
@@ -96,6 +121,17 @@ class ShieldComponent: GKComponent {
             scene.entityManager.remove(bulletEntity!)
         }
         bulletNode.runAction(SKAction.sequence([actionMove, actionMoveDone]))
+    }
+    
+    override func updateWithDeltaTime(seconds: NSTimeInterval) {
+        updatePosition()
+        if shieldBar?.size.width == 0 {
+            putShieldDown()
+            shieldBarEmpty = true
+        }
+        if shieldBar?.size.width == shieldBarWidth/2 {
+            shieldBarEmpty = false
+        }
     }
     
 }
