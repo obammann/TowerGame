@@ -74,8 +74,8 @@ class ShootingComponent: GKComponent {
             bulletNode!.runAction(SKAction.sequence([actionMove, actionMoveDone]))
             
             //Add smoke when shooting
-            //let smokeEntity = SmokeEntity(position: bulletOriginPosition+direction*45, imageName: "smokeWhiteSmall", sizeScale: 0.4, scene: self.scene)
-            //self.scene.entityManager.add(smokeEntity)
+            let smokeEntity = SmokeEntity(position: bulletOriginPosition+direction*45, imageName: "smokeWhiteSmall", sizeScale: 0.4, scene: self.scene)
+            self.scene.entityManager.add(smokeEntity)
             
             didShooting = !didShooting
             let wait = SKAction.waitForDuration(1)
