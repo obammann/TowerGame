@@ -59,7 +59,7 @@ class JoystickEntity: GKEntity {
             self.joystick.stick.alpha = 0.01
             self.joystick.substrate.alpha = 0.01
             self.joystick.position = CGPoint(x:scene.cam.position.x - 50, y:-scene.size.height * 0.4)
-            self.scene.player.playerEndAnimations()
+            
         }
     }
     

@@ -118,8 +118,6 @@ class PlayerEntity: GKEntity {
         }
     }
     
-    func playerEndAnimations() {
-        self.node.removeAllActions()
-    }
+
     
 }

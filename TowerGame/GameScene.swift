@@ -105,7 +105,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         entityManager.update(deltaTime)
         
         if !didSmoke{
-            player.createGas()
+            //player.createGas()
             didSmoke = !didSmoke
             let wait = SKAction.waitForDuration(1)
             let run = SKAction.runBlock {
