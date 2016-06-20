@@ -58,7 +58,7 @@ class PhysicsComponent: GKComponent {
     }
     
     func setPhysicsBodyTower() {
-        node.physicsBody = SKPhysicsBody(rectangleOfSize: node.size)
+        node.physicsBody = SKPhysicsBody(circleOfRadius: node.size.width/2)
         node.physicsBody?.affectedByGravity = false
         node.physicsBody?.dynamic = false
         node.physicsBody?.categoryBitMask = Constants.PhysicsCategory.Tower

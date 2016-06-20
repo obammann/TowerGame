@@ -79,7 +79,7 @@ class ShootingComponent: GKComponent {
             smoke.zPosition = 40
             smoke.alpha = 0.5
             self.scene.addChild(smoke)
-            let scaleAction = SKAction.scaleBy(3, duration: 1)
+            let scaleAction = SKAction.scaleBy(2, duration: 0.8)
             let removeAction = SKAction.runBlock {
                 smoke.removeFromParent()
             }
