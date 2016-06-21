@@ -145,7 +145,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         
         //Update camera and button/joystick with player position
-        if (playerNode.position.x > 450 && playerNode.position.x < 15014) {
+        if (playerNode.position.x > 450 && playerNode.position.x < 15310) {
             cam.position.x += playerNode.position.x - playerOldX
             joystick.position.x += playerNode.position.x - playerOldX
             attackButtonNode.position.x += playerNode.position.x - playerOldX
@@ -164,7 +164,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     firstBody.node?.runAction(SKAction.playSoundFileNamed("playerHit.caf", waitForCompletion: false))
                     healthComponent.doDamage(1)
                     if healthComponent.currentHealth == 0 {
-                        entity1.node.runAction(SKAction.playSoundFileNamed("playerExplosion.caf", waitForCompletion: false))
+                        entity1.node.runAction(SKAction.playSoundFileNamed("playerExplosion.caf", waitForCompletion: true))
                         let playerAnimatedAtlas = SKTextureAtlas(named: "explosion")
                         var walkFrames = [SKTexture]()
                         
