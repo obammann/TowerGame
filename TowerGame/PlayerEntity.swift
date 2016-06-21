@@ -110,11 +110,10 @@ class PlayerEntity: GKEntity {
             
             let gas = SKSpriteNode(imageNamed: "whitePuff10")
             gas.alpha = alpha
-            gas.zPosition = 100
+            gas.zPosition = 90
             gas.setScale(0.05)
             gas.position = scene.playerNode.position + direction * 30
             scene.addChild(gas)
-            print(gas)
             gas.runAction(SKAction.sequence([group, SKAction.removeFromParent()]))
         }
         
