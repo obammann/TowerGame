@@ -104,37 +104,39 @@ class ShieldComponent: GKComponent {
     }
     
     func fend(scene: GameScene, bulletNode: SKSpriteNode) {
-        let bulletEntity = scene.entityManager.findEntityFromNode(bulletNode) as! BulletEntity
-        
-        if bulletEntity.bulletFent == false {
-            bulletNode.removeAllActions()
+        if let bulletEntity = scene.entityManager.findEntityFromNode(bulletNode) as! BulletEntity? {
             
-            let angle = shieldNode!.zRotation
-            bulletNode.runAction(SKAction.rotateToAngle(angle, duration: 0.0))
-            
-            let velocityX = cos(angle-CGFloat(M_PI/2))
-            let velocityY = sin(angle-CGFloat(M_PI/2))
-            
-            let offset = CGPoint(x: velocityX, y: velocityY)
-            
-            // Get the direction of where to shoot
-            let direction = offset.normalized()
-            
-            // Make it shoot far enough to be guaranteed off screen
-            let shootAmount = direction * 1000
-            
-            // Add the shoot amount to the current position
-            let realDest = shootAmount + entityNode.position
-            
-            // Create the actions
-            let actionMove = SKAction.moveTo(realDest, duration: Double(Constants.BulletSpeedShield))
-            let actionMoveDone = SKAction.runBlock {
-                let bulletEntity = scene.entityManager.findEntityFromNode(bulletNode)
-                scene.entityManager.remove(bulletEntity!)
+            if bulletEntity.bulletFent == false {
+                bulletNode.removeAllActions()
+                
+                let angle = shieldNode!.zRotation
+                bulletNode.runAction(SKAction.rotateToAngle(angle, duration: 0.0))
+                
+                let velocityX = cos(angle-CGFloat(M_PI/2))
+                let velocityY = sin(angle-CGFloat(M_PI/2))
+                
+                let offset = CGPoint(x: velocityX, y: velocityY)
+                
+                // Get the direction of where to shoot
+                let direction = offset.normalized()
+                
+                // Make it shoot far enough to be guaranteed off screen
+                let shootAmount = direction * 1000
+                
+                // Add the shoot amount to the current position
+                let realDest = shootAmount + entityNode.position
+                
+                // Create the actions
+                let actionMove = SKAction.moveTo(realDest, duration: Double(Constants.BulletSpeedShield))
+                let actionMoveDone = SKAction.runBlock {
+                    let bulletEntity = scene.entityManager.findEntityFromNode(bulletNode)
+                    scene.entityManager.remove(bulletEntity!)
+                }
+                bulletNode.runAction(SKAction.sequence([actionMove, actionMoveDone]))
+                
+                bulletEntity.bulletFent = true
             }
-            bulletNode.runAction(SKAction.sequence([actionMove, actionMoveDone]))
-            
-            bulletEntity.bulletFent = true
+        
         }
         
 

@@ -36,7 +36,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             , SKAction.fadeInWithDuration(0.1)])
         
         loseAction = SKAction.runBlock() {
-            let reveal = SKTransition.flipHorizontalWithDuration(0.5)
+            let reveal = SKTransition.flipHorizontalWithDuration(1)
             let gameOverScene = GameOverScene(size: self.size, won: false)
             self.view?.presentScene(gameOverScene, transition: reveal)
         }
@@ -177,15 +177,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                                                                          timePerFrame: 0.1,
                                                                          resize: false,
                                                                          restore: true)
+                        self.joystickEntity.stopMovingPlayer()
                         entity1.node.setScale(1)
                         entity1.node.runAction(textureAction, completion: {
+                            entity1.node.setScale(0)
                             entity1.node.runAction(self.loseAction)
                         })
                         
                         
                     }
-                    let entity2 = entityManager.findEntityFromNode(secondBody.node as! SKSpriteNode) as! BulletEntity
-                    entityManager.remove(entity2)
+                    if let entity2 = entityManager.findEntityFromNode(secondBody.node as! SKSpriteNode) as! BulletEntity?{
+                        entityManager.remove(entity2)
+                    }
+                    
                 }
             } else if (firstBody.categoryBitMask == Constants.PhysicsCategory.Shield) {
                 //firstBody = Shield
@@ -203,8 +207,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         let smokeEntity = SmokeEntity(position: (secondBody.node?.position)!, sizeScale: 1, scene: self)
                         self.entityManager.add(smokeEntity)
                     }
-                    let entity2 = entityManager.findEntityFromNode(secondBody.node as! SKSpriteNode)
-                    entityManager.remove(entity2!)
+                    if let entity2 = entityManager.findEntityFromNode(secondBody.node as! SKSpriteNode) {
+                        entityManager.remove(entity2)
+                    }
+                    
                     let smokeEntity = SmokeEntity(position: (secondBody.node?.position)!, sizeScale: 0.4, scene: self)
                     self.entityManager.add(smokeEntity)
                 }

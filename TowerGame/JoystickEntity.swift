@@ -55,6 +55,8 @@ class JoystickEntity: GKEntity {
 
         }
         
+
+        
         self.joystick.stopHandler = { [unowned self] in
             self.joystick.stick.diameter = scene.size.width
             self.joystick.substrate.diameter = scene.size.width
@@ -62,6 +64,12 @@ class JoystickEntity: GKEntity {
             self.joystick.stick.alpha = 0.01
             self.joystick.substrate.alpha = 0.01
             self.joystick.position = CGPoint(x:scene.cam.position.x - 50, y:-scene.size.height * 0.4)
+            
+        }
+    }
+    
+    func stopMovingPlayer(){
+        self.joystick.trackingHandler = { data in
             
         }
     }
