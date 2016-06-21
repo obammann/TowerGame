@@ -84,7 +84,6 @@ class ShootingComponent: GKComponent {
             }
             entityNode.runAction(SKAction.sequence([wait, run]))
         }
-        
     }
     
     func turnToTarget() {

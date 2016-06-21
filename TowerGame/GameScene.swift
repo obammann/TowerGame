@@ -199,8 +199,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             firstBody = contact.bodyB
             secondBody = contact.bodyA
         }
-        
-        firstBody.node?.runAction(blinkSequence)
+        if (firstBody.categoryBitMask != Constants.PhysicsCategory.Wall) && (secondBody.categoryBitMask == Constants.PhysicsCategory.Bullet) {
+            firstBody.node?.runAction(blinkSequence)
+        }
         collisionAction(firstBody, secondBody: secondBody)
     }
 }

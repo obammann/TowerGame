@@ -53,7 +53,7 @@ class PhysicsComponent: GKComponent {
         node.physicsBody = SKPhysicsBody(rectangleOfSize: node.size)
         node.physicsBody?.affectedByGravity = false
         node.physicsBody?.dynamic = false
-        node.physicsBody?.categoryBitMask = Constants.PhysicsCategory.Object
+        node.physicsBody?.categoryBitMask = Constants.PhysicsCategory.Wall
         node.physicsBody?.contactTestBitMask = Constants.PhysicsCategory.Bullet
     }
     
