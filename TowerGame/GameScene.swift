@@ -70,13 +70,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         for child in self.children {
             if child.name == "greenTank" {
                 if let child = child as? SKSpriteNode {
-                    let tank = TowerEntity(node: child, scene: self, maxHealth: 5, targetNode: playerNode, attackSpeed: 1, sideBullets: 0)
+                    let tank = TowerEntity(node: child, scene: self, maxHealth: 3, targetNode: playerNode, attackSpeed: 1, sideBullets: 0)
                     entityManager.addEntityFromEditor(tank)
                 }
             }
             if child.name == "redTank" {
                 if let child = child as? SKSpriteNode {
-                    let tank = TowerEntity(node: child, scene: self, maxHealth: 5, targetNode: playerNode, attackSpeed: 1, sideBullets: 1)
+                    let tank = TowerEntity(node: child, scene: self, maxHealth: 4, targetNode: playerNode, attackSpeed: 1, sideBullets: 1)
                     entityManager.addEntityFromEditor(tank)
                 }
             }
@@ -88,7 +88,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
             if child.name == "bleigeTank" {
                 if let child = child as? SKSpriteNode {
-                    let tank = TowerEntity(node: child, scene: self, maxHealth: 5, targetNode: playerNode, attackSpeed: 0.5, sideBullets: 0)
+                    let tank = TowerEntity(node: child, scene: self, maxHealth: 4, targetNode: playerNode, attackSpeed: 0.5, sideBullets: 0)
                     entityManager.addEntityFromEditor(tank)
                 }
             }
@@ -162,7 +162,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 let entity1 = entityManager.findEntityFromNode(firstBody.node as! SKSpriteNode) as! PlayerEntity
                 if let healthComponent = entity1.componentForClass(HealthComponent) {
                     firstBody.node?.runAction(SKAction.playSoundFileNamed("playerHit.caf", waitForCompletion: false))
-                    healthComponent.doDamage(1)
+                    //healthComponent.doDamage(1)
                     if healthComponent.currentHealth == 0 {
                         entity1.node.runAction(SKAction.playSoundFileNamed("playerExplosion.caf", waitForCompletion: true))
                         let playerAnimatedAtlas = SKTextureAtlas(named: "explosion")
@@ -199,20 +199,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             } else if (firstBody.categoryBitMask == Constants.PhysicsCategory.Tower) {
                 //firstBody = Tower
                 //secondBody = Bullet
-                let entity1 = entityManager.findEntityFromNode(firstBody.node as! SKSpriteNode)
-                if let healthComponent = entity1!.componentForClass(HealthComponent) {
-                    healthComponent.doDamage(1)
-                    if healthComponent.currentHealth == 0 {
-                        entityManager.remove(entity1!)
-                        let smokeEntity = SmokeEntity(position: (secondBody.node?.position)!, sizeScale: 1, scene: self)
+                if let entity1 = entityManager.findEntityFromNode(firstBody.node as! SKSpriteNode) {
+                    if let healthComponent = entity1.componentForClass(HealthComponent) {
+                        healthComponent.doDamage(1)
+                        if healthComponent.currentHealth == 0 {
+                            entityManager.remove(entity1)
+                            let smokeEntity = SmokeEntity(position: (secondBody.node?.position)!, sizeScale: 1, scene: self)
+                            self.entityManager.add(smokeEntity)
+                        }
+                        if let entity2 = entityManager.findEntityFromNode(secondBody.node as! SKSpriteNode) {
+                            entityManager.remove(entity2)
+                        }
+                        
+                        let smokeEntity = SmokeEntity(position: (secondBody.node?.position)!, sizeScale: 0.4, scene: self)
                         self.entityManager.add(smokeEntity)
                     }
-                    if let entity2 = entityManager.findEntityFromNode(secondBody.node as! SKSpriteNode) {
-                        entityManager.remove(entity2)
-                    }
-                    
-                    let smokeEntity = SmokeEntity(position: (secondBody.node?.position)!, sizeScale: 0.4, scene: self)
-                    self.entityManager.add(smokeEntity)
+                
                 }
                 let smokeEntity = SmokeEntity(position: (secondBody.node?.position)!, sizeScale: 0.4, scene: self)
                 self.entityManager.add(smokeEntity)
