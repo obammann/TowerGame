@@ -45,6 +45,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         SKAction.playSoundFileNamed("shot.caf", waitForCompletion: false)
         SKAction.playSoundFileNamed("playerHit.caf", waitForCompletion: false)
         SKAction.playSoundFileNamed("playerRicochet.caf", waitForCompletion: false)
+        SKAction.playSoundFileNamed("playerExplosion.caf", waitForCompletion: false)
         
         entityManager = EntityManager(scene: self)
 
@@ -163,7 +164,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     firstBody.node?.runAction(SKAction.playSoundFileNamed("playerHit.caf", waitForCompletion: false))
                     healthComponent.doDamage(1)
                     if healthComponent.currentHealth == 0 {
-                        entity1.node.runAction(self.loseAction)
+                        entity1.node.runAction(SKAction.playSoundFileNamed("playerExplosion.caf", waitForCompletion: false))
+                        let playerAnimatedAtlas = SKTextureAtlas(named: "explosion")
+                        var walkFrames = [SKTexture]()
+                        
+                        let numberImages = playerAnimatedAtlas.textureNames.count
+                        for i in 0 ..< numberImages {
+                            let textureName = "regularExplosion\(i)"
+                            walkFrames.append(playerAnimatedAtlas.textureNamed(textureName))
+                        }
+                        let textureAction = SKAction.animateWithTextures(walkFrames,
+                                                                         timePerFrame: 0.1,
+                                                                         resize: false,
+                                                                         restore: true)
+                        entity1.node.setScale(1)
+                        entity1.node.runAction(textureAction, completion: {
+                            entity1.node.runAction(self.loseAction)
+                        })
+                        
                         
                     }
                     let entity2 = entityManager.findEntityFromNode(secondBody.node as! SKSpriteNode) as! BulletEntity

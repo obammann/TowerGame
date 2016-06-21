@@ -46,20 +46,23 @@ class HealthComponent: GKComponent {
     
     func updateHealthBar(hearts: Float) {
         
-        if (hearts < 0) {
-            for _ in 0 ..< Int(hearts * -1) {
-                
-                healthContainer.last!.removeFromParent()
-                healthContainer.removeLast()
+        if healthContainer.count > 0{
+            if (hearts < 0) {
+                for _ in 0 ..< Int(hearts * -1) {
+                    
+                    healthContainer.last!.removeFromParent()
+                    healthContainer.removeLast()
+                    
+                }
+            } else {
+                for _ in 0 ..< Int(hearts) {
+                    healthContainer.append(SKSpriteNode(imageNamed: "heart"))
+                    healthContainer[healthContainer.count].zPosition = 100
+                }
                 
             }
-        } else {
-            for _ in 0 ..< Int(hearts) {
-                healthContainer.append(SKSpriteNode(imageNamed: "heart"))
-                healthContainer[healthContainer.count].zPosition = 100
-            }
-            
         }
+
         
     }
     
