@@ -80,7 +80,7 @@ class ShieldComponent: GKComponent {
             let shieldEntity = self.scene.entityManager.findEntityFromNode(shieldNode!)
             self.scene.entityManager.remove(shieldEntity!)
             holdingShield = false
-            let shieldLoadDuration = (maxShieldCapacity - (shieldBar!.size.width)/25) * 0.5
+            let shieldLoadDuration = (maxShieldCapacity - (shieldBar!.size.width)/25)
             shieldBar!.runAction(SKAction.resizeToWidth(shieldBarWidth, duration: Double(shieldLoadDuration)))
         }
     }
