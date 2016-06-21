@@ -23,22 +23,6 @@ class PlayerEntity: GKEntity {
         self.scene = scene
         self.node = node
         
-        /*var actions = Array<SKAction>()
-         
-         actions.append(SKAction.sequence([animationWait, animationScale]))
-         actions.append(SKAction.sequence([animationWait, animationAlpha]))
-         
-         let group = SKAction.group(actions)
-         
-         node.runAction(group)*/
-        
-        /*self.node.runAction(SKAction.repeatActionForever(
-         SKAction.animateWithTextures(self.movementFrames,
-         timePerFrame: 0.08,
-         resize: false,
-         restore: true)),
-         withKey:"movement")*/
-        
         let scaleAction = SKAction.scaleTo(0.25, duration: 1)
 
         
@@ -69,18 +53,12 @@ class PlayerEntity: GKEntity {
         let spriteComponent = SpriteComponent(spriteNode: node)
         addComponent(spriteComponent)
         
-        let attackComponent = AttackComponent(node: self.node)
-        addComponent(attackComponent)
-        
         let physicsComponent = PhysicsComponent(node: node)
         addComponent(physicsComponent)
         self.componentForClass(PhysicsComponent.self)?.setPhysicsBodyPlayer()
 
         let healthComponent = HealthComponent(scene: scene, maxHealth: Int(maxHealth), healthBarVisible: true)
         addComponent(healthComponent)
-        
-        let movementComponent = MovementComponent(textureName: "whitePuff", textureAtlasName: "puff", node: self.node)
-        addComponent(movementComponent)
         
         let shieldComponent = ShieldComponent(node: self.node, maxShieldCapacity: 10, scene: self.scene)
         addComponent(shieldComponent)
@@ -120,9 +98,7 @@ class PlayerEntity: GKEntity {
 
     }
     
-    func playerWalk() {
-        self.componentForClass(MovementComponent)?.doMovement()
-    }
+
     
     func playerProtect() {
         self.componentForClass(ShieldComponent)?.createShield()
@@ -130,10 +106,6 @@ class PlayerEntity: GKEntity {
     
     func playerShieldDown() {
         self.componentForClass(ShieldComponent)?.putShieldDown()
-    }
-    
-    func attack() {
-        self.componentForClass(AttackComponent)?.attack()
     }
     
     func fend(bulletNode: SKSpriteNode) {

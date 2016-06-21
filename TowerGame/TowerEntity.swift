@@ -14,10 +14,11 @@ class TowerEntity: GKEntity {
 
     var targetNode: SKSpriteNode
     var towerNode: SKSpriteNode
+
     var didShooting = false
     let scene: GameScene
     
-    init(node: SKSpriteNode, scene: GameScene, maxHealth: Int, targetNode: SKSpriteNode) {
+    init(node: SKSpriteNode, scene: GameScene, maxHealth: Int, targetNode: SKSpriteNode, attackSpeed: Double, sideBullets: Int) {
         self.targetNode = targetNode
         self.towerNode = node
         self.scene = scene
@@ -29,7 +30,7 @@ class TowerEntity: GKEntity {
         let healthComponent = HealthComponent(scene: scene, maxHealth: maxHealth, healthBarVisible: false)
         addComponent(healthComponent)
         
-        let shootingComponent = ShootingComponent(scene: scene, bulletOriginPosition: towerNode.position, bulletImageName: "bullet", entityNode: towerNode, targetNode: targetNode)
+        let shootingComponent = ShootingComponent(scene: scene, bulletOriginPosition: towerNode.position, bulletImageName: "bullet", entityNode: towerNode, targetNode: targetNode, attackSpeed: attackSpeed, sideBullets: sideBullets)
         addComponent(shootingComponent)
         
         let physicsComponent = PhysicsComponent(node: self.towerNode)

@@ -17,6 +17,8 @@ class ShootingComponent: GKComponent {
     let bulletImageName: String
     let scene: GameScene
     var bulletNode: SKSpriteNode?
+    let attackSpeed: Double!
+    let sideBullets: Int
     
     //SpriteNode of associated Entity
     let entityNode: SKSpriteNode
@@ -26,12 +28,14 @@ class ShootingComponent: GKComponent {
     
     
     
-    init(scene: GameScene, bulletOriginPosition: CGPoint, bulletImageName: String, entityNode: SKSpriteNode, targetNode: SKSpriteNode) {
+    init(scene: GameScene, bulletOriginPosition: CGPoint, bulletImageName: String, entityNode: SKSpriteNode, targetNode: SKSpriteNode, attackSpeed: Double, sideBullets: Int) {
         self.bulletOriginPosition = bulletOriginPosition
         self.bulletImageName = bulletImageName
         self.scene = scene
         self.entityNode = entityNode
         self.targetNode = targetNode
+        self.attackSpeed = attackSpeed
+        self.sideBullets = sideBullets
         
         super.init()
         
@@ -73,12 +77,69 @@ class ShootingComponent: GKComponent {
             }
             bulletNode!.runAction(SKAction.sequence([actionMove, actionMoveDone]))
             
+            for i in 0 ..< sideBullets {
+                let angle2 = angle + CGFloat(M_PI * 0.1 * Double(i+1))
+                let angle3 = angle - CGFloat(M_PI * 0.1 * Double(i+1))
+                
+                let velocityX2 = cos(angle2)
+                let velocityY2 = sin(angle2)
+                
+                let velocityX3 = cos(angle3)
+                let velocityY3 = sin(angle3)
+                
+                let offset2 = CGPoint(x: velocityX2, y: velocityY2)
+                let offset3 = CGPoint(x: velocityX3, y: velocityY3)
+                
+                // Get the direction of where to shoot
+                let direction2 = offset2.normalized()
+                let direction3 = offset3.normalized()
+                
+                // Make it shoot far enough to be guaranteed off screen
+                let shootAmount2 = direction2 * 1000
+                let shootAmount3 = direction3 * 1000
+                
+                // Add the shoot amount to the current position
+                let realDest2 = shootAmount2 + bulletOriginPosition
+                let realDest3 = shootAmount3 + bulletOriginPosition
+                
+                let bullet2 = BulletEntity(imageName: bulletImageName, /*targetPosition: targetNode.position,*/ bulletOriginPosition: bulletOriginPosition+direction2*50)
+                scene.entityManager.add(bullet2)
+                let bulletNode2 = (bullet2.componentForClass(SpriteComponent.self)?.node)!
+                
+                let bullet3 = BulletEntity(imageName: bulletImageName, /*targetPosition: targetNode.position,*/bulletOriginPosition: bulletOriginPosition+direction3*50)
+                scene.entityManager.add(bullet3)
+                let bulletNode3 = (bullet3.componentForClass(SpriteComponent.self)?.node)!
+                
+                bulletNode2.runAction(SKAction.rotateToAngle(angle2 + CGFloat(M_PI*0.5), duration: 0.0))
+                bulletNode3.runAction(SKAction.rotateToAngle(angle3 + CGFloat(M_PI*0.5), duration: 0.0))
+                
+                // Create the actions
+                let actionMove2 = SKAction.moveTo(realDest2, duration: Double(Constants.BulletSpeed))
+                let actionMoveDone2 = SKAction.runBlock {
+                    let bulletEntity2 = self.scene.entityManager.findEntityFromNode(bulletNode2)
+                    self.scene.entityManager.remove(bulletEntity2!)
+                }
+                bulletNode2.runAction(SKAction.sequence([actionMove2, actionMoveDone2]))
+                
+                let actionMove3 = SKAction.moveTo(realDest3, duration: Double(Constants.BulletSpeed))
+                let actionMoveDone3 = SKAction.runBlock {
+                    let bulletEntity3 = self.scene.entityManager.findEntityFromNode(bulletNode3)
+                    self.scene.entityManager.remove(bulletEntity3!)
+                }
+                bulletNode3.runAction(SKAction.sequence([actionMove3, actionMoveDone3]))
+
+            }
+ 
+            
+            
+            
+            
             //Add smoke when shooting
             let smokeEntity = SmokeEntity(position: bulletOriginPosition+direction*45, sizeScale: 0.4, scene: self.scene)
             self.scene.entityManager.add(smokeEntity)
             
             didShooting = !didShooting
-            let wait = SKAction.waitForDuration(1)
+            let wait = SKAction.waitForDuration(self.attackSpeed)
             let run = SKAction.runBlock {
                 self.didShooting = false
             }

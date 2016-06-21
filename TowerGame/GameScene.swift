@@ -20,6 +20,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var playerOldX: CGFloat = 0.0
     var joystickEntity: JoystickEntity!
     var blinkSequence: SKAction!
+    var loseAction: SKAction!
     
     
     
@@ -34,6 +35,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         blinkSequence = SKAction.sequence([SKAction.fadeOutWithDuration(0.1)
             , SKAction.fadeInWithDuration(0.1)])
         
+        loseAction = SKAction.runBlock() {
+            let reveal = SKTransition.flipHorizontalWithDuration(0.5)
+            let gameOverScene = GameOverScene(size: self.size, won: false)
+            self.view?.presentScene(gameOverScene, transition: reveal)
+        }
+        
         
         SKAction.playSoundFileNamed("shot.caf", waitForCompletion: false)
         SKAction.playSoundFileNamed("playerHit.caf", waitForCompletion: false)
@@ -47,8 +54,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         attackButtonNode.size = CGSize(width: 150, height: 150)
         playerNode = (self.childNodeWithName("player") as? SKSpriteNode)!
         player = PlayerEntity(node: playerNode, scene: self, maxHealth: 3)
-        view.showsPhysics = true
-        player.createGas(0)
+        player.createGas(0.01)
         
         joystickEntity = JoystickEntity(joystick: joystick, scene: self)
         
@@ -61,9 +67,39 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //Add Entities to entityManager
         entityManager.addEntityFromEditor(player)
         for child in self.children {
-            if child.name == "tank" {
+            if child.name == "greenTank" {
                 if let child = child as? SKSpriteNode {
-                    let tank = TowerEntity(node: child, scene: self, maxHealth: 5, targetNode: playerNode)
+                    let tank = TowerEntity(node: child, scene: self, maxHealth: 5, targetNode: playerNode, attackSpeed: 1, sideBullets: 0)
+                    entityManager.addEntityFromEditor(tank)
+                }
+            }
+            if child.name == "redTank" {
+                if let child = child as? SKSpriteNode {
+                    let tank = TowerEntity(node: child, scene: self, maxHealth: 5, targetNode: playerNode, attackSpeed: 1, sideBullets: 1)
+                    entityManager.addEntityFromEditor(tank)
+                }
+            }
+            if child.name == "blackTank" {
+                if let child = child as? SKSpriteNode {
+                    let tank = TowerEntity(node: child, scene: self, maxHealth: 5, targetNode: playerNode, attackSpeed: 1, sideBullets: 2)
+                    entityManager.addEntityFromEditor(tank)
+                }
+            }
+            if child.name == "bleigeTank" {
+                if let child = child as? SKSpriteNode {
+                    let tank = TowerEntity(node: child, scene: self, maxHealth: 5, targetNode: playerNode, attackSpeed: 0.5, sideBullets: 0)
+                    entityManager.addEntityFromEditor(tank)
+                }
+            }
+            if child.name == "blueTank" {
+                if let child = child as? SKSpriteNode {
+                    let tank = TowerEntity(node: child, scene: self, maxHealth: 5, targetNode: playerNode, attackSpeed: 0.25, sideBullets: 0)
+                    entityManager.addEntityFromEditor(tank)
+                }
+            }
+            if child.name == "rainbowTank" {
+                if let child = child as? SKSpriteNode {
+                    let tank = TowerEntity(node: child, scene: self, maxHealth: 15, targetNode: playerNode, attackSpeed: 0.25, sideBullets: 2)
                     entityManager.addEntityFromEditor(tank)
                 }
             }
@@ -127,7 +163,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     firstBody.node?.runAction(SKAction.playSoundFileNamed("playerHit.caf", waitForCompletion: false))
                     healthComponent.doDamage(1)
                     if healthComponent.currentHealth == 0 {
-                        entityManager.remove(entity1)
+                        entity1.node.runAction(self.loseAction)
+                        
                     }
                     let entity2 = entityManager.findEntityFromNode(secondBody.node as! SKSpriteNode) as! BulletEntity
                     entityManager.remove(entity2)
@@ -159,8 +196,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 //firstBody = Wall
                 //secondBody = Bullet
                 //Evtl Verhalten zwischen Wall und Bullet anpassen
-                let entity = entityManager.findEntityFromNode(secondBody.node as! SKSpriteNode)
-                entityManager.remove(entity!)
+                if let entity = entityManager.findEntityFromNode(secondBody.node as! SKSpriteNode) {
+                    entityManager.remove(entity)
+                }
+                
                 //Add smoke when shooting
                 let smokeEntity = SmokeEntity(position: (secondBody.node?.position)!, sizeScale: 0.4, scene: self)
                 self.entityManager.add(smokeEntity)
