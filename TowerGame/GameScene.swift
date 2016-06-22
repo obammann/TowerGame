@@ -21,6 +21,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var joystickEntity: JoystickEntity!
     var blinkSequence: SKAction!
     var loseAction: SKAction!
+    var winAction: SKAction!
     
     
     
@@ -40,6 +41,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         loseAction = SKAction.runBlock() {
             let reveal = SKTransition.flipHorizontalWithDuration(1)
             let gameOverScene = GameOverScene(size: self.size, won: false)
+            self.view?.presentScene(gameOverScene, transition: reveal)
+        }
+        
+        winAction = SKAction.runBlock() {
+            let reveal = SKTransition.flipHorizontalWithDuration(1)
+            let gameOverScene = GameOverScene(size: self.size, won: true)
             self.view?.presentScene(gameOverScene, transition: reveal)
         }
         
@@ -180,7 +187,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 if let healthComponent = entity1.componentForClass(HealthComponent) {
                     firstBody.node?.runAction(SKAction.playSoundFileNamed("playerHit.caf", waitForCompletion: false))
                     //Do damage to the player
-                    healthComponent.doDamage(1)
+//                    healthComponent.doDamage(1)
                     
                     //If player is dead, it explodes and game switches to new screen
                     if healthComponent.currentHealth == 0 {
@@ -284,8 +291,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 }
                 
                 //Remove bullet
-                let entity2 = entityManager.findEntityFromNode(secondBody.node as! SKSpriteNode)
-                entityManager.remove(entity2!)
+                if let entity2 = entityManager.findEntityFromNode(secondBody.node as! SKSpriteNode) {
+                    entityManager.remove(entity2)
+                }
                 
                 //Add smoke when bullet hits object
                 let smokeEntity = SmokeEntity(position: (secondBody.node?.position)!, sizeScale: 0.4, scene: self)
@@ -308,6 +316,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             firstBody = contact.bodyB
             secondBody = contact.bodyA
         }
+        
+        if (firstBody.categoryBitMask != Constants.PhysicsCategory.Player) && (secondBody.categoryBitMask == 99) {
+            firstBody.node?.runAction(winAction)
+        }
+
         
         collisionAction(firstBody, secondBody: secondBody)
     }
