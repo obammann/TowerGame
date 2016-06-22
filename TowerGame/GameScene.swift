@@ -187,7 +187,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 if let healthComponent = entity1.componentForClass(HealthComponent) {
                     firstBody.node?.runAction(SKAction.playSoundFileNamed("playerHit.caf", waitForCompletion: false))
                     //Do damage to the player
-//                    healthComponent.doDamage(1)
+                    healthComponent.doDamage(1)
                     
                     //If player is dead, it explodes and game switches to new screen
                     if healthComponent.currentHealth == 0 {
@@ -317,7 +317,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             secondBody = contact.bodyA
         }
         
-        if (firstBody.categoryBitMask != Constants.PhysicsCategory.Player) && (secondBody.categoryBitMask == 99) {
+        if (firstBody.categoryBitMask == Constants.PhysicsCategory.Player) && (secondBody.categoryBitMask == 99) {
             firstBody.node?.runAction(winAction)
         }
 
