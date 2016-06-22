@@ -14,6 +14,7 @@ class SmokeEntity: GKEntity {
     let sizeScale: CGFloat
     let scene: GameScene
     
+    //Init to let a specific smoke appear
     init(position: CGPoint, imageName: String, sizeScale: CGFloat, scene: GameScene) {
         self.sizeScale = sizeScale
         self.scene = scene
@@ -24,6 +25,7 @@ class SmokeEntity: GKEntity {
         createSmoke()
     }
     
+    //Init to let a random smoke appear
     init(position: CGPoint, sizeScale: CGFloat, scene: GameScene) {
         self.sizeScale = sizeScale
         self.scene = scene
@@ -31,6 +33,7 @@ class SmokeEntity: GKEntity {
         createRandomSmoke(position)
     }
     
+    //Create a specific smoke
     func createSmoke() {
         let smoke = self.componentForClass(SpriteComponent)?.node
         smoke!.size = CGSize(width: smoke!.size.width * sizeScale, height: smoke!.size.height * sizeScale)
@@ -43,9 +46,14 @@ class SmokeEntity: GKEntity {
         smoke!.runAction(SKAction.sequence([scaleAction, removeAction]))
     }
     
+    //Create random smoke
     func createRandomSmoke(position: CGPoint) {
+        //Random number from 0-24
         let randomNumber = Int(arc4random_uniform(24))
+        
         var textureString: String
+        
+        //Set the textureString to one of the 24 smoke sprite names
         switch randomNumber {
         case 1: textureString = "smokeGrey0"
         case 2: textureString = "smokeGrey1"
@@ -73,12 +81,18 @@ class SmokeEntity: GKEntity {
         case 24: textureString = "smokeYellow5"
         default: textureString = "smokeWhite0"
         }
+        
+        //Create the spriteComponent to let the smoke texture appear
         let spriteComponent = SpriteComponent(texture: SKTexture(imageNamed: textureString), position: position)
         addComponent(spriteComponent)
         let smoke = self.componentForClass(SpriteComponent)?.node
+        
+        //Smoke settings
         smoke!.size = CGSize(width: smoke!.size.width * sizeScale, height: smoke!.size.height * sizeScale)
         smoke!.zPosition = 40
         smoke!.alpha = 0.8
+        
+        //Scale the smoke and remove it afterwards
         let scaleAction = SKAction.scaleBy(2, duration: 0.6)
         let removeAction = SKAction.runBlock {
             self.scene.entityManager.remove(self)

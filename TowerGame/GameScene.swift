@@ -156,13 +156,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func collisionAction(firstBody: SKPhysicsBody, secondBody: SKPhysicsBody) {
         if (secondBody.categoryBitMask == Constants.PhysicsCategory.Bullet) {
+            
+            //Collision between bullet and player
             if (firstBody.categoryBitMask == Constants.PhysicsCategory.Player) {
                 //firstBody = Player
                 //secondBody = Bullet
                 let entity1 = entityManager.findEntityFromNode(firstBody.node as! SKSpriteNode) as! PlayerEntity
                 if let healthComponent = entity1.componentForClass(HealthComponent) {
                     firstBody.node?.runAction(SKAction.playSoundFileNamed("playerHit.caf", waitForCompletion: false))
-                    //healthComponent.doDamage(1)
+                    healthComponent.doDamage(1)
                     if healthComponent.currentHealth == 0 {
                         entity1.node.runAction(SKAction.playSoundFileNamed("playerExplosion.caf", waitForCompletion: true))
                         let playerAnimatedAtlas = SKTextureAtlas(named: "explosion")
@@ -191,11 +193,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     }
                     
                 }
+                
+            //Collision between bullet and shield
             } else if (firstBody.categoryBitMask == Constants.PhysicsCategory.Shield) {
                 //firstBody = Shield
                 //secondBody = Bullet
                 firstBody.node!.runAction(SKAction.playSoundFileNamed("playerRicochet.caf", waitForCompletion: false))
                 player.fend(secondBody.node as! SKSpriteNode)
+            
+            //Collision between bullet and tower
             } else if (firstBody.categoryBitMask == Constants.PhysicsCategory.Tower) {
                 //firstBody = Tower
                 //secondBody = Bullet
@@ -218,21 +224,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 }
                 let smokeEntity = SmokeEntity(position: (secondBody.node?.position)!, sizeScale: 0.4, scene: self)
                 self.entityManager.add(smokeEntity)
+            
+            //Collision between bullet and wall
             } else if (firstBody.categoryBitMask == Constants.PhysicsCategory.Wall) {
                 //firstBody = Wall
                 //secondBody = Bullet
-                //Evtl Verhalten zwischen Wall und Bullet anpassen
                 if let entity = entityManager.findEntityFromNode(secondBody.node as! SKSpriteNode) {
                     entityManager.remove(entity)
                 }
                 
-                //Add smoke when shooting
+                //Add smoke when bullet hits the wall
                 let smokeEntity = SmokeEntity(position: (secondBody.node?.position)!, sizeScale: 0.4, scene: self)
                 self.entityManager.add(smokeEntity)
+                
+            //Collision between bullet and object
             } else if (firstBody.categoryBitMask == Constants.PhysicsCategory.Object) {
                 //firstBody = Object
                 //secondBody = Bullet
-                //Evtl Verhalten zwischen Object und Bullet anpassen
                 let entity1 = entityManager.findEntityFromNode(firstBody.node as! SKSpriteNode)
                 if let healthComponent = entity1!.componentForClass(HealthComponent) {
                     healthComponent.doDamage(1)
@@ -243,7 +251,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         self.entityManager.add(smokeEntity)
                     }
                 }
-                
                 let entity2 = entityManager.findEntityFromNode(secondBody.node as! SKSpriteNode)
                 entityManager.remove(entity2!)
                 let smokeEntity = SmokeEntity(position: (secondBody.node?.position)!, sizeScale: 0.4, scene: self)

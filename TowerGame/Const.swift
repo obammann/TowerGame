@@ -20,6 +20,7 @@ struct Constants {
         static let Shield       : UInt32 = 5
     }
     
+    //Bulletspeed - The smaller the faster the bullet
     static let BulletSpeed = 3
     static let BulletSpeedShield = BulletSpeed/2
     
