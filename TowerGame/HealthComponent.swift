@@ -73,9 +73,6 @@ class HealthComponent: GKComponent {
         
         if currentHealth <= 0 {
             currentHealth = 0
-        } else {
-//            healthBar.runAction(SKAction.resizeToWidth(healthBar.size.width - damage, duration: 1))
-            //healthBar.size.width -= damage
         }
         if self.healthBarVisible {
             updateHealthBar(Float(-damage))

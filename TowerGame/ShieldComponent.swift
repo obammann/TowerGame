@@ -34,6 +34,7 @@ class ShieldComponent: GKComponent {
         createShieldBar()
     }
     
+    //Create shield
     func createShield() {
         if !self.shieldBarEmpty {
             self.shieldNode = SKSpriteNode(imageNamed: "shield")
@@ -42,6 +43,7 @@ class ShieldComponent: GKComponent {
             let angle = entityNode.zRotation + CGFloat(M_PI)
             self.shieldNode!.runAction(SKAction.rotateToAngle(angle, duration: 0.0))
             
+            //Shrink the shieldbar
             self.shrinkShieldBar()
             self.scene.entityManager.add(ShieldEntity(shieldNode: shieldNode!))
         }
