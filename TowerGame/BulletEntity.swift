@@ -13,11 +13,11 @@ import GameplayKit
 class BulletEntity: GKEntity {
 
     var bulletOriginPosition: CGPoint
-    var bulletFent: Bool
+    var bulletFend: Bool
     
     init(imageName: String, bulletOriginPosition: CGPoint) {
         self.bulletOriginPosition = bulletOriginPosition
-        bulletFent = false
+        bulletFend = false
 
         super.init()
         

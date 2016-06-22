@@ -42,11 +42,6 @@ class ShieldComponent: GKComponent {
             let angle = entityNode.zRotation + CGFloat(M_PI)
             self.shieldNode!.runAction(SKAction.rotateToAngle(angle, duration: 0.0))
             
-            let directionX = cos(angle-CGFloat(M_PI/2))
-            let directionY = sin(angle-CGFloat(M_PI/2))
-            
-            let offset = CGPoint(x: directionX, y: directionY)
-            let direction = offset.normalized()
             self.shrinkShieldBar()
             self.scene.entityManager.add(ShieldEntity(shieldNode: shieldNode!))
         }
@@ -106,7 +101,7 @@ class ShieldComponent: GKComponent {
     func fend(scene: GameScene, bulletNode: SKSpriteNode) {
         if let bulletEntity = scene.entityManager.findEntityFromNode(bulletNode) as! BulletEntity? {
             
-            if bulletEntity.bulletFent == false {
+            if bulletEntity.bulletFend == false {
                 bulletNode.removeAllActions()
                 
                 let angle = shieldNode!.zRotation
@@ -117,10 +112,10 @@ class ShieldComponent: GKComponent {
                 
                 let offset = CGPoint(x: velocityX, y: velocityY)
                 
-                // Get the direction of where to shoot
+                // Get the direction where to fend the bullet
                 let direction = offset.normalized()
                 
-                // Make it shoot far enough to be guaranteed off screen
+                // Make it shoot far enough
                 let shootAmount = direction * 1000
                 
                 // Add the shoot amount to the current position
@@ -131,10 +126,14 @@ class ShieldComponent: GKComponent {
                 let actionMoveDone = SKAction.runBlock {
                     let bulletEntity = scene.entityManager.findEntityFromNode(bulletNode)
                     scene.entityManager.remove(bulletEntity!)
+                    
+                    //Create smoke when bullet disappears
+                    let smokeEntity = SmokeEntity(position: bulletNode.position, sizeScale: 0.4, scene: self.scene)
+                    self.scene.entityManager.add(smokeEntity)
                 }
                 bulletNode.runAction(SKAction.sequence([actionMove, actionMoveDone]))
                 
-                bulletEntity.bulletFent = true
+                bulletEntity.bulletFend = true
             }
         
         }
