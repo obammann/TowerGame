@@ -58,12 +58,12 @@ class JoystickEntity: GKEntity {
 
         
         self.joystick.stopHandler = { [unowned self] in
-            self.joystick.stick.diameter = scene.size.width
-            self.joystick.substrate.diameter = scene.size.width
+            self.joystick.stick.diameter = scene.size.width + 200
+            self.joystick.substrate.diameter = scene.size.width + 200
             self.joystick.zPosition = 10
             self.joystick.stick.alpha = 0.01
             self.joystick.substrate.alpha = 0.01
-            self.joystick.position = CGPoint(x:scene.cam.position.x + 500, y:-scene.size.height * 0.4)
+            self.joystick.position = CGPoint(x:scene.cam.position.x + 500, y:-scene.size.height * 0.3)
             
         }
     }

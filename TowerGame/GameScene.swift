@@ -21,6 +21,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var joystickEntity: JoystickEntity!
     var blinkSequence: SKAction!
     var loseAction: SKAction!
+    var inIFrame: Bool = false
     
     
     
@@ -161,28 +162,37 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 //secondBody = Bullet
                 let entity1 = entityManager.findEntityFromNode(firstBody.node as! SKSpriteNode) as! PlayerEntity
                 if let healthComponent = entity1.componentForClass(HealthComponent) {
-                    firstBody.node?.runAction(SKAction.playSoundFileNamed("playerHit.caf", waitForCompletion: false))
-                    //healthComponent.doDamage(1)
-                    if healthComponent.currentHealth == 0 {
-                        entity1.node.runAction(SKAction.playSoundFileNamed("playerExplosion.caf", waitForCompletion: true))
-                        let playerAnimatedAtlas = SKTextureAtlas(named: "explosion")
-                        var walkFrames = [SKTexture]()
-                        
-                        let numberImages = playerAnimatedAtlas.textureNames.count
-                        for i in 0 ..< numberImages {
-                            let textureName = "regularExplosion\(i)"
-                            walkFrames.append(playerAnimatedAtlas.textureNamed(textureName))
+                    if !self.inIFrame {
+                        self.inIFrame = true
+                        let wait = SKAction.waitForDuration(5)
+                        let run = SKAction.runBlock {
+                            self.inIFrame = false
                         }
-                        let textureAction = SKAction.animateWithTextures(walkFrames,
-                                                                         timePerFrame: 0.1,
-                                                                         resize: false,
-                                                                         restore: true)
-                        self.joystickEntity.stopMovingPlayer()
-                        entity1.node.setScale(1)
-                        entity1.node.runAction(textureAction, completion: {
-                            entity1.node.setScale(0)
-                            entity1.node.runAction(self.loseAction)
-                        })
+                        firstBody.node?.runAction(SKAction.sequence([wait, run]))
+                        firstBody.node?.runAction(SKAction.playSoundFileNamed("playerHit.caf", waitForCompletion: false))
+                        //healthComponent.doDamage(1)
+                        if healthComponent.currentHealth == 0 {
+                            entity1.node.runAction(SKAction.playSoundFileNamed("playerExplosion.caf", waitForCompletion: true))
+                            let playerAnimatedAtlas = SKTextureAtlas(named: "explosion")
+                            var walkFrames = [SKTexture]()
+                            
+                            let numberImages = playerAnimatedAtlas.textureNames.count
+                            for i in 0 ..< numberImages {
+                                let textureName = "regularExplosion\(i)"
+                                walkFrames.append(playerAnimatedAtlas.textureNamed(textureName))
+                            }
+                            let textureAction = SKAction.animateWithTextures(walkFrames,
+                                                                             timePerFrame: 0.1,
+                                                                             resize: false,
+                                                                             restore: true)
+                            self.joystickEntity.stopMovingPlayer()
+                            entity1.node.setScale(1)
+                            entity1.node.runAction(textureAction, completion: {
+                                entity1.node.setScale(0)
+                                entity1.node.runAction(self.loseAction)
+                            })
+                    }
+                    
                         
                         
                     }
