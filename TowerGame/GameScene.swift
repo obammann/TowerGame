@@ -21,7 +21,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var joystickEntity: JoystickEntity!
     var blinkSequence: SKAction!
     var loseAction: SKAction!
+    var winAction: SKAction!
     var inIFrame: Bool = false
+    var iFrameAction: SKAction!
     
     
     
@@ -49,6 +51,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let gameOverScene = GameOverScene(size: self.size, won: true)
             self.view?.presentScene(gameOverScene, transition: reveal)
         }
+        let wait = SKAction.waitForDuration(2)
+        let run = SKAction.runBlock {
+            self.inIFrame = false
+        }
+        self.iFrameAction = SKAction.sequence([wait, run])
         
         
         SKAction.playSoundFileNamed("shot.caf", waitForCompletion: false)
@@ -185,39 +192,39 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
                 let entity1 = entityManager.findEntityFromNode(firstBody.node as! SKSpriteNode) as! PlayerEntity
                 if let healthComponent = entity1.componentForClass(HealthComponent) {
+                    firstBody.node?.runAction(SKAction.playSoundFileNamed("playerHit.caf", waitForCompletion: false))
+                    //Do damage to the player
                     if !self.inIFrame {
                         self.inIFrame = true
-                        let wait = SKAction.waitForDuration(5)
-                        let run = SKAction.runBlock {
-                            self.inIFrame = false
-                        }
-                        firstBody.node?.runAction(SKAction.sequence([wait, run]))
-                        firstBody.node?.runAction(SKAction.playSoundFileNamed("playerHit.caf", waitForCompletion: false))
                         //healthComponent.doDamage(1)
-                        if healthComponent.currentHealth == 0 {
-                            entity1.node.runAction(SKAction.playSoundFileNamed("playerExplosion.caf", waitForCompletion: true))
-                            let playerAnimatedAtlas = SKTextureAtlas(named: "explosion")
-                            var walkFrames = [SKTexture]()
-                            
-                            let numberImages = playerAnimatedAtlas.textureNames.count
-                            for i in 0 ..< numberImages {
-                                let textureName = "regularExplosion\(i)"
-                                walkFrames.append(playerAnimatedAtlas.textureNamed(textureName))
-                            }
-                            let textureAction = SKAction.animateWithTextures(walkFrames,
-                                                                             timePerFrame: 0.1,
-                                                                             resize: false,
-                                                                             restore: true)
-                            self.joystickEntity.stopMovingPlayer()
-                            entity1.node.setScale(1)
-                            entity1.node.runAction(textureAction, completion: {
-                                entity1.node.setScale(0)
-                                entity1.node.runAction(self.loseAction)
-                            })
+
+                        firstBody.node?.runAction(self.iFrameAction)
+                        firstBody.node?.runAction(SKAction.playSoundFileNamed("playerHit.caf", waitForCompletion: false))
                     }
                     
+                    //If player is dead, it explodes and game switches to new screen
+                    if healthComponent.currentHealth == 0 {
+                        entity1.node.runAction(SKAction.playSoundFileNamed("playerExplosion.caf", waitForCompletion: true))
                         
-                        
+                        //Explosion animation
+                        let playerAnimatedAtlas = SKTextureAtlas(named: "explosion")
+                        var explodeFrames = [SKTexture]()
+                        let numberImages = playerAnimatedAtlas.textureNames.count
+                        for i in 0 ..< numberImages {
+                            let textureName = "regularExplosion\(i)"
+                            explodeFrames.append(playerAnimatedAtlas.textureNamed(textureName))
+                        }
+                        let textureAction = SKAction.animateWithTextures(explodeFrames,
+                                                                         timePerFrame: 0.1,
+                                                                         resize: false,
+                                                                         restore: true)
+                        //Action to stop the player and switch to game over screen
+                        self.joystickEntity.stopMovingPlayer()
+                        entity1.node.setScale(1)
+                        entity1.node.runAction(textureAction, completion: {
+                            entity1.node.setScale(0)
+                            entity1.node.runAction(self.loseAction)
+                        })
                     }
                     
                     //Remove bullet
@@ -286,15 +293,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 //secondBody = Bullet
                 
                 //Do damage to the object and remove it if its currentHealth is 0
-                let entity1 = entityManager.findEntityFromNode(firstBody.node as! SKSpriteNode)
-                if let healthComponent = entity1!.componentForClass(HealthComponent) {
-                    healthComponent.doDamage(1)
-                    if healthComponent.currentHealth == 0 {
-                        entityManager.remove(entity1!)
-                        let smokeEntity = SmokeEntity(position: (secondBody.node?.position)!, sizeScale: 0.8, scene: self)
-                        self.entityManager.add(smokeEntity)
+                if let entity1 = entityManager.findEntityFromNode(firstBody.node as! SKSpriteNode) {
+                    if let healthComponent = entity1.componentForClass(HealthComponent) {
+                        healthComponent.doDamage(1)
+                        if healthComponent.currentHealth == 0 {
+                            entityManager.remove(entity1)
+                            let smokeEntity = SmokeEntity(position: (secondBody.node?.position)!, sizeScale: 0.8, scene: self)
+                            self.entityManager.add(smokeEntity)
+                        }
                     }
                 }
+                
                 
                 //Remove bullet
                 if let entity2 = entityManager.findEntityFromNode(secondBody.node as! SKSpriteNode) {
