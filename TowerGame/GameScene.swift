@@ -51,7 +51,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let gameOverScene = GameOverScene(size: self.size, won: true)
             self.view?.presentScene(gameOverScene, transition: reveal)
         }
-        let wait = SKAction.waitForDuration(2)
+        let wait = SKAction.waitForDuration(1)
         let run = SKAction.runBlock {
             self.inIFrame = false
         }
@@ -70,7 +70,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         attackButtonNode.zPosition = 100
         attackButtonNode.size = CGSize(width: 150, height: 150)
         playerNode = (self.childNodeWithName("player") as? SKSpriteNode)!
-        player = PlayerEntity(node: playerNode, scene: self, maxHealth: 3)
+        player = PlayerEntity(node: playerNode, scene: self, maxHealth:11)
         player.createGas(0.01)
         
         joystickEntity = JoystickEntity(joystick: joystick, scene: self)
@@ -196,7 +196,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     //Do damage to the player
                     if !self.inIFrame {
                         self.inIFrame = true
-                        //healthComponent.doDamage(1)
+                        healthComponent.doDamage(1)
 
                         firstBody.node?.runAction(self.iFrameAction)
                         firstBody.node?.runAction(SKAction.playSoundFileNamed("playerHit.caf", waitForCompletion: false))
